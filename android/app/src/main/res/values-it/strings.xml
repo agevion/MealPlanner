@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_today_label">Meal Planner · Oggi</string>
+    <string name="widget_today_description">Calorie e proteine del giorno.</string>
+
+    <string name="widget_next_label">Meal Planner · Il prossimo</string>
+    <string name="widget_next_description">Il prossimo pasto del piano.</string>
+
+    <string name="widget_shopping_label">Meal Planner · Spesa</string>
+    <string name="widget_shopping_description">Quello che manca questa settimana.</string>
+
+    <string name="widget_placeholder">Apri Meal Planner per riempirlo</string>
+    <string name="widget_image_description">Riepilogo Meal Planner</string>
+</resources>

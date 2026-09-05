@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_today_label">Meal Planner · Heute</string>
+    <string name="widget_today_description">Kalorien und Eiweiß des Tages.</string>
+
+    <string name="widget_next_label">Meal Planner · Als Nächstes</string>
+    <string name="widget_next_description">Die nächste Mahlzeit im Plan.</string>
+
+    <string name="widget_shopping_label">Meal Planner · Einkauf</string>
+    <string name="widget_shopping_description">Was diese Woche noch fehlt.</string>
+
+    <string name="widget_placeholder">Meal Planner öffnen, um es zu füllen</string>
+    <string name="widget_image_description">Meal-Planner-Übersicht</string>
+</resources>

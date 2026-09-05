@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  El layout de los tres widgets.
+
+  Todo lo que se ve lo dibuja Flutter y llega aquí como un PNG (ver
+  lib/widgets/home_widget_faces.dart): así el widget usa el tema de color
+  elegido en la app y el mismo modo oscuro, cosa que con vistas nativas habría
+  que replicar a mano. El texto de abajo solo se ve el rato que va desde que
+  colocas el widget hasta que la app lo dibuja por primera vez.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/widget_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/widget_image_description" />
+
+    <TextView
+        android:id="@+id/widget_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="12dp"
+        android:textSize="14sp"
+        android:visibility="gone"
+        android:text="@string/widget_placeholder" />
+</FrameLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Textos que enseña Android por su cuenta: el nombre y la descripción de cada
+  widget en el selector del launcher, y el aviso de "todavía no hay nada". Los
+  textos de dentro del widget no están aquí, porque los dibuja la app con su
+  propio sistema de idiomas (lib/l10n).
+-->
+<resources>
+    <string name="widget_today_label">Meal Planner · Today</string>
+    <string name="widget_today_description">Calories and protein of the day.</string>
+
+    <string name="widget_next_label">Meal Planner · Up next</string>
+    <string name="widget_next_description">The next meal on your plan.</string>
+
+    <string name="widget_shopping_label">Meal Planner · Shopping</string>
+    <string name="widget_shopping_description">What is still missing this week.</string>
+
+    <string name="widget_placeholder">Open Meal Planner to fill this in</string>
+    <string name="widget_image_description">Meal Planner summary</string>
+</resources>

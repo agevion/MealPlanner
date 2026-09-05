@@ -1,0 +1,240 @@
+import '../models/food.dart';
+import '../models/meal_slot.dart';
+
+/// Muestrario de platos caseros del día a día (cocina andaluza/española normal,
+/// sin tópicos turísticos). El usuario puede elegir cuáles añadir a su catálogo
+/// al empezar. Llevan macros aproximadas por ración para que sirvan también en
+/// el Modo Gym; el usuario puede ajustarlas luego.
+const List<Food> kPresetFoods = [
+  // ---------------------- DESAYUNOS ----------------------
+  Food(
+    name: 'Tostadas con tomate y aceite',
+    ingredients: 'pan, tomate, aceite de oliva, sal',
+    slots: {MealSlot.breakfast},
+    kcal: 250,
+    protein: 8,
+  ),
+  Food(
+    name: 'Tostada con jamón serrano',
+    ingredients: 'pan, jamón serrano, tomate, aceite de oliva',
+    slots: {MealSlot.breakfast},
+    kcal: 290,
+    protein: 16,
+  ),
+  Food(
+    name: 'Avena con leche y plátano',
+    ingredients: 'avena, leche, plátano, canela',
+    slots: {MealSlot.breakfast},
+    kcal: 350,
+    protein: 14,
+  ),
+  Food(
+    name: 'Huevos revueltos con pan',
+    ingredients: 'huevos, pan, aceite de oliva, sal',
+    slots: {MealSlot.breakfast},
+    kcal: 320,
+    protein: 20,
+  ),
+
+  // ---------------------- ALMUERZOS ----------------------
+  Food(
+    name: 'Filete de pollo a la plancha con arroz',
+    ingredients: 'pechuga de pollo, arroz, aceite de oliva, ajo, sal',
+    slots: {MealSlot.lunch, MealSlot.dinner},
+    kcal: 520,
+    protein: 42,
+  ),
+  Food(
+    name: 'Lentejas con chorizo',
+    ingredients: 'lentejas, chorizo, zanahoria, cebolla, patata, pimentón',
+    slots: {MealSlot.lunch},
+    kcal: 600,
+    protein: 30,
+  ),
+  Food(
+    name: 'Garbanzos con espinacas',
+    ingredients: 'garbanzos, espinacas, ajo, pan, comino, aceite de oliva',
+    slots: {MealSlot.lunch},
+    kcal: 480,
+    protein: 22,
+  ),
+  Food(
+    name: 'Macarrones con tomate y atún',
+    ingredients: 'macarrones, tomate frito, atún, cebolla',
+    slots: {MealSlot.lunch, MealSlot.dinner},
+    kcal: 550,
+    protein: 28,
+  ),
+  Food(
+    name: 'Espaguetis a la boloñesa',
+    ingredients: 'espaguetis, carne picada, tomate, cebolla, zanahoria',
+    slots: {MealSlot.lunch, MealSlot.dinner},
+    kcal: 620,
+    protein: 32,
+  ),
+  Food(
+    name: 'Arroz a la cubana',
+    ingredients: 'arroz, huevo, tomate frito, plátano',
+    slots: {MealSlot.lunch},
+    kcal: 580,
+    protein: 18,
+  ),
+  Food(
+    name: 'Albóndigas en salsa',
+    ingredients: 'carne picada, huevo, pan rallado, tomate, cebolla, guisantes',
+    slots: {MealSlot.lunch},
+    kcal: 560,
+    protein: 34,
+  ),
+  Food(
+    name: 'Pollo al ajillo con patatas',
+    ingredients: 'pollo, ajo, patata, aceite de oliva, vino blanco',
+    slots: {MealSlot.lunch},
+    kcal: 600,
+    protein: 38,
+  ),
+  Food(
+    name: 'Merluza a la plancha con verduras',
+    ingredients: 'merluza, calabacín, pimiento, aceite de oliva, limón',
+    slots: {MealSlot.lunch, MealSlot.dinner},
+    kcal: 380,
+    protein: 36,
+  ),
+  Food(
+    name: 'Salmón al horno con patata',
+    ingredients: 'salmón, patata, limón, aceite de oliva',
+    slots: {MealSlot.lunch, MealSlot.dinner},
+    kcal: 520,
+    protein: 38,
+  ),
+  Food(
+    name: 'Filete de ternera con patatas',
+    ingredients: 'ternera, patata, aceite de oliva, sal',
+    slots: {MealSlot.lunch},
+    kcal: 650,
+    protein: 40,
+  ),
+  Food(
+    name: 'Pisto con huevo',
+    ingredients: 'calabacín, pimiento, tomate, cebolla, huevo',
+    slots: {MealSlot.lunch, MealSlot.dinner},
+    kcal: 360,
+    protein: 16,
+  ),
+  Food(
+    name: 'Fideos con caballa',
+    ingredients: 'fideos, caballa, tomate, pimiento, cebolla',
+    slots: {MealSlot.lunch},
+    kcal: 540,
+    protein: 30,
+  ),
+  Food(
+    name: 'Patatas a lo pobre con huevo',
+    ingredients: 'patata, pimiento, cebolla, huevo, aceite de oliva',
+    slots: {MealSlot.lunch},
+    kcal: 480,
+    protein: 14,
+  ),
+  Food(
+    name: 'Espinacas con garbanzos',
+    ingredients: 'espinacas, garbanzos, ajo, pan, pimentón',
+    slots: {MealSlot.lunch},
+    kcal: 450,
+    protein: 20,
+  ),
+  Food(
+    name: 'Lomo a la plancha con pimientos',
+    ingredients: 'lomo de cerdo, pimiento, ajo, aceite de oliva',
+    slots: {MealSlot.lunch, MealSlot.dinner},
+    kcal: 480,
+    protein: 40,
+  ),
+  Food(
+    name: 'Pavo a la plancha con ensalada',
+    ingredients: 'pavo, lechuga, tomate, zanahoria, aceite de oliva',
+    slots: {MealSlot.lunch, MealSlot.dinner},
+    kcal: 350,
+    protein: 38,
+  ),
+
+  // ---------------------- CENAS ----------------------
+  Food(
+    name: 'Tortilla de patatas',
+    ingredients: 'patata, huevo, cebolla, aceite de oliva, sal',
+    slots: {MealSlot.lunch, MealSlot.dinner},
+    kcal: 400,
+    protein: 16,
+  ),
+  Food(
+    name: 'Tortilla francesa con jamón york',
+    ingredients: 'huevo, jamón york, aceite de oliva, sal',
+    slots: {MealSlot.dinner},
+    kcal: 260,
+    protein: 22,
+  ),
+  Food(
+    name: 'Ensalada mixta con atún y huevo',
+    ingredients: 'lechuga, tomate, atún, huevo, cebolla, aceite de oliva',
+    slots: {MealSlot.dinner},
+    kcal: 320,
+    protein: 26,
+  ),
+  Food(
+    name: 'Crema de verduras',
+    ingredients: 'calabacín, puerro, zanahoria, patata, cebolla',
+    slots: {MealSlot.dinner},
+    kcal: 220,
+    protein: 6,
+  ),
+  Food(
+    name: 'Revuelto de champiñones y gambas',
+    ingredients: 'champiñones, gambas, huevo, ajo, aceite de oliva',
+    slots: {MealSlot.dinner},
+    kcal: 300,
+    protein: 28,
+  ),
+  Food(
+    name: 'Pescaíto a la plancha con ensalada',
+    ingredients: 'pescado blanco, lechuga, tomate, limón, aceite de oliva',
+    slots: {MealSlot.dinner},
+    kcal: 340,
+    protein: 32,
+  ),
+
+  // ---------------------- MERIENDAS / SNACKS ----------------------
+  Food(
+    name: 'Yogur natural con plátano',
+    ingredients: 'yogur natural, plátano',
+    slots: {MealSlot.snack, MealSlot.breakfast},
+    kcal: 200,
+    protein: 10,
+  ),
+  Food(
+    name: 'Bocadillo de jamón',
+    ingredients: 'pan, jamón serrano, tomate, aceite de oliva',
+    slots: {MealSlot.snack},
+    kcal: 380,
+    protein: 18,
+  ),
+  Food(
+    name: 'Requesón con miel y nueces',
+    ingredients: 'requesón, miel, nueces',
+    slots: {MealSlot.snack},
+    kcal: 280,
+    protein: 18,
+  ),
+  Food(
+    name: 'Tortitas de arroz con pavo',
+    ingredients: 'tortitas de arroz, pavo, queso fresco',
+    slots: {MealSlot.snack},
+    kcal: 220,
+    protein: 20,
+  ),
+  Food(
+    name: 'Sándwich mixto',
+    ingredients: 'pan de molde, jamón york, queso',
+    slots: {MealSlot.snack, MealSlot.dinner},
+    kcal: 380,
+    protein: 22,
+  ),
+];
