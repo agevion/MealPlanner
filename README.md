@@ -3,6 +3,13 @@
 App de planificación de comidas semanales con seguimiento opcional de calorías y
 proteína. Flutter · Android / iOS · todo local, sin cuenta ni servidor.
 
+<p align="center">
+  <img src="docs/screenshots/01_planificador.png" width="23%" alt="Planificador semanal">
+  <img src="docs/screenshots/02_catalogo_comidas.png" width="23%" alt="Catálogo de comidas">
+  <img src="docs/screenshots/03_lista_compra.png" width="23%" alt="Lista de la compra">
+  <img src="docs/screenshots/04_registro_diario.png" width="23%" alt="Registro diario">
+</p>
+
 ## Qué hace
 
 - **Planifica la semana**: 7 días × las tomas que quieras, con randomización que
@@ -19,6 +26,10 @@ proteína. Flutter · Android / iOS · todo local, sin cuenta ni servidor.
 - **Copia de seguridad completa** en un archivo JSON.
 
 ## Poner en marcha
+
+Requiere Flutter 3.x. El escáner de código de barras y la estimación con IA son
+opcionales: el segundo necesita una clave propia de Gemini, que se introduce
+desde la app (Ajustes) y no va en el repositorio.
 
 ```bash
 flutter pub get
