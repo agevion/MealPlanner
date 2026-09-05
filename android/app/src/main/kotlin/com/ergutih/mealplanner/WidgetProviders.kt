@@ -1,4 +1,4 @@
-package com.mealplanner.mealplanner_flutter
+package com.ergutih.mealplanner
 
 import android.appwidget.AppWidgetManager
 import android.content.Context

@@ -47,7 +47,7 @@ enum HomeWidgetKind {
   /// Pestaña que abre la app al tocar el widget.
   final HomeTab tab;
 
-  static const _package = 'com.mealplanner.mealplanner_flutter';
+  static const _package = 'com.ergutih.mealplanner';
 
   String get qualifiedName => '$_package.$className';
 }
