@@ -72,18 +72,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _goTo(int page) => _controller.animateToPage(
-        page,
-        duration: const Duration(milliseconds: 280),
-        curve: Curves.easeOutCubic,
-      );
+    page,
+    duration: const Duration(milliseconds: 280),
+    curve: Curves.easeOutCubic,
+  );
 
   void _finish() {
     final settings = context.read<SettingsProvider>();
     // Si no llegó a tocar el selector, damos por bueno el idioma que ha estado
     // viendo: así no le cambia solo si algún día cambia el del teléfono.
     if (settings.language == null) {
-      final shown =
-          appLanguageFromCode(Localizations.localeOf(context).languageCode);
+      final shown = appLanguageFromCode(
+        Localizations.localeOf(context).languageCode,
+      );
       settings.setLanguage(shown ?? AppLanguage.en);
     }
     settings.setOnboardingDone(true);
@@ -143,7 +144,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   Expanded(
                     child: FilledButton(
-                      onPressed: _isLastPage ? _finish : () => _goTo(_index + 1),
+                      onPressed: _isLastPage
+                          ? _finish
+                          : () => _goTo(_index + 1),
                       style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
@@ -151,10 +154,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         _isLastPage
                             ? t.onbStart
                             : _isLanguagePage
-                                ? t.onbLanguageContinue
-                                : t.onbNext,
-                        style: theme.textTheme.titleSmall
-                            ?.copyWith(fontWeight: FontWeight.bold),
+                            ? t.onbLanguageContinue
+                            : t.onbNext,
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -180,7 +184,8 @@ class _LanguagePage extends StatelessWidget {
     final theme = Theme.of(context);
     final settings = context.watch<SettingsProvider>();
     // Antes de elegir, se marca el idioma que la app está usando de verdad.
-    final current = settings.language ??
+    final current =
+        settings.language ??
         appLanguageFromCode(Localizations.localeOf(context).languageCode);
 
     return ListView(
@@ -191,15 +196,17 @@ class _LanguagePage extends StatelessWidget {
         Text(
           t.onbLanguageTitle,
           textAlign: TextAlign.center,
-          style: theme.textTheme.headlineSmall
-              ?.copyWith(fontWeight: FontWeight.bold),
+          style: theme.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 8),
         Text(
           t.onbLanguageBody,
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyMedium
-              ?.copyWith(color: theme.colorScheme.outline),
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.colorScheme.outline,
+          ),
         ),
         const SizedBox(height: 20),
         for (final language in AppLanguage.values)
@@ -250,8 +257,9 @@ class _LanguageTile extends StatelessWidget {
         ),
         trailing: Icon(
           selected ? Icons.check_circle : Icons.radio_button_unchecked,
-          color:
-              selected ? theme.colorScheme.primary : theme.colorScheme.outline,
+          color: selected
+              ? theme.colorScheme.primary
+              : theme.colorScheme.outline,
         ),
       ),
     );
@@ -285,16 +293,20 @@ class _ContentPage extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             alignment: Alignment.center,
-            child: Icon(icon,
-                size: 54, color: theme.colorScheme.onPrimaryContainer),
+            child: Icon(
+              icon,
+              size: 54,
+              color: theme.colorScheme.onPrimaryContainer,
+            ),
           ),
         ),
         const SizedBox(height: 28),
         Text(
           title,
           textAlign: TextAlign.center,
-          style: theme.textTheme.headlineSmall
-              ?.copyWith(fontWeight: FontWeight.bold),
+          style: theme.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 14),
         Text(

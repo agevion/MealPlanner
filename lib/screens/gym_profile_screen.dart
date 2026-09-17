@@ -27,9 +27,11 @@ class _GymProfileScreenState extends State<GymProfileScreen> {
     super.initState();
     final gym = context.read<GymProvider>();
     _weightCtrl = TextEditingController(
-        text: gym.weightKg > 0 ? _trim(gym.weightKg) : '');
+      text: gym.weightKg > 0 ? _trim(gym.weightKg) : '',
+    );
     _heightCtrl = TextEditingController(
-        text: gym.heightCm > 0 ? _trim(gym.heightCm) : '');
+      text: gym.heightCm > 0 ? _trim(gym.heightCm) : '',
+    );
     _ageCtrl = TextEditingController(text: gym.age > 0 ? '${gym.age}' : '');
     _sex = gym.sex;
     _activity = gym.activity;
@@ -52,9 +54,15 @@ class _GymProfileScreenState extends State<GymProfileScreen> {
 
   bool get _isValid {
     final w = _weight, h = _height, a = _age;
-    return w != null && w >= 30 && w <= 300 &&
-        h != null && h >= 100 && h <= 250 &&
-        a != null && a >= 12 && a <= 100;
+    return w != null &&
+        w >= 30 &&
+        w <= 300 &&
+        h != null &&
+        h >= 100 &&
+        h <= 250 &&
+        a != null &&
+        a >= 12 &&
+        a <= 100;
   }
 
   void _save() {
@@ -64,12 +72,12 @@ class _GymProfileScreenState extends State<GymProfileScreen> {
       return;
     }
     context.read<GymProvider>().saveProfile(
-          weightKg: _weight!,
-          heightCm: _height!,
-          age: _age!,
-          sex: _sex,
-          activity: _activity,
-        );
+      weightKg: _weight!,
+      heightCm: _height!,
+      age: _age!,
+      sex: _sex,
+      activity: _activity,
+    );
     _snack(t.profileSaved);
     Navigator.pop(context);
   }
@@ -89,12 +97,13 @@ class _GymProfileScreenState extends State<GymProfileScreen> {
       appBar: AppBar(title: Text(t.yourProfile)),
       body: ListView(
         padding: EdgeInsets.fromLTRB(
-            16, 16, 16, 16 + MediaQuery.viewPaddingOf(context).bottom),
+          16,
+          16,
+          16,
+          16 + MediaQuery.viewPaddingOf(context).bottom,
+        ),
         children: [
-          Text(
-            t.profileIntro,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
+          Text(t.profileIntro, style: Theme.of(context).textTheme.bodyMedium),
           const SizedBox(height: 20),
           Row(
             children: [
@@ -138,7 +147,9 @@ class _GymProfileScreenState extends State<GymProfileScreen> {
               segments: [
                 ButtonSegment(value: Sex.male, label: Text(t.sex(Sex.male))),
                 ButtonSegment(
-                    value: Sex.female, label: Text(t.sex(Sex.female))),
+                  value: Sex.female,
+                  label: Text(t.sex(Sex.female)),
+                ),
               ],
               selected: {_sex},
               onSelectionChanged: (s) => setState(() => _sex = s.first),
@@ -147,8 +158,7 @@ class _GymProfileScreenState extends State<GymProfileScreen> {
           const SizedBox(height: 6),
           Text(t.sexNote, style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 20),
-          Text(t.activityLevel,
-              style: Theme.of(context).textTheme.titleSmall),
+          Text(t.activityLevel, style: Theme.of(context).textTheme.titleSmall),
           const SizedBox(height: 8),
           for (final level in ActivityLevel.values)
             _ActivityTile(
@@ -203,8 +213,7 @@ class _NumberField extends StatelessWidget {
     return TextField(
       controller: controller,
       onChanged: onChanged,
-      keyboardType:
-          TextInputType.numberWithOptions(decimal: !integer),
+      keyboardType: TextInputType.numberWithOptions(decimal: !integer),
       inputFormatters: [
         FilteringTextInputFormatter.allow(
           integer ? RegExp(r'[0-9]') : RegExp(r'[0-9.,]'),
@@ -249,8 +258,9 @@ class _ActivityTile extends StatelessWidget {
         subtitle: Text(context.t.activityDescription(level)),
         trailing: Icon(
           selected ? Icons.check_circle : Icons.radio_button_unchecked,
-          color:
-              selected ? theme.colorScheme.primary : theme.colorScheme.outline,
+          color: selected
+              ? theme.colorScheme.primary
+              : theme.colorScheme.outline,
         ),
         onTap: onTap,
       ),
@@ -289,8 +299,7 @@ class _PreviewCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              Icon(Icons.calculate_outlined,
-                  color: theme.colorScheme.outline),
+              Icon(Icons.calculate_outlined, color: theme.colorScheme.outline),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
@@ -325,13 +334,13 @@ class _PreviewCard extends StatelessWidget {
             const SizedBox(height: 12),
             Row(
               children: [
-                _Metric(
-                    label: t.calories, value: '$kcal', unit: t.kcalPerDay),
+                _Metric(label: t.calories, value: '$kcal', unit: t.kcalPerDay),
                 const SizedBox(width: 12),
                 _Metric(
-                    label: t.protein,
-                    value: '$protein',
-                    unit: t.gramsPerDay),
+                  label: t.protein,
+                  value: '$protein',
+                  unit: t.gramsPerDay,
+                ),
               ],
             ),
             const SizedBox(height: 10),

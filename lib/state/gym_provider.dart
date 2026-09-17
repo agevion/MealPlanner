@@ -28,16 +28,15 @@ int gymTdee(
   int age,
   Sex sex,
   ActivityLevel activity,
-) =>
-    (gymBmr(weightKg, heightCm, age, sex) * activity.factor).round();
+) => (gymBmr(weightKg, heightCm, age, sex) * activity.factor).round();
 
 /// Calorías objetivo a partir del gasto, ajustadas por objetivo.
 int gymTargetKcal(int tdee, GymGoal goal) => switch (goal) {
-      GymGoal.volume => (tdee * 1.12).round(), // ~+12 %
-      GymGoal.definition => (tdee * 0.80).round(), // ~−20 %
-      GymGoal.maintenance => tdee,
-      GymGoal.custom => tdee,
-    };
+  GymGoal.volume => (tdee * 1.12).round(), // ~+12 %
+  GymGoal.definition => (tdee * 0.80).round(), // ~−20 %
+  GymGoal.maintenance => tdee,
+  GymGoal.custom => tdee,
+};
 
 /// Proteína objetivo en gramos, según objetivo y peso corporal.
 int gymTargetProtein(double weightKg, GymGoal goal) {
@@ -123,8 +122,7 @@ class GymProvider extends ChangeNotifier {
 
     final slotIds = _prefs!.getStringList(_kMealSlots);
     if (slotIds != null) {
-      final parsed =
-          slotIds.map(mealSlotFromId).whereType<MealSlot>().toList();
+      final parsed = slotIds.map(mealSlotFromId).whereType<MealSlot>().toList();
       if (parsed.isNotEmpty) _mealSlots = parsed;
     }
 
@@ -230,21 +228,21 @@ class GymProvider extends ChangeNotifier {
     // bajar despacio para no perder músculo.
     return switch (goal) {
       GymGoal.volume when weightChangePerWeek < 0.1 => (
-          newKcal: current + 150,
-          reason: t.gymNotGaining,
-        ),
+        newKcal: current + 150,
+        reason: t.gymNotGaining,
+      ),
       GymGoal.volume when weightChangePerWeek > 0.5 => (
-          newKcal: current - 150,
-          reason: t.gymGainingTooFast,
-        ),
+        newKcal: current - 150,
+        reason: t.gymGainingTooFast,
+      ),
       GymGoal.definition when weightChangePerWeek > -0.1 => (
-          newKcal: current - 150,
-          reason: t.gymNotLosing,
-        ),
+        newKcal: current - 150,
+        reason: t.gymNotLosing,
+      ),
       GymGoal.definition when weightChangePerWeek < -1.0 => (
-          newKcal: current + 150,
-          reason: t.gymLosingTooFast,
-        ),
+        newKcal: current + 150,
+        reason: t.gymLosingTooFast,
+      ),
       _ => null,
     };
   }

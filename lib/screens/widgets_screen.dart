@@ -22,7 +22,11 @@ class WidgetsScreen extends StatelessWidget {
       appBar: AppBar(title: Text(t.widgetsTitle)),
       body: ListView(
         padding: EdgeInsets.fromLTRB(
-            16, 8, 16, 24 + MediaQuery.viewPaddingOf(context).bottom),
+          16,
+          8,
+          16,
+          24 + MediaQuery.viewPaddingOf(context).bottom,
+        ),
         children: [
           Text(
             HomeWidgetService.supported ? t.widgetsIntro : t.widgetOnlyAndroid,
@@ -66,8 +70,11 @@ class WidgetsScreen extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.info_outline,
-                  size: 18, color: theme.colorScheme.outline),
+              Icon(
+                Icons.info_outline,
+                size: 18,
+                color: theme.colorScheme.outline,
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -111,8 +118,9 @@ class _WidgetCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: theme.textTheme.titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold),
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 2),
             Text(description, style: theme.textTheme.bodySmall),
@@ -120,10 +128,7 @@ class _WidgetCard extends StatelessWidget {
             // La cara se dibuja siempre a su tamaño lógico; aquí se encoge para
             // que quepa en el ancho que haya.
             Center(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: preview,
-              ),
+              child: FittedBox(fit: BoxFit.scaleDown, child: preview),
             ),
             const SizedBox(height: 6),
             Align(
@@ -148,9 +153,8 @@ class _WidgetCard extends StatelessWidget {
     if (await service.pin(kind)) return;
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 6),
-      ));
+      ..showSnackBar(
+        SnackBar(content: Text(message), duration: const Duration(seconds: 6)),
+      );
   }
 }

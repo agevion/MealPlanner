@@ -29,7 +29,8 @@ class SettingsScreen extends StatelessWidget {
         builder: (context, settings, _) {
           return ListView(
             padding: EdgeInsets.only(
-                bottom: 24 + MediaQuery.viewPaddingOf(context).bottom),
+              bottom: 24 + MediaQuery.viewPaddingOf(context).bottom,
+            ),
             children: [
               // El idioma va el primero a propósito: si alguien abre Ajustes
               // por error en un idioma que no entiende, es lo que necesita
@@ -90,7 +91,8 @@ class _LanguagePicker extends StatelessWidget {
     final theme = Theme.of(context);
     // Antes de que el usuario elija, se marca el idioma que se está usando de
     // verdad (el del teléfono, o inglés si no lo hablamos).
-    final current = settings.language ??
+    final current =
+        settings.language ??
         appLanguageFromCode(Localizations.localeOf(context).languageCode);
 
     return Column(
@@ -98,8 +100,10 @@ class _LanguagePicker extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-          child: Text(context.t.languageSubtitle,
-              style: theme.textTheme.bodySmall),
+          child: Text(
+            context.t.languageSubtitle,
+            style: theme.textTheme.bodySmall,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -331,8 +335,8 @@ class _ThemeSwatch extends StatelessWidget {
               textAlign: TextAlign.center,
               maxLines: 2,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    fontWeight: selected ? FontWeight.bold : FontWeight.normal,
-                  ),
+                fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+              ),
             ),
           ],
         ),
@@ -411,10 +415,9 @@ class _BackupSection extends StatelessWidget {
     final stamp = DateTime.now().toIso8601String().substring(0, 10);
     final file = File('${dir.path}/mealplanner_backup_$stamp.json');
     await file.writeAsString(json);
-    await Share.shareXFiles(
-      [XFile(file.path, mimeType: 'application/json')],
-      subject: subject,
-    );
+    await Share.shareXFiles([
+      XFile(file.path, mimeType: 'application/json'),
+    ], subject: subject);
   }
 
   void _confirmImport(BuildContext context) {
@@ -451,10 +454,12 @@ class _BackupSection extends StatelessWidget {
 
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(
-        content: Text(error ?? t.backupRestored),
-        duration: const Duration(seconds: 5),
-      ));
+      ..showSnackBar(
+        SnackBar(
+          content: Text(error ?? t.backupRestored),
+          duration: const Duration(seconds: 5),
+        ),
+      );
   }
 }
 
@@ -510,7 +515,10 @@ class _AiSectionState extends State<_AiSection> {
               prefixIcon: const Icon(Icons.key_outlined),
               suffixIcon: IconButton(
                 icon: Icon(
-                    _obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined),
+                  _obscure
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                ),
                 tooltip: _obscure ? t.show : t.hide,
                 onPressed: () => setState(() => _obscure = !_obscure),
               ),
@@ -537,7 +545,9 @@ class _AiSectionState extends State<_AiSection> {
           Row(
             children: [
               Icon(
-                ai.isConfigured ? Icons.check_circle_outline : Icons.info_outline,
+                ai.isConfigured
+                    ? Icons.check_circle_outline
+                    : Icons.info_outline,
                 size: 18,
                 color: ai.isConfigured
                     ? theme.colorScheme.primary

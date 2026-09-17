@@ -68,22 +68,54 @@ class AppStringsEs extends AppStrings {
 
   @override
   List<String> get weekdays => const [
-        'Lunes', 'Martes', 'Miércoles', 'Jueves',
-        'Viernes', 'Sábado', 'Domingo',
-      ];
+    'Lunes',
+    'Martes',
+    'Miércoles',
+    'Jueves',
+    'Viernes',
+    'Sábado',
+    'Domingo',
+  ];
   @override
-  List<String> get weekdaysShort =>
-      const ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+  List<String> get weekdaysShort => const [
+    'Lun',
+    'Mar',
+    'Mié',
+    'Jue',
+    'Vie',
+    'Sáb',
+    'Dom',
+  ];
   @override
   List<String> get months => const [
-        'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-        'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
-      ];
+    'enero',
+    'febrero',
+    'marzo',
+    'abril',
+    'mayo',
+    'junio',
+    'julio',
+    'agosto',
+    'septiembre',
+    'octubre',
+    'noviembre',
+    'diciembre',
+  ];
   @override
   List<String> get monthsShort => const [
-        'ene', 'feb', 'mar', 'abr', 'may', 'jun',
-        'jul', 'ago', 'sep', 'oct', 'nov', 'dic',
-      ];
+    'ene',
+    'feb',
+    'mar',
+    'abr',
+    'may',
+    'jun',
+    'jul',
+    'ago',
+    'sep',
+    'oct',
+    'nov',
+    'dic',
+  ];
 
   @override
   String longDate(DateTime d) =>
@@ -91,128 +123,128 @@ class AppStringsEs extends AppStrings {
 
   @override
   String mealSlot(MealSlot slot) => switch (slot) {
-        MealSlot.breakfast => 'Desayuno',
-        MealSlot.lunch => 'Almuerzo',
-        MealSlot.snack => 'Merienda',
-        MealSlot.dinner => 'Cena',
-        MealSlot.preWorkout => 'Pre-entreno',
-        MealSlot.postWorkout => 'Post-entreno',
-      };
+    MealSlot.breakfast => 'Desayuno',
+    MealSlot.lunch => 'Almuerzo',
+    MealSlot.snack => 'Merienda',
+    MealSlot.dinner => 'Cena',
+    MealSlot.preWorkout => 'Pre-entreno',
+    MealSlot.postWorkout => 'Post-entreno',
+  };
 
   @override
   String gymGoal(GymGoal goal) => switch (goal) {
-        GymGoal.volume => 'Volumen',
-        GymGoal.definition => 'Definición',
-        GymGoal.maintenance => 'Mantenimiento',
-        GymGoal.custom => 'Personalizado',
-      };
+    GymGoal.volume => 'Volumen',
+    GymGoal.definition => 'Definición',
+    GymGoal.maintenance => 'Mantenimiento',
+    GymGoal.custom => 'Personalizado',
+  };
 
   @override
   String gymGoalDescription(GymGoal goal) => switch (goal) {
-        GymGoal.volume => 'Ganar músculo · comer algo más de lo que gastas',
-        GymGoal.definition => 'Perder grasa sin perder músculo',
-        GymGoal.maintenance => 'Mantener tu peso y rendir',
-        GymGoal.custom => 'Tú pones las cifras',
-      };
+    GymGoal.volume => 'Ganar músculo · comer algo más de lo que gastas',
+    GymGoal.definition => 'Perder grasa sin perder músculo',
+    GymGoal.maintenance => 'Mantener tu peso y rendir',
+    GymGoal.custom => 'Tú pones las cifras',
+  };
 
   @override
   String sex(Sex value) => value == Sex.male ? 'Hombre' : 'Mujer';
 
   @override
   String activity(ActivityLevel level) => switch (level) {
-        ActivityLevel.sedentary => 'Sedentario',
-        ActivityLevel.light => 'Ligero',
-        ActivityLevel.moderate => 'Moderado',
-        ActivityLevel.active => 'Alto',
-        ActivityLevel.veryActive => 'Muy alto',
-      };
+    ActivityLevel.sedentary => 'Sedentario',
+    ActivityLevel.light => 'Ligero',
+    ActivityLevel.moderate => 'Moderado',
+    ActivityLevel.active => 'Alto',
+    ActivityLevel.veryActive => 'Muy alto',
+  };
 
   @override
   String activityDescription(ActivityLevel level) => switch (level) {
-        ActivityLevel.sedentary => 'Poco o nada de ejercicio',
-        ActivityLevel.light => 'Entreno 1-3 días por semana',
-        ActivityLevel.moderate => 'Entreno 3-5 días por semana',
-        ActivityLevel.active => 'Entreno 6-7 días por semana',
-        ActivityLevel.veryActive => 'Entreno duro a diario o trabajo físico',
-      };
+    ActivityLevel.sedentary => 'Poco o nada de ejercicio',
+    ActivityLevel.light => 'Entreno 1-3 días por semana',
+    ActivityLevel.moderate => 'Entreno 3-5 días por semana',
+    ActivityLevel.active => 'Entreno 6-7 días por semana',
+    ActivityLevel.veryActive => 'Entreno duro a diario o trabajo físico',
+  };
 
   @override
   String repeatability(Repeatability r) => switch (r) {
-        Repeatability.free => 'Sin límite',
-        Repeatability.moderate => 'Con moderación',
-        Repeatability.limited => 'Limitar',
-      };
+    Repeatability.free => 'Sin límite',
+    Repeatability.moderate => 'Con moderación',
+    Repeatability.limited => 'Limitar',
+  };
 
   @override
   String repeatabilityHint(Repeatability r) => switch (r) {
-        Repeatability.free => 'Puedes repetirlo tanto como quieras',
-        Repeatability.moderate => 'Mejor no abusar durante la semana',
-        Repeatability.limited => 'Solo de vez en cuando',
-      };
+    Repeatability.free => 'Puedes repetirlo tanto como quieras',
+    Repeatability.moderate => 'Mejor no abusar durante la semana',
+    Repeatability.limited => 'Solo de vez en cuando',
+  };
 
   @override
   Map<String, String> get ingredientCategories => const {
-        'Proteínas': 'Proteínas',
-        'Carbohidratos': 'Carbohidratos',
-        'Legumbres': 'Legumbres',
-        'Verduras': 'Verduras',
-        'Frutas': 'Frutas',
-        'Lácteos y huevos': 'Lácteos y huevos',
-        'Grasas y frutos secos': 'Grasas y frutos secos',
-        'Otros': 'Otros',
-      };
+    'Proteínas': 'Proteínas',
+    'Carbohidratos': 'Carbohidratos',
+    'Legumbres': 'Legumbres',
+    'Verduras': 'Verduras',
+    'Frutas': 'Frutas',
+    'Lácteos y huevos': 'Lácteos y huevos',
+    'Grasas y frutos secos': 'Grasas y frutos secos',
+    'Otros': 'Otros',
+  };
 
   @override
   Map<String, String> get foodTags => const {
-        'Pasta': 'Pasta',
-        'Arroz': 'Arroz',
-        'Carne': 'Carne',
-        'Pescado': 'Pescado',
-        'Verduras': 'Verduras',
-        'Legumbres': 'Legumbres',
-        'Huevos': 'Huevos',
-        'Sopa': 'Sopa',
-        'Ensalada': 'Ensalada',
-        'Rápido': 'Rápido',
-        'De aprovechar': 'De aprovechar',
-        'Capricho': 'Capricho',
-      };
+    'Pasta': 'Pasta',
+    'Arroz': 'Arroz',
+    'Carne': 'Carne',
+    'Pescado': 'Pescado',
+    'Verduras': 'Verduras',
+    'Legumbres': 'Legumbres',
+    'Huevos': 'Huevos',
+    'Sopa': 'Sopa',
+    'Ensalada': 'Ensalada',
+    'Rápido': 'Rápido',
+    'De aprovechar': 'De aprovechar',
+    'Capricho': 'Capricho',
+  };
 
   @override
   Map<String, String> get themeNames => const {
-        'teal': 'Verde azulado',
-        'sunset': 'Atardecer',
-        'grape': 'Uva',
-        'ocean': 'Océano',
-        'forest': 'Bosque',
-        'ruby': 'Rubí',
-        'amber': 'Ámbar',
-        'midnight': 'Medianoche',
-        'crimson': 'Carmesí',
-      };
+    'teal': 'Verde azulado',
+    'sunset': 'Atardecer',
+    'grape': 'Uva',
+    'ocean': 'Océano',
+    'forest': 'Bosque',
+    'ruby': 'Rubí',
+    'amber': 'Ámbar',
+    'midnight': 'Medianoche',
+    'crimson': 'Carmesí',
+  };
 
   @override
   Map<String, String> get homeUnits => const {
-        'loncha': 'loncha',
-        'filete': 'filete',
-        'unidad': 'unidad',
-        'rodaja': 'rodaja',
-        'cucharada': 'cucharada',
-        'puñado': 'puñado',
-        'vaso': 'vaso',
-        'ración': 'ración',
-        'muslo': 'muslo',
-        'lomo': 'lomo',
-        'lata': 'lata',
-        'plato': 'plato',
-        'rebanada': 'rebanada',
-        'bol': 'bol',
-        'racimo': 'racimo',
-        'tajada': 'tajada',
-        'porción': 'porción',
-        'cazo': 'cazo',
-        'cucharadita': 'cucharadita',
-      };
+    'loncha': 'loncha',
+    'filete': 'filete',
+    'unidad': 'unidad',
+    'rodaja': 'rodaja',
+    'cucharada': 'cucharada',
+    'puñado': 'puñado',
+    'vaso': 'vaso',
+    'ración': 'ración',
+    'muslo': 'muslo',
+    'lomo': 'lomo',
+    'lata': 'lata',
+    'plato': 'plato',
+    'rebanada': 'rebanada',
+    'bol': 'bol',
+    'racimo': 'racimo',
+    'tajada': 'tajada',
+    'porción': 'porción',
+    'cazo': 'cazo',
+    'cucharadita': 'cucharadita',
+  };
 
   // ======================= NAVEGACIÓN =======================
 
@@ -341,8 +373,12 @@ class AppStringsEs extends AppStrings {
   @override
   String get colorIntensity => 'Intensidad del color';
   @override
-  List<String> get intensityLabels =>
-      const ['Suave', 'Equilibrado', 'Vivo', 'Intenso'];
+  List<String> get intensityLabels => const [
+    'Suave',
+    'Equilibrado',
+    'Vivo',
+    'Intenso',
+  ];
 
   @override
   String get startTabAuto => 'Automática';
@@ -350,7 +386,8 @@ class AppStringsEs extends AppStrings {
   @override
   String get replayTutorialTitle => 'Ver el tutorial otra vez';
   @override
-  String get replayTutorialSubtitle => 'El repaso de bienvenida, desde el principio';
+  String get replayTutorialSubtitle =>
+      'El repaso de bienvenida, desde el principio';
 
   @override
   String get aboutSubtitle => 'Versión 2.0 · Hecho con Flutter';
@@ -565,8 +602,7 @@ class AppStringsEs extends AppStrings {
   @override
   String get water => 'Agua';
   @override
-  String waterGlasses(int n) =>
-      n == 1 ? '1 vaso de agua' : '$n vasos de agua';
+  String waterGlasses(int n) => n == 1 ? '1 vaso de agua' : '$n vasos de agua';
 
   // ======================= PLANIFICADOR =======================
 
@@ -704,7 +740,8 @@ class AppStringsEs extends AppStrings {
   @override
   String get scanProduct => 'Escanear producto';
   @override
-  String get scanProductSubtitle => 'Rellena los datos desde el código de barras';
+  String get scanProductSubtitle =>
+      'Rellena los datos desde el código de barras';
   @override
   String get addByHand => 'Añadir a mano';
   @override
@@ -731,8 +768,7 @@ class AppStringsEs extends AppStrings {
   String get noSearchResults => 'Sin resultados para tu búsqueda.';
 
   @override
-  String ingredientCount(int n) =>
-      n == 1 ? '1 ingrediente' : '$n ingredientes';
+  String ingredientCount(int n) => n == 1 ? '1 ingrediente' : '$n ingredientes';
   @override
   String servingsMadeCount(int n) => n == 1 ? '1 ración' : '$n raciones';
   @override
@@ -756,8 +792,7 @@ class AppStringsEs extends AppStrings {
   @override
   String get deleteMealTitle => 'Eliminar comida';
   @override
-  String deleteMealBody(String name) =>
-      '¿Seguro que quieres eliminar "$name"?';
+  String deleteMealBody(String name) => '¿Seguro que quieres eliminar "$name"?';
   @override
   String deletedItem(String name) => 'Eliminado: $name';
 
@@ -814,10 +849,19 @@ class AppStringsEs extends AppStrings {
 
   @override
   List<String> get recurringItemsList => const [
-        'Papel de cocina', 'Papel higiénico', 'Café', 'Leche', 'Pan',
-        'Aceite de oliva', 'Sal', 'Bolsas de basura', 'Detergente', 'Huevos',
-        'Agua', 'Fruta variada',
-      ];
+    'Papel de cocina',
+    'Papel higiénico',
+    'Café',
+    'Leche',
+    'Pan',
+    'Aceite de oliva',
+    'Sal',
+    'Bolsas de basura',
+    'Detergente',
+    'Huevos',
+    'Agua',
+    'Fruta variada',
+  ];
 
   // ======================= AÑADIR / EDITAR COMIDA =======================
 
@@ -936,9 +980,8 @@ class AppStringsEs extends AppStrings {
   @override
   String haveInStock(String amount) => 'tengo $amount';
   @override
-  String useSoonExpires(int days) => days == 1
-      ? '¡Gástalo! Caduca mañana'
-      : '¡Gástalo! Caduca en $days días';
+  String useSoonExpires(int days) =>
+      days == 1 ? '¡Gástalo! Caduca mañana' : '¡Gástalo! Caduca en $days días';
   @override
   String expiresInDays(int days) => 'Caduca en $days días';
 
@@ -1014,7 +1057,8 @@ class AppStringsEs extends AppStrings {
   @override
   String get yourGoal => 'Tu objetivo';
   @override
-  String get yourGoalSubtitle => 'Elige qué quieres conseguir. Sin tecnicismos.';
+  String get yourGoalSubtitle =>
+      'Elige qué quieres conseguir. Sin tecnicismos.';
   @override
   String get yourTargets => 'Tus objetivos';
   @override
@@ -1140,7 +1184,8 @@ class AppStringsEs extends AppStrings {
   @override
   String get verdictNoData => 'Aún no hay datos suficientes.';
   @override
-  String get verdictGreat => 'Muy bien: cumples la proteína casi todos los días.';
+  String get verdictGreat =>
+      'Muy bien: cumples la proteína casi todos los días.';
   @override
   String get verdictOk =>
       'Vas bien, pero se te escapan bastantes días. '
@@ -1160,18 +1205,20 @@ class AppStringsEs extends AppStrings {
 
   @override
   Map<String, (String, String)> get achievements => const {
-        'cocinero': ('Cocinero', 'Crea 10 platos en tu catálogo'),
-        'chef': ('Chef', 'Llega a 50 platos'),
-        'constante': ('Constante', 'Registra 7 días'),
-        'veterano': ('Veterano', 'Registra 100 días'),
-        'racha7': ('Una semana clavada', '7 días seguidos cumpliendo proteína'),
-        'racha30': ('Imparable', '30 días seguidos de proteína'),
-        'planificador': ('Planificador', 'Planifica 4 semanas'),
-        'fotografo': ('Fotógrafo', 'Ponle foto a 5 platos'),
-        'proteico': ('Objetivo cumplido', 'Cumple la proteína 30 días en total'),
-        'semanaperfecta':
-            ('Semana perfecta', 'Una semana entera planificada al completo'),
-      };
+    'cocinero': ('Cocinero', 'Crea 10 platos en tu catálogo'),
+    'chef': ('Chef', 'Llega a 50 platos'),
+    'constante': ('Constante', 'Registra 7 días'),
+    'veterano': ('Veterano', 'Registra 100 días'),
+    'racha7': ('Una semana clavada', '7 días seguidos cumpliendo proteína'),
+    'racha30': ('Imparable', '30 días seguidos de proteína'),
+    'planificador': ('Planificador', 'Planifica 4 semanas'),
+    'fotografo': ('Fotógrafo', 'Ponle foto a 5 platos'),
+    'proteico': ('Objetivo cumplido', 'Cumple la proteína 30 días en total'),
+    'semanaperfecta': (
+      'Semana perfecta',
+      'Una semana entera planificada al completo',
+    ),
+  };
 
   // ======================= IA: ESTIMAR =======================
 
@@ -1237,12 +1284,12 @@ class AppStringsEs extends AppStrings {
 
   @override
   List<String> get ideaPresets => const [
-        'Cenas ligeras de menos de 400 kcal',
-        'Comidas altas en proteína para después del gym',
-        'Platos baratos y que rindan mucho',
-        'Desayunos rápidos de menos de 10 minutos',
-        'Recetas de aprovechamiento con lo que tengo',
-      ];
+    'Cenas ligeras de menos de 400 kcal',
+    'Comidas altas en proteína para después del gym',
+    'Platos baratos y que rindan mucho',
+    'Desayunos rápidos de menos de 10 minutos',
+    'Recetas de aprovechamiento con lo que tengo',
+  ];
 
   // ======================= BUSCAR INGREDIENTE =======================
 
@@ -1370,8 +1417,7 @@ class AppStringsEs extends AppStrings {
   @override
   String get backupCorrupt => 'La copia está vacía o dañada.';
   @override
-  String get backupNothingRestored =>
-      'No se pudo restaurar nada de esa copia.';
+  String get backupNothingRestored => 'No se pudo restaurar nada de esa copia.';
 
   // ======================= GEMINI =======================
 
@@ -1425,7 +1471,8 @@ class AppStringsEs extends AppStrings {
   @override
   String get gymNotLosing => 'No estás bajando: prueba con 150 kcal menos.';
   @override
-  String get gymLosingTooFast => 'Estás bajando demasiado rápido: sube 150 kcal.';
+  String get gymLosingTooFast =>
+      'Estás bajando demasiado rápido: sube 150 kcal.';
 
   // ======================= INTERFAZ LIMPIA =======================
 

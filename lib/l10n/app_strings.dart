@@ -67,22 +67,54 @@ class AppStrings {
 
   /// Lunes primero, igual que el planificador.
   List<String> get weekdays => const [
-        'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-        'Friday', 'Saturday', 'Sunday',
-      ];
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
 
-  List<String> get weekdaysShort =>
-      const ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  List<String> get weekdaysShort => const [
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+    'Sun',
+  ];
 
   List<String> get months => const [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December',
-      ];
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
   List<String> get monthsShort => const [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-      ];
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
 
   /// "Monday, 12 August". Cada idioma lo ordena a su manera.
   String longDate(DateTime d) =>
@@ -100,104 +132,104 @@ class AppStrings {
   // ---------------- Enumeraciones ----------------
 
   String mealSlot(MealSlot slot) => switch (slot) {
-        MealSlot.breakfast => 'Breakfast',
-        MealSlot.lunch => 'Lunch',
-        MealSlot.snack => 'Snack',
-        MealSlot.dinner => 'Dinner',
-        MealSlot.preWorkout => 'Pre-workout',
-        MealSlot.postWorkout => 'Post-workout',
-      };
+    MealSlot.breakfast => 'Breakfast',
+    MealSlot.lunch => 'Lunch',
+    MealSlot.snack => 'Snack',
+    MealSlot.dinner => 'Dinner',
+    MealSlot.preWorkout => 'Pre-workout',
+    MealSlot.postWorkout => 'Post-workout',
+  };
 
   String gymGoal(GymGoal goal) => switch (goal) {
-        GymGoal.volume => 'Bulking',
-        GymGoal.definition => 'Cutting',
-        GymGoal.maintenance => 'Maintenance',
-        GymGoal.custom => 'Custom',
-      };
+    GymGoal.volume => 'Bulking',
+    GymGoal.definition => 'Cutting',
+    GymGoal.maintenance => 'Maintenance',
+    GymGoal.custom => 'Custom',
+  };
 
   String gymGoalDescription(GymGoal goal) => switch (goal) {
-        GymGoal.volume => 'Build muscle · eat a bit more than you burn',
-        GymGoal.definition => 'Lose fat without losing muscle',
-        GymGoal.maintenance => 'Keep your weight and perform',
-        GymGoal.custom => 'You set the numbers',
-      };
+    GymGoal.volume => 'Build muscle · eat a bit more than you burn',
+    GymGoal.definition => 'Lose fat without losing muscle',
+    GymGoal.maintenance => 'Keep your weight and perform',
+    GymGoal.custom => 'You set the numbers',
+  };
 
   String sex(Sex value) => value == Sex.male ? 'Male' : 'Female';
 
   String activity(ActivityLevel level) => switch (level) {
-        ActivityLevel.sedentary => 'Sedentary',
-        ActivityLevel.light => 'Light',
-        ActivityLevel.moderate => 'Moderate',
-        ActivityLevel.active => 'High',
-        ActivityLevel.veryActive => 'Very high',
-      };
+    ActivityLevel.sedentary => 'Sedentary',
+    ActivityLevel.light => 'Light',
+    ActivityLevel.moderate => 'Moderate',
+    ActivityLevel.active => 'High',
+    ActivityLevel.veryActive => 'Very high',
+  };
 
   String activityDescription(ActivityLevel level) => switch (level) {
-        ActivityLevel.sedentary => 'Little or no exercise',
-        ActivityLevel.light => 'Training 1-3 days a week',
-        ActivityLevel.moderate => 'Training 3-5 days a week',
-        ActivityLevel.active => 'Training 6-7 days a week',
-        ActivityLevel.veryActive => 'Hard training daily or physical job',
-      };
+    ActivityLevel.sedentary => 'Little or no exercise',
+    ActivityLevel.light => 'Training 1-3 days a week',
+    ActivityLevel.moderate => 'Training 3-5 days a week',
+    ActivityLevel.active => 'Training 6-7 days a week',
+    ActivityLevel.veryActive => 'Hard training daily or physical job',
+  };
 
   String repeatability(Repeatability r) => switch (r) {
-        Repeatability.free => 'No limit',
-        Repeatability.moderate => 'In moderation',
-        Repeatability.limited => 'Limit',
-      };
+    Repeatability.free => 'No limit',
+    Repeatability.moderate => 'In moderation',
+    Repeatability.limited => 'Limit',
+  };
 
   String repeatabilityHint(Repeatability r) => switch (r) {
-        Repeatability.free => 'Repeat it as often as you like',
-        Repeatability.moderate => 'Better not to overdo it during the week',
-        Repeatability.limited => 'Only once in a while',
-      };
+    Repeatability.free => 'Repeat it as often as you like',
+    Repeatability.moderate => 'Better not to overdo it during the week',
+    Repeatability.limited => 'Only once in a while',
+  };
 
   /// Las categorías de la despensa se guardan en español (son la clave con la
   /// que casan los datos ya grabados). Aquí solo se traduce lo que se enseña,
   /// y si aparece una categoría desconocida se muestra tal cual.
   Map<String, String> get ingredientCategories => const {
-        'Proteínas': 'Protein',
-        'Carbohidratos': 'Carbs',
-        'Legumbres': 'Pulses',
-        'Verduras': 'Vegetables',
-        'Frutas': 'Fruit',
-        'Lácteos y huevos': 'Dairy & eggs',
-        'Grasas y frutos secos': 'Fats & nuts',
-        'Otros': 'Other',
-      };
+    'Proteínas': 'Protein',
+    'Carbohidratos': 'Carbs',
+    'Legumbres': 'Pulses',
+    'Verduras': 'Vegetables',
+    'Frutas': 'Fruit',
+    'Lácteos y huevos': 'Dairy & eggs',
+    'Grasas y frutos secos': 'Fats & nuts',
+    'Otros': 'Other',
+  };
 
   String ingredientCategory(String stored) =>
       ingredientCategories[stored] ?? stored;
 
   /// Igual que las categorías: la etiqueta guardada no cambia, solo su rótulo.
   Map<String, String> get foodTags => const {
-        'Pasta': 'Pasta',
-        'Arroz': 'Rice',
-        'Carne': 'Meat',
-        'Pescado': 'Fish',
-        'Verduras': 'Veggies',
-        'Legumbres': 'Pulses',
-        'Huevos': 'Eggs',
-        'Sopa': 'Soup',
-        'Ensalada': 'Salad',
-        'Rápido': 'Quick',
-        'De aprovechar': 'Leftovers',
-        'Capricho': 'Treat',
-      };
+    'Pasta': 'Pasta',
+    'Arroz': 'Rice',
+    'Carne': 'Meat',
+    'Pescado': 'Fish',
+    'Verduras': 'Veggies',
+    'Legumbres': 'Pulses',
+    'Huevos': 'Eggs',
+    'Sopa': 'Soup',
+    'Ensalada': 'Salad',
+    'Rápido': 'Quick',
+    'De aprovechar': 'Leftovers',
+    'Capricho': 'Treat',
+  };
 
   String foodTag(String stored) => foodTags[stored] ?? stored;
 
   Map<String, String> get themeNames => const {
-        'teal': 'Teal',
-        'sunset': 'Sunset',
-        'grape': 'Grape',
-        'ocean': 'Ocean',
-        'forest': 'Forest',
-        'ruby': 'Ruby',
-        'amber': 'Amber',
-        'midnight': 'Midnight',
-        'crimson': 'Crimson',
-      };
+    'teal': 'Teal',
+    'sunset': 'Sunset',
+    'grape': 'Grape',
+    'ocean': 'Ocean',
+    'forest': 'Forest',
+    'ruby': 'Ruby',
+    'amber': 'Amber',
+    'midnight': 'Midnight',
+    'crimson': 'Crimson',
+  };
 
   String themeName(String id) => themeNames[id] ?? id;
 
@@ -209,8 +241,13 @@ class AppStrings {
   String get tabShopping => 'Shopping';
   String get tabMore => 'More';
 
-  List<String> get tabNames =>
-      [tabToday, tabWeek, tabMeals, tabShopping, tabMore];
+  List<String> get tabNames => [
+    tabToday,
+    tabWeek,
+    tabMeals,
+    tabShopping,
+    tabMore,
+  ];
 
   // ======================= TUTORIAL =======================
 
@@ -288,8 +325,12 @@ class AppStrings {
   String get amoledSubtitle => 'Pure black backgrounds in dark mode';
 
   String get colorIntensity => 'Colour intensity';
-  List<String> get intensityLabels =>
-      const ['Soft', 'Balanced', 'Vivid', 'Intense'];
+  List<String> get intensityLabels => const [
+    'Soft',
+    'Balanced',
+    'Vivid',
+    'Intense',
+  ];
 
   String get startTabAuto => 'Automatic';
 
@@ -377,8 +418,7 @@ class AppStrings {
   String servingsCount(String amount) => '$amount servings';
   String removedItem(String name) => 'Removed: $name';
 
-  String get needTargetForFits =>
-      'Set your target in Gym Mode to use this';
+  String get needTargetForFits => 'Set your target in Gym Mode to use this';
   String get alreadyOverToday => 'You have already gone over today’s target.';
   String kcalLeftFits(int left) =>
       'You have $left kcal left. Here is what fits, most protein first:';
@@ -512,8 +552,7 @@ class AppStrings {
   String get withoutMacros => 'Without macros';
   String get noSearchResults => 'No results for your search.';
 
-  String ingredientCount(int n) =>
-      n == 1 ? '1 ingredient' : '$n ingredients';
+  String ingredientCount(int n) => n == 1 ? '1 ingredient' : '$n ingredients';
   String servingsMadeCount(int n) => n == 1 ? '1 serving' : '$n servings';
   String get highInProtein => 'High in protein';
 
@@ -561,10 +600,19 @@ class AppStrings {
   /// Lo que se acaba comprando siempre. Es contenido, no interfaz, así que cada
   /// idioma trae su propia lista.
   List<String> get recurringItemsList => const [
-        'Kitchen roll', 'Toilet paper', 'Coffee', 'Milk', 'Bread',
-        'Olive oil', 'Salt', 'Bin bags', 'Detergent', 'Eggs',
-        'Water', 'Mixed fruit',
-      ];
+    'Kitchen roll',
+    'Toilet paper',
+    'Coffee',
+    'Milk',
+    'Bread',
+    'Olive oil',
+    'Salt',
+    'Bin bags',
+    'Detergent',
+    'Eggs',
+    'Water',
+    'Mixed fruit',
+  ];
 
   // ======================= AÑADIR / EDITAR COMIDA =======================
 
@@ -632,8 +680,9 @@ class AppStrings {
       'You have not added any ingredients yet.\nScan a product or tap "Add".';
 
   String haveInStock(String amount) => 'have $amount';
-  String useSoonExpires(int days) =>
-      days == 1 ? 'Use it up! Expires tomorrow' : 'Use it up! Expires in $days days';
+  String useSoonExpires(int days) => days == 1
+      ? 'Use it up! Expires tomorrow'
+      : 'Use it up! Expires in $days days';
   String expiresInDays(int days) => 'Expires in $days days';
 
   String get newIngredient => 'New ingredient';
@@ -656,26 +705,26 @@ class AppStrings {
 
   /// Unidades caseras que se ofrecen como chips. La clave es lo que se guarda.
   Map<String, String> get homeUnits => const {
-        'loncha': 'slice',
-        'filete': 'fillet',
-        'unidad': 'unit',
-        'rodaja': 'round',
-        'cucharada': 'spoonful',
-        'puñado': 'handful',
-        'vaso': 'glass',
-        'ración': 'serving',
-        'muslo': 'thigh',
-        'lomo': 'fillet',
-        'lata': 'tin',
-        'plato': 'plate',
-        'rebanada': 'slice',
-        'bol': 'bowl',
-        'racimo': 'bunch',
-        'tajada': 'wedge',
-        'porción': 'portion',
-        'cazo': 'scoop',
-        'cucharadita': 'teaspoon',
-      };
+    'loncha': 'slice',
+    'filete': 'fillet',
+    'unidad': 'unit',
+    'rodaja': 'round',
+    'cucharada': 'spoonful',
+    'puñado': 'handful',
+    'vaso': 'glass',
+    'ración': 'serving',
+    'muslo': 'thigh',
+    'lomo': 'fillet',
+    'lata': 'tin',
+    'plato': 'plate',
+    'rebanada': 'slice',
+    'bol': 'bowl',
+    'racimo': 'bunch',
+    'tajada': 'wedge',
+    'porción': 'portion',
+    'cazo': 'scoop',
+    'cucharadita': 'teaspoon',
+  };
 
   String homeUnit(String stored) => homeUnits[stored] ?? stored;
 
@@ -706,14 +755,12 @@ class AppStrings {
       'Turn on Gym Mode to plan your meals around your goal (bulking, cutting…) '
       'without drowning in jargon.';
   String get enableGymMode => 'Turn on Gym Mode';
-  String get enableGymModeSubtitle =>
-      'Shows the tracking options for the gym';
+  String get enableGymModeSubtitle => 'Shows the tracking options for the gym';
   String get yourGoal => 'Your goal';
   String get yourGoalSubtitle => 'Pick what you want to achieve. No jargon.';
   String get yourTargets => 'Your targets';
   String estimatedExpenditure(int kcal) => 'Estimated burn: $kcal kcal/day';
-  String get setYourOwnFigures =>
-      'Set your own calorie and protein figures.';
+  String get setYourOwnFigures => 'Set your own calorie and protein figures.';
   String get completeProfileToCalculate =>
       'Complete your profile to work out your targets.';
   String get adjustFigures => 'Adjust figures';
@@ -800,18 +847,17 @@ class AppStrings {
   // ---------------- Logros ----------------
 
   Map<String, (String, String)> get achievements => const {
-        'cocinero': ('Cook', 'Create 10 dishes in your catalogue'),
-        'chef': ('Chef', 'Reach 50 dishes'),
-        'constante': ('Consistent', 'Log 7 days'),
-        'veterano': ('Veteran', 'Log 100 days'),
-        'racha7': ('A perfect week', '7 days in a row hitting protein'),
-        'racha30': ('Unstoppable', '30 days of protein in a row'),
-        'planificador': ('Planner', 'Plan 4 weeks'),
-        'fotografo': ('Photographer', 'Add a photo to 5 dishes'),
-        'proteico': ('Target met', 'Hit your protein on 30 days in total'),
-        'semanaperfecta':
-            ('Perfect week', 'A whole week planned from end to end'),
-      };
+    'cocinero': ('Cook', 'Create 10 dishes in your catalogue'),
+    'chef': ('Chef', 'Reach 50 dishes'),
+    'constante': ('Consistent', 'Log 7 days'),
+    'veterano': ('Veteran', 'Log 100 days'),
+    'racha7': ('A perfect week', '7 days in a row hitting protein'),
+    'racha30': ('Unstoppable', '30 days of protein in a row'),
+    'planificador': ('Planner', 'Plan 4 weeks'),
+    'fotografo': ('Photographer', 'Add a photo to 5 dishes'),
+    'proteico': ('Target met', 'Hit your protein on 30 days in total'),
+    'semanaperfecta': ('Perfect week', 'A whole week planned from end to end'),
+  };
 
   String achievementTitle(String id) => achievements[id]?.$1 ?? id;
   String achievementDescription(String id) => achievements[id]?.$2 ?? '';
@@ -823,7 +869,8 @@ class AppStrings {
       'Describe what you ate and/or add a photo. The AI estimates the calories '
       'and the protein (roughly).';
   String get descriptionLabel => 'Description';
-  String get descriptionHint => 'e.g. a plate of pasta with tuna, normal portion';
+  String get descriptionHint =>
+      'e.g. a plate of pasta with tuna, normal portion';
   String get gallery => 'Gallery';
   String get photoAdded => 'Photo added';
   String get estimating => 'Estimating…';
@@ -853,12 +900,12 @@ class AppStrings {
       'Settings.';
 
   List<String> get ideaPresets => const [
-        'Light dinners under 400 kcal',
-        'High-protein meals for after the gym',
-        'Cheap dishes that go a long way',
-        'Quick breakfasts under 10 minutes',
-        'Leftover recipes with what I have',
-      ];
+    'Light dinners under 400 kcal',
+    'High-protein meals for after the gym',
+    'Cheap dishes that go a long way',
+    'Quick breakfasts under 10 minutes',
+    'Leftover recipes with what I have',
+  ];
 
   // ======================= BUSCAR INGREDIENTE =======================
 
@@ -903,10 +950,10 @@ class AppStrings {
 
   /// Rótulo de la clave que guarda `ScannedProduct.basis`.
   String productBasis(String key) => switch (key) {
-        'serving' => basisPerServing,
-        'per100' => basisPer100g,
-        _ => basisNoData,
-      };
+    'serving' => basisPerServing,
+    'per100' => basisPer100g,
+    _ => basisNoData,
+  };
   String unknownProduct(String barcode) => 'Product $barcode';
 
   // ======================= COMIDAS DE EJEMPLO =======================
@@ -928,8 +975,7 @@ class AppStrings {
 
   String get noMealsToAssign => 'No meals to assign';
   String get noSlotsConfigured => 'No meal slots set up';
-  String noMealsWithMacrosFor(String slot) =>
-      'No meals with macros for $slot';
+  String noMealsWithMacrosFor(String slot) => 'No meals with macros for $slot';
   String noMealsFor(String slot) => 'No meals for $slot';
   String maxWeeksReached(int n) => 'Maximum of $n weeks reached';
   String importError(Object e) => 'Import failed: $e';
@@ -943,7 +989,8 @@ class AppStrings {
 
   String get backupInvalidFile => 'That file is not a valid backup.';
   String get backupCorrupt => 'The backup is empty or damaged.';
-  String get backupNothingRestored => 'Nothing could be restored from that backup.';
+  String get backupNothingRestored =>
+      'Nothing could be restored from that backup.';
 
   // ======================= GEMINI =======================
 
@@ -979,8 +1026,7 @@ class AppStrings {
       'You are not gaining weight: try eating 150 kcal more.';
   String get gymGainingTooFast => 'You are gaining too fast: drop 150 kcal.';
   String get gymNotLosing => 'You are not losing: try 150 kcal less.';
-  String get gymLosingTooFast =>
-      'You are losing too fast: add 150 kcal.';
+  String get gymLosingTooFast => 'You are losing too fast: add 150 kcal.';
 
   // ======================= INTERFAZ LIMPIA =======================
 

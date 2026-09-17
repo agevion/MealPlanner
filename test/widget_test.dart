@@ -28,19 +28,22 @@ Future<SettingsProvider> _settings({
 }
 
 Widget _app(SettingsProvider settings) => MealPlannerApp(
-      mealProvider: MealProvider(),
-      settings: settings,
-      gym: GymProvider(),
-      diary: DiaryProvider(),
-      ai: AiProvider(),
-      pantry: PantryProvider(),
-    );
+  mealProvider: MealProvider(),
+  settings: settings,
+  gym: GymProvider(),
+  diary: DiaryProvider(),
+  ai: AiProvider(),
+  pantry: PantryProvider(),
+);
 
 void main() {
-  testWidgets('la primera vez arranca en el tutorial, eligiendo idioma',
-      (WidgetTester tester) async {
-    final settings =
-        await _settings(onboardingDone: false, language: AppLanguage.es);
+  testWidgets('la primera vez arranca en el tutorial, eligiendo idioma', (
+    WidgetTester tester,
+  ) async {
+    final settings = await _settings(
+      onboardingDone: false,
+      language: AppLanguage.es,
+    );
     await tester.pumpWidget(_app(settings));
     await tester.pumpAndSettle();
 
@@ -51,10 +54,13 @@ void main() {
     }
   });
 
-  testWidgets('con el tutorial visto arranca con la barra de navegación',
-      (WidgetTester tester) async {
-    final settings =
-        await _settings(onboardingDone: true, language: AppLanguage.es);
+  testWidgets('con el tutorial visto arranca con la barra de navegación', (
+    WidgetTester tester,
+  ) async {
+    final settings = await _settings(
+      onboardingDone: true,
+      language: AppLanguage.es,
+    );
     await tester.pumpWidget(_app(settings));
     await tester.pumpAndSettle();
 
@@ -68,10 +74,13 @@ void main() {
     expect(find.text('Más'), findsOneWidget);
   });
 
-  testWidgets('la barra cambia de idioma con el ajuste',
-      (WidgetTester tester) async {
-    final settings =
-        await _settings(onboardingDone: true, language: AppLanguage.de);
+  testWidgets('la barra cambia de idioma con el ajuste', (
+    WidgetTester tester,
+  ) async {
+    final settings = await _settings(
+      onboardingDone: true,
+      language: AppLanguage.de,
+    );
     await tester.pumpWidget(_app(settings));
     await tester.pumpAndSettle();
 
@@ -82,10 +91,13 @@ void main() {
     expect(find.text('Semana'), findsNothing);
   });
 
-  testWidgets('elegir idioma en el tutorial traduce el resto del recorrido',
-      (WidgetTester tester) async {
-    final settings =
-        await _settings(onboardingDone: false, language: AppLanguage.es);
+  testWidgets('elegir idioma en el tutorial traduce el resto del recorrido', (
+    WidgetTester tester,
+  ) async {
+    final settings = await _settings(
+      onboardingDone: false,
+      language: AppLanguage.es,
+    );
     await tester.pumpWidget(_app(settings));
     await tester.pumpAndSettle();
 
@@ -102,10 +114,13 @@ void main() {
     expect(find.text('Bienvenue dans Meal Planner'), findsOneWidget);
   });
 
-  testWidgets('al terminar el tutorial se entra en la app',
-      (WidgetTester tester) async {
-    final settings =
-        await _settings(onboardingDone: false, language: AppLanguage.es);
+  testWidgets('al terminar el tutorial se entra en la app', (
+    WidgetTester tester,
+  ) async {
+    final settings = await _settings(
+      onboardingDone: false,
+      language: AppLanguage.es,
+    );
     await tester.pumpWidget(_app(settings));
     await tester.pumpAndSettle();
 

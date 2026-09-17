@@ -32,7 +32,8 @@ import 'package:mealplanner_flutter/widgets/home_widget_faces.dart';
   MealProvider meals,
   DiaryProvider diary,
   GymProvider gym,
-}) _build() {
+})
+_build() {
   final meals = MealProvider();
   final diary = DiaryProvider();
   final gym = GymProvider();
@@ -53,21 +54,31 @@ import 'package:mealplanner_flutter/widgets/home_widget_faces.dart';
 void main() {
   group('Enlaces de los widgets', () {
     test('mealplanner://tab/N abre la pestaña N', () {
-      expect(HomeWidgetService.tabFromUri(Uri.parse('mealplanner://tab/0')),
-          HomeTab.today);
-      expect(HomeWidgetService.tabFromUri(Uri.parse('mealplanner://tab/3')),
-          HomeTab.shopping);
+      expect(
+        HomeWidgetService.tabFromUri(Uri.parse('mealplanner://tab/0')),
+        HomeTab.today,
+      );
+      expect(
+        HomeWidgetService.tabFromUri(Uri.parse('mealplanner://tab/3')),
+        HomeTab.shopping,
+      );
     });
 
     test('un enlace de otro sitio o con basura no abre nada', () {
       expect(HomeWidgetService.tabFromUri(null), isNull);
-      expect(HomeWidgetService.tabFromUri(Uri.parse('https://example.com/1')),
-          isNull);
-      expect(HomeWidgetService.tabFromUri(Uri.parse('mealplanner://tab/nueve')),
-          isNull);
+      expect(
+        HomeWidgetService.tabFromUri(Uri.parse('https://example.com/1')),
+        isNull,
+      );
+      expect(
+        HomeWidgetService.tabFromUri(Uri.parse('mealplanner://tab/nueve')),
+        isNull,
+      );
       // Fuera de rango: la app tiene cinco pestañas.
-      expect(HomeWidgetService.tabFromUri(Uri.parse('mealplanner://tab/9')),
-          isNull);
+      expect(
+        HomeWidgetService.tabFromUri(Uri.parse('mealplanner://tab/9')),
+        isNull,
+      );
     });
   });
 
@@ -108,15 +119,20 @@ void main() {
     test('lleva las macros del plato si las tiene', () {
       final env = _build();
       anchorToToday(env.meals);
-      env.meals.addFood(const Food(
-        name: 'Pollo con arroz',
-        ingredients: 'pollo, arroz',
-        slots: {MealSlot.lunch},
-        kcal: 620,
-        protein: 45,
-      ));
-      env.meals
-          .setMeal(DateTime.now().weekday - 1, MealSlot.lunch, 'Pollo con arroz');
+      env.meals.addFood(
+        const Food(
+          name: 'Pollo con arroz',
+          ingredients: 'pollo, arroz',
+          slots: {MealSlot.lunch},
+          kcal: 620,
+          protein: 45,
+        ),
+      );
+      env.meals.setMeal(
+        DateTime.now().weekday - 1,
+        MealSlot.lunch,
+        'Pollo con arroz',
+      );
 
       final data = env.service.nextMealData();
       expect(data.kcal, 620);
@@ -183,84 +199,102 @@ void main() {
     // Al renderizarse a PNG no hay MaterialApp encima: si alguna cara pidiera
     // Theme, Localizations o MediaQuery, reventaría en el móvil y no aquí. Este
     // test las monta igual de desnudas que el render de verdad.
-    Widget bare(Widget child) => Directionality(
-          textDirection: TextDirection.ltr,
-          child: child,
-        );
+    Widget bare(Widget child) =>
+        Directionality(textDirection: TextDirection.ltr, child: child);
 
     const scheme = ColorScheme.light();
     const t = AppStrings();
 
     testWidgets('Hoy, con y sin objetivos', (tester) async {
-      await tester.pumpWidget(bare(const TodayFace(
-        data: TodayFaceData(
-          kcal: 1450,
-          protein: 98,
-          targetKcal: 2200,
-          targetProtein: 150,
-          water: 3,
-          streak: 5,
+      await tester.pumpWidget(
+        bare(
+          const TodayFace(
+            data: TodayFaceData(
+              kcal: 1450,
+              protein: 98,
+              targetKcal: 2200,
+              targetProtein: 150,
+              water: 3,
+              streak: 5,
+            ),
+            scheme: scheme,
+            t: t,
+          ),
         ),
-        scheme: scheme,
-        t: t,
-      )));
+      );
       expect(find.text('1450'), findsOneWidget);
 
-      await tester.pumpWidget(bare(const TodayFace(
-        data: TodayFaceData(
-          kcal: 900,
-          protein: 40,
-          targetKcal: null,
-          targetProtein: null,
-          water: 0,
-          streak: 0,
+      await tester.pumpWidget(
+        bare(
+          const TodayFace(
+            data: TodayFaceData(
+              kcal: 900,
+              protein: 40,
+              targetKcal: null,
+              targetProtein: null,
+              water: 0,
+              streak: 0,
+            ),
+            scheme: scheme,
+            t: t,
+          ),
         ),
-        scheme: scheme,
-        t: t,
-      )));
+      );
       expect(find.text('900'), findsOneWidget);
     });
 
     testWidgets('Lo siguiente, con plan y sin plan', (tester) async {
-      await tester.pumpWidget(bare(const NextMealFace(
-        data: NextMealFaceData(
-          slot: MealSlot.lunch,
-          name: 'Pollo con arroz',
-          kcal: 620,
-          protein: 45,
-          thenSlot: MealSlot.dinner,
-          thenName: 'Crema',
+      await tester.pumpWidget(
+        bare(
+          const NextMealFace(
+            data: NextMealFaceData(
+              slot: MealSlot.lunch,
+              name: 'Pollo con arroz',
+              kcal: 620,
+              protein: 45,
+              thenSlot: MealSlot.dinner,
+              thenName: 'Crema',
+            ),
+            scheme: scheme,
+            t: t,
+          ),
         ),
-        scheme: scheme,
-        t: t,
-      )));
+      );
       expect(find.text('Pollo con arroz'), findsOneWidget);
 
-      await tester.pumpWidget(bare(const NextMealFace(
-        data: NextMealFaceData(),
-        scheme: scheme,
-        t: t,
-      )));
+      await tester.pumpWidget(
+        bare(
+          const NextMealFace(data: NextMealFaceData(), scheme: scheme, t: t),
+        ),
+      );
       expect(find.text(t.widgetNoPlan), findsOneWidget);
     });
 
     testWidgets('Compra, pendiente y terminada', (tester) async {
-      await tester.pumpWidget(bare(const ShoppingFace(
-        data: ShoppingFaceData(
-          pending: 7,
-          total: 12,
-          preview: ['Pollo', 'Arroz', 'Tomate'],
+      await tester.pumpWidget(
+        bare(
+          const ShoppingFace(
+            data: ShoppingFaceData(
+              pending: 7,
+              total: 12,
+              preview: ['Pollo', 'Arroz', 'Tomate'],
+            ),
+            scheme: scheme,
+            t: t,
+          ),
         ),
-        scheme: scheme,
-        t: t,
-      )));
+      );
       expect(find.text('Pollo'), findsOneWidget);
 
-      await tester.pumpWidget(bare(const ShoppingFace(
-        data: ShoppingFaceData(pending: 0, total: 12, preview: []),
-        scheme: scheme,
-        t: t,
-      )));
+      await tester.pumpWidget(
+        bare(
+          const ShoppingFace(
+            data: ShoppingFaceData(pending: 0, total: 12, preview: []),
+            scheme: scheme,
+            t: t,
+          ),
+        ),
+      );
       expect(find.text(t.widgetAllBought), findsOneWidget);
     });
   });
@@ -290,14 +324,16 @@ void main() {
       });
       final settings = SettingsProvider();
       await settings.load();
-      await tester.pumpWidget(MealPlannerApp(
-        mealProvider: MealProvider(),
-        settings: settings,
-        gym: GymProvider(),
-        diary: DiaryProvider(),
-        ai: AiProvider(),
-        pantry: PantryProvider(),
-      ));
+      await tester.pumpWidget(
+        MealPlannerApp(
+          mealProvider: MealProvider(),
+          settings: settings,
+          gym: GymProvider(),
+          diary: DiaryProvider(),
+          ai: AiProvider(),
+          pantry: PantryProvider(),
+        ),
+      );
       await tester.pumpAndSettle();
     }
 
@@ -309,8 +345,9 @@ void main() {
       expect(find.text(es.logWeight), findsOneWidget);
     });
 
-    testWidgets('encendida, se van de la pantalla pero no de la app',
-        (tester) async {
+    testWidgets('encendida, se van de la pantalla pero no de la app', (
+      tester,
+    ) async {
       await pumpToday(tester, clean: true);
       expect(find.text(es.water), findsNothing);
       expect(find.text(es.logWeight), findsNothing);

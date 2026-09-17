@@ -29,12 +29,12 @@ class Week {
     this.imported = false,
     List<Food>? embeddedFoods,
     this.startDate,
-  })  : plan = plan ?? <MealSlot, List<String?>>{},
-        checked = checked ?? <String>{},
-        locked = locked ?? <int>{},
-        away = away ?? <int>{},
-        manualItems = manualItems ?? <String>[],
-        embeddedFoods = embeddedFoods ?? <Food>[];
+  }) : plan = plan ?? <MealSlot, List<String?>>{},
+       checked = checked ?? <String>{},
+       locked = locked ?? <int>{},
+       away = away ?? <int>{},
+       manualItems = manualItems ?? <String>[],
+       embeddedFoods = embeddedFoods ?? <Food>[];
 
   /// El lunes de la semana en la que cae [d], a medianoche.
   static DateTime mondayOf(DateTime d) {
@@ -89,22 +89,21 @@ class Week {
   bool get hasMeals => plan.values.any((l) => l.any((e) => e != null));
 
   Map<String, dynamic> toJson() => {
-        'plan': {
-          for (final e in plan.entries) e.key.id: e.value,
-        },
-        'checked': checked.toList(),
-        'locked': locked.toList(),
-        'away': away.toList(),
-        'manualItems': manualItems,
-        'imported': imported,
-        'embeddedFoods': embeddedFoods.map((f) => f.toJson()).toList(),
-        if (startDate != null)
-          'startDate': startDate!.toIso8601String().substring(0, 10),
-      };
+    'plan': {for (final e in plan.entries) e.key.id: e.value},
+    'checked': checked.toList(),
+    'locked': locked.toList(),
+    'away': away.toList(),
+    'manualItems': manualItems,
+    'imported': imported,
+    'embeddedFoods': embeddedFoods.map((f) => f.toJson()).toList(),
+    if (startDate != null)
+      'startDate': startDate!.toIso8601String().substring(0, 10),
+  };
 
   factory Week.fromJson(Map<String, dynamic> json) {
     List<String?> read7(dynamic raw) {
-      final list = (raw as List?)?.map((e) => e as String?).toList() ?? const [];
+      final list =
+          (raw as List?)?.map((e) => e as String?).toList() ?? const [];
       final result = List<String?>.filled(7, null);
       for (var i = 0; i < 7 && i < list.length; i++) {
         result[i] = list[i];
@@ -131,18 +130,22 @@ class Week {
 
     return Week(
       plan: plan,
-      checked: ((json['checked'] as List?)?.map((e) => e as String).toSet()) ??
+      checked:
+          ((json['checked'] as List?)?.map((e) => e as String).toSet()) ??
           <String>{},
-      locked: ((json['locked'] as List?)?.map((e) => (e as num).toInt()).toSet()) ??
+      locked:
+          ((json['locked'] as List?)?.map((e) => (e as num).toInt()).toSet()) ??
           <int>{},
-      away: ((json['away'] as List?)?.map((e) => (e as num).toInt()).toSet()) ??
+      away:
+          ((json['away'] as List?)?.map((e) => (e as num).toInt()).toSet()) ??
           <int>{},
       startDate: DateTime.tryParse((json['startDate'] as String?) ?? ''),
       manualItems:
           ((json['manualItems'] as List?)?.map((e) => e as String).toList()) ??
-              <String>[],
+          <String>[],
       imported: json['imported'] as bool? ?? false,
-      embeddedFoods: ((json['embeddedFoods'] as List?)
+      embeddedFoods:
+          ((json['embeddedFoods'] as List?)
               ?.map((e) => Food.fromJson(e as Map<String, dynamic>))
               .toList()) ??
           <Food>[],

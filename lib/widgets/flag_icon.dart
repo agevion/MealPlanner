@@ -80,11 +80,7 @@ class _FlagPainter extends CustomPainter {
   }
 
   /// Bandas horizontales: cada una con su fracción de la altura y su color.
-  void _horizontal(
-    Canvas canvas,
-    Size size,
-    List<(double, Color)> bands,
-  ) {
+  void _horizontal(Canvas canvas, Size size, List<(double, Color)> bands) {
     var y = 0.0;
     for (final (fraction, color) in bands) {
       final h = size.height * fraction;

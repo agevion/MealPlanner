@@ -28,17 +28,26 @@ void main() {
   group('Días bloqueados', () {
     test('el randomizador no toca los días bloqueados', () {
       final p = MealProvider();
-      p.addFood(const Food(
-          name: 'Almuerzo1', ingredients: 'a', slots: {MealSlot.lunch}));
-      p.addFood(const Food(
-          name: 'Cena1', ingredients: 'b', slots: {MealSlot.dinner}));
+      p.addFood(
+        const Food(
+          name: 'Almuerzo1',
+          ingredients: 'a',
+          slots: {MealSlot.lunch},
+        ),
+      );
+      p.addFood(
+        const Food(name: 'Cena1', ingredients: 'b', slots: {MealSlot.dinner}),
+      );
 
       // Fijamos a mano el lunes y lo bloqueamos.
       p.setMeal(0, MealSlot.lunch, 'FIJADO');
       p.toggleDayLock(0);
       expect(p.isDayLocked(0), isTrue);
 
-      final error = p.randomizeActiveWeek(const [MealSlot.lunch, MealSlot.dinner]);
+      final error = p.randomizeActiveWeek(const [
+        MealSlot.lunch,
+        MealSlot.dinner,
+      ]);
       expect(error, isNull);
 
       // El día bloqueado se conserva; el resto se rellena.

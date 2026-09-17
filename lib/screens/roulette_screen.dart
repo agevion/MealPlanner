@@ -106,10 +106,13 @@ class _RouletteScreenState extends State<RouletteScreen>
     provider.setMeal(day, widget.slot, winner.name);
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(
-        content: Text(t.assignedTo(
-            winner.name, t.weekdays[day], t.mealSlot(widget.slot))),
-      ));
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            t.assignedTo(winner.name, t.weekdays[day], t.mealSlot(widget.slot)),
+          ),
+        ),
+      );
   }
 
   @override
@@ -117,7 +120,8 @@ class _RouletteScreenState extends State<RouletteScreen>
     final theme = Theme.of(context);
     final t = context.t;
     final spinning = _controller.isAnimating;
-    final label = _winner?.name ??
+    final label =
+        _winner?.name ??
         (_pool.isEmpty ? t.whatsForDinner : _pool[_visibleIndex].name);
 
     return Scaffold(
@@ -140,7 +144,9 @@ class _RouletteScreenState extends State<RouletteScreen>
                   duration: const Duration(milliseconds: 250),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 28, vertical: 40),
+                      horizontal: 28,
+                      vertical: 40,
+                    ),
                     decoration: BoxDecoration(
                       color: _winner != null
                           ? theme.colorScheme.primaryContainer

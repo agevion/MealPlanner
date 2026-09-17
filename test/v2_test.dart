@@ -29,8 +29,10 @@ void main() {
     });
 
     test('keywordsOf descarta relleno y palabras cortas', () {
-      expect(keywordsOf('Atún en lata (al natural)'),
-          containsAll(<String>['atun', 'lata', 'natural']));
+      expect(
+        keywordsOf('Atún en lata (al natural)'),
+        containsAll(<String>['atun', 'lata', 'natural']),
+      );
       expect(keywordsOf('Atún en lata'), isNot(contains('en')));
     });
 
@@ -42,8 +44,11 @@ void main() {
     });
 
     test('splitIngredients limpia y descarta vacíos', () {
-      expect(splitIngredients('tomate, , pasta ,queso'),
-          ['tomate', 'pasta', 'queso']);
+      expect(splitIngredients('tomate, , pasta ,queso'), [
+        'tomate',
+        'pasta',
+        'queso',
+      ]);
     });
   });
 
@@ -199,17 +204,22 @@ void main() {
   group('Lista de la compra', () {
     test('agrupa por pasillo usando la despensa', () {
       final p = MealProvider();
-      p.addFood(const Food(
-          name: 'Pollo con arroz', ingredients: 'pechuga de pollo, arroz'));
+      p.addFood(
+        const Food(
+          name: 'Pollo con arroz',
+          ingredients: 'pechuga de pollo, arroz',
+        ),
+      );
       p.setMeal(0, MealSlot.lunch, 'Pollo con arroz');
 
       const pantry = [
         PantryIngredient(
-            name: 'Pechuga de pollo',
-            category: 'Proteínas',
-            unit: 'filete',
-            kcal: 155,
-            protein: 29),
+          name: 'Pechuga de pollo',
+          category: 'Proteínas',
+          unit: 'filete',
+          kcal: 155,
+          protein: 29,
+        ),
       ];
 
       final groups = p.shoppingListForActiveWeek(pantry: pantry);
@@ -245,14 +255,16 @@ void main() {
 
     test('suma unidades reales de un plato compuesto', () {
       final p = MealProvider();
-      p.addFood(const Food(
-        name: 'Tortilla',
-        ingredients: 'huevo, patata',
-        components: [
-          FoodComponent(name: 'huevo', kcal: 70, protein: 6, quantity: 3),
-          FoodComponent(name: 'patata', kcal: 90, protein: 2, quantity: 2),
-        ],
-      ));
+      p.addFood(
+        const Food(
+          name: 'Tortilla',
+          ingredients: 'huevo, patata',
+          components: [
+            FoodComponent(name: 'huevo', kcal: 70, protein: 6, quantity: 3),
+            FoodComponent(name: 'patata', kcal: 90, protein: 2, quantity: 2),
+          ],
+        ),
+      );
       p.setMeal(0, MealSlot.dinner, 'Tortilla');
       p.setMeal(1, MealSlot.dinner, 'Tortilla');
 
@@ -288,25 +300,31 @@ void main() {
   group('Cocinar con lo que tengo', () {
     test('solo salen los platos cuyos ingredientes están en stock', () {
       final p = MealProvider();
-      p.addFood(const Food(
-          name: 'Pollo con arroz', ingredients: 'pechuga de pollo, arroz'));
+      p.addFood(
+        const Food(
+          name: 'Pollo con arroz',
+          ingredients: 'pechuga de pollo, arroz',
+        ),
+      );
       p.addFood(const Food(name: 'Salmón', ingredients: 'salmón, limón'));
 
       const pantry = [
         PantryIngredient(
-            name: 'Pechuga de pollo',
-            category: 'Proteínas',
-            unit: 'filete',
-            kcal: 155,
-            protein: 29,
-            stock: 2),
+          name: 'Pechuga de pollo',
+          category: 'Proteínas',
+          unit: 'filete',
+          kcal: 155,
+          protein: 29,
+          stock: 2,
+        ),
         PantryIngredient(
-            name: 'Arroz blanco',
-            category: 'Carbohidratos',
-            unit: 'plato',
-            kcal: 260,
-            protein: 5,
-            stock: 1),
+          name: 'Arroz blanco',
+          category: 'Carbohidratos',
+          unit: 'plato',
+          kcal: 260,
+          protein: 5,
+          stock: 1,
+        ),
       ];
 
       final cookable = p.cookableNow(pantry);
@@ -346,12 +364,15 @@ void main() {
       SharedPreferences.setMockInitialValues({});
       final p = PantryProvider();
       await p.load();
-      p.addOrReplace(const PantryIngredient(
+      p.addOrReplace(
+        const PantryIngredient(
           name: 'Pechuga de pollo',
           category: 'Proteínas',
           unit: 'filete',
           kcal: 155,
-          protein: 29));
+          protein: 29,
+        ),
+      );
       expect(p.match('pollo')?.name, 'Pechuga de pollo');
       expect(p.match('kiwi de marte'), isNull);
     });
@@ -374,7 +395,12 @@ void main() {
 
   group('Registro diario', () {
     test('las raciones multiplican las macros', () {
-      const item = LoggedItem(name: 'Pasta', kcal: 500, protein: 20, servings: 1.5);
+      const item = LoggedItem(
+        name: 'Pasta',
+        kcal: 500,
+        protein: 20,
+        servings: 1.5,
+      );
       expect(item.totalKcal, 750);
       expect(item.totalProtein, 30);
     });
@@ -401,8 +427,10 @@ void main() {
 
       final today = DateTime.now();
       for (var i = 0; i < 3; i++) {
-        d.addEntry(today.subtract(Duration(days: i)),
-            const LoggedItem(name: 'Pollo', kcal: 400, protein: 60));
+        d.addEntry(
+          today.subtract(Duration(days: i)),
+          const LoggedItem(name: 'Pollo', kcal: 400, protein: 60),
+        );
       }
       expect(d.proteinStreak(50), 3);
       // Con un objetivo que no se cumple, no hay racha.
@@ -415,8 +443,10 @@ void main() {
       await d.load();
 
       final yesterday = DateTime.now().subtract(const Duration(days: 1));
-      d.addEntry(yesterday,
-          const LoggedItem(name: 'Pollo', kcal: 400, protein: 60));
+      d.addEntry(
+        yesterday,
+        const LoggedItem(name: 'Pollo', kcal: 400, protein: 60),
+      );
       expect(d.proteinStreak(50), 1);
     });
 
@@ -437,8 +467,10 @@ void main() {
       SharedPreferences.setMockInitialValues({});
       final d = DiaryProvider();
       await d.load();
-      d.addEntry(DateTime(2026, 8, 1),
-          const LoggedItem(name: 'Avena', kcal: 350, protein: 14));
+      d.addEntry(
+        DateTime(2026, 8, 1),
+        const LoggedItem(name: 'Avena', kcal: 350, protein: 14),
+      );
 
       final csv = d.toCsv();
       expect(csv, startsWith('date,meal,dish,servings,kcal,protein_g'));
@@ -568,11 +600,13 @@ void main() {
   group('Randomizador consciente del plato', () {
     test('no propone platos en pausa si hay alternativa', () {
       final p = MealProvider();
-      p.addFood(Food(
-        name: 'Aparcado',
-        ingredients: 'x',
-        snoozedUntil: DateTime.now().add(const Duration(days: 7)),
-      ));
+      p.addFood(
+        Food(
+          name: 'Aparcado',
+          ingredients: 'x',
+          snoozedUntil: DateTime.now().add(const Duration(days: 7)),
+        ),
+      );
       p.addFood(const Food(name: 'Disponible', ingredients: 'y'));
 
       p.randomizeActiveWeek(kStandardSlots);
@@ -593,8 +627,9 @@ void main() {
 
     test('las sobras ocupan la toma siguiente', () {
       final p = MealProvider();
-      p.addFood(const Food(
-          name: 'Puchero', ingredients: 'garbanzos', servingsMade: 3));
+      p.addFood(
+        const Food(name: 'Puchero', ingredients: 'garbanzos', servingsMade: 3),
+      );
 
       p.randomizeActiveWeek(kStandardSlots, useLeftovers: true);
       // Al haber un único plato, se ve claro que la cena repite el almuerzo.
@@ -611,8 +646,9 @@ void main() {
 
     test('el coste de la semana suma las raciones planificadas', () {
       final p = MealProvider();
-      p.addFood(const Food(
-          name: 'Pasta', ingredients: 'pasta', costPerServing: 1.5));
+      p.addFood(
+        const Food(name: 'Pasta', ingredients: 'pasta', costPerServing: 1.5),
+      );
       expect(p.weekCost(), isNull);
 
       p.setMeal(0, MealSlot.lunch, 'Pasta');

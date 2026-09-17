@@ -38,8 +38,24 @@ String normalizeText(String input) {
 
 /// Palabras que no aportan nada al comparar ingredientes ("de", "en aceite"…).
 const Set<String> _kStopWords = {
-  'de', 'del', 'la', 'el', 'los', 'las', 'al', 'a', 'con', 'sin', 'y', 'en',
-  'un', 'una', 'unos', 'unas', 'por', 'para',
+  'de',
+  'del',
+  'la',
+  'el',
+  'los',
+  'las',
+  'al',
+  'a',
+  'con',
+  'sin',
+  'y',
+  'en',
+  'un',
+  'una',
+  'unos',
+  'unas',
+  'por',
+  'para',
 };
 
 /// Palabras significativas de un texto, normalizadas y sin relleno.
@@ -80,11 +96,8 @@ bool ingredientsMatch(String a, String b) {
 
 /// Separa el texto libre de ingredientes de un plato ("tomate, pasta, queso")
 /// en sus partes, ya recortadas y sin vacíos.
-List<String> splitIngredients(String text) => text
-    .split(',')
-    .map((e) => e.trim())
-    .where((e) => e.isNotEmpty)
-    .toList();
+List<String> splitIngredients(String text) =>
+    text.split(',').map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
 
 /// Primera letra en mayúscula, resto en minúscula. Para mostrar nombres
 /// agrupados de forma consistente en la lista de la compra.

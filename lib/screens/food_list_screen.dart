@@ -60,8 +60,10 @@ class _FoodListScreenState extends State<FoodListScreen> {
         if (food.prepMinutes != null)
           _Badge(Icons.timer_outlined, '${food.prepMinutes} ${t.minutesShort}'),
         if (food.hasLeftovers)
-          _Badge(Icons.restaurant_outlined,
-              t.servingsMadeCount(food.servingsMade)),
+          _Badge(
+            Icons.restaurant_outlined,
+            t.servingsMadeCount(food.servingsMade),
+          ),
         if (gymEnabled && food.hasMacros) ...[
           _Badge(Icons.local_fire_department_outlined, t.kcalValue(food.kcal!)),
           _Badge(Icons.egg_outlined, '${food.protein} ${t.gramShort}'),
@@ -98,7 +100,8 @@ class _FoodListScreenState extends State<FoodListScreen> {
         provider.addOrReplaceFood(food.copyWith(clearSnooze: true));
       case 'duplicate':
         provider.addOrReplaceFood(
-            food.copyWith(name: '${food.name} (${t.copySuffix})'));
+          food.copyWith(name: '${food.name} (${t.copySuffix})'),
+        );
       case 'delete':
         _confirmDelete(context, provider, food);
     }
@@ -115,21 +118,27 @@ class _FoodListScreenState extends State<FoodListScreen> {
   }) {
     final q = _query.trim().toLowerCase();
     final list = all.where((f) {
-      final matchesQuery = q.isEmpty ||
+      final matchesQuery =
+          q.isEmpty ||
           f.name.toLowerCase().contains(q) ||
           f.ingredients.toLowerCase().contains(q);
       if (ignoreFilters) return matchesQuery;
       final matchesSlot = _slotFilter == null || f.slots.contains(_slotFilter);
-      final matchesMacros = _macrosFilter == null || f.hasMacros == _macrosFilter;
+      final matchesMacros =
+          _macrosFilter == null || f.hasMacros == _macrosFilter;
       final matchesStock = !_cookableOnly || cookable.contains(f.name);
       return matchesQuery && matchesSlot && matchesMacros && matchesStock;
     }).toList();
 
     switch (_sort) {
       case _FoodSort.nameAsc:
-        list.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+        list.sort(
+          (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+        );
       case _FoodSort.nameDesc:
-        list.sort((a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase()));
+        list.sort(
+          (a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase()),
+        );
       case _FoodSort.mostUsed:
         list.sort((a, b) {
           final c = (usage[b.name] ?? 0).compareTo(usage[a.name] ?? 0);
@@ -176,11 +185,17 @@ class _FoodListScreenState extends State<FoodListScreen> {
             onSelected: (s) => setState(() => _sort = s),
             itemBuilder: (_) => [
               PopupMenuItem(
-                  value: _FoodSort.nameAsc, child: Text(t.sortNameAsc)),
+                value: _FoodSort.nameAsc,
+                child: Text(t.sortNameAsc),
+              ),
               PopupMenuItem(
-                  value: _FoodSort.nameDesc, child: Text(t.sortNameDesc)),
+                value: _FoodSort.nameDesc,
+                child: Text(t.sortNameDesc),
+              ),
               PopupMenuItem(
-                  value: _FoodSort.mostUsed, child: Text(t.sortMostUsed)),
+                value: _FoodSort.mostUsed,
+                child: Text(t.sortMostUsed),
+              ),
             ],
           ),
         ],
@@ -275,8 +290,10 @@ class _FoodListScreenState extends State<FoodListScreen> {
                       padding: const EdgeInsets.only(right: 6),
                       child: ChoiceChip(
                         label: Text(t.withMacros),
-                        avatar: const Icon(Icons.local_fire_department_outlined,
-                            size: 16),
+                        avatar: const Icon(
+                          Icons.local_fire_department_outlined,
+                          size: 16,
+                        ),
                         selected: _macrosFilter == true,
                         onSelected: (_) => setState(() => _macrosFilter = true),
                       ),
@@ -303,12 +320,16 @@ class _FoodListScreenState extends State<FoodListScreen> {
                     : const <String, int>{};
                 final cookable = _cookableOnly && !clean
                     ? provider
-                        .cookableNow(context.read<PantryProvider>().items)
-                        .map((f) => f.name)
-                        .toSet()
+                          .cookableNow(context.read<PantryProvider>().items)
+                          .map((f) => f.name)
+                          .toSet()
                     : const <String>{};
-                final foods =
-                    _apply(all, usage, cookable: cookable, ignoreFilters: clean);
+                final foods = _apply(
+                  all,
+                  usage,
+                  cookable: cookable,
+                  ignoreFilters: clean,
+                );
                 _syncBadgeCache(all, gymEnabled, t);
 
                 if (foods.isEmpty) {
@@ -322,7 +343,11 @@ class _FoodListScreenState extends State<FoodListScreen> {
 
                 return ListView.separated(
                   padding: EdgeInsets.fromLTRB(
-                      12, 8, 12, 88 + MediaQuery.viewPaddingOf(context).bottom),
+                    12,
+                    8,
+                    12,
+                    88 + MediaQuery.viewPaddingOf(context).bottom,
+                  ),
                   itemCount: foods.length,
                   separatorBuilder: (_, _) => const SizedBox(height: 8),
                   itemBuilder: (context, index) {
@@ -330,8 +355,7 @@ class _FoodListScreenState extends State<FoodListScreen> {
                     return _FoodCard(
                       food: food,
                       compact: clean,
-                      badges:
-                          clean ? const [] : _badgesOf(food, gymEnabled, t),
+                      badges: clean ? const [] : _badgesOf(food, gymEnabled, t),
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -370,13 +394,15 @@ class _FoodListScreenState extends State<FoodListScreen> {
               // recuperarlo si fue un error.
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(
-                  content: Text(t.deletedItem(food.name)),
-                  action: SnackBarAction(
-                    label: t.undo,
-                    onPressed: () => provider.addOrReplaceFood(food),
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text(t.deletedItem(food.name)),
+                    action: SnackBarAction(
+                      label: t.undo,
+                      onPressed: () => provider.addOrReplaceFood(food),
+                    ),
                   ),
-                ));
+                );
             },
             child: Text(t.delete),
           ),
@@ -456,18 +482,25 @@ class _FoodCard extends StatelessWidget {
                             food.name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: theme.textTheme.titleSmall
-                                ?.copyWith(fontWeight: FontWeight.bold),
+                            style: theme.textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         if (food.favorite)
-                          Icon(Icons.favorite,
-                              size: 15, color: theme.colorScheme.error),
+                          Icon(
+                            Icons.favorite,
+                            size: 15,
+                            color: theme.colorScheme.error,
+                          ),
                         if (food.isSnoozed)
                           Padding(
                             padding: const EdgeInsets.only(left: 4),
-                            child: Icon(Icons.snooze,
-                                size: 15, color: theme.colorScheme.outline),
+                            child: Icon(
+                              Icons.snooze,
+                              size: 15,
+                              color: theme.colorScheme.outline,
+                            ),
                           ),
                       ],
                     ),
@@ -483,9 +516,7 @@ class _FoodCard extends StatelessWidget {
                       Wrap(
                         spacing: 6,
                         runSpacing: 4,
-                        children: [
-                          for (final b in badges) _Pill(badge: b),
-                        ],
+                        children: [for (final b in badges) _Pill(badge: b)],
                       ),
                     ],
                   ],
@@ -512,7 +543,8 @@ class _FoodCard extends StatelessWidget {
   }
 
   /// Las opciones del plato, iguales vengan del menú o de la pulsación larga.
-  List<({String value, String label, IconData icon})> _actions(AppStrings t) => [
+  List<({String value, String label, IconData icon})> _actions(AppStrings t) =>
+      [
         (
           value: 'fav',
           label: food.favorite ? t.unfavourite : t.markFavourite,

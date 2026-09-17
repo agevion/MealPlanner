@@ -39,10 +39,7 @@ void main() {
         'status': 1,
         'product': {
           'product_name': 'Atún en lata',
-          'nutriments': {
-            'energy-kcal_100g': 116,
-            'proteins_100g': 25.5,
-          },
+          'nutriments': {'energy-kcal_100g': 116, 'proteins_100g': 25.5},
         },
       }, '111');
       expect(r!.food.kcal, 116);
@@ -59,8 +56,11 @@ void main() {
           'nutriments': {'energy-kcal_100g': 100, 'proteins_100g': 20},
         },
       };
-      final es =
-          OpenFoodFactsService.parseProduct(producto, '222', t: const AppStringsEs());
+      final es = OpenFoodFactsService.parseProduct(
+        producto,
+        '222',
+        t: const AppStringsEs(),
+      );
       expect(es!.food.name, 'Atún');
 
       // En inglés no hay product_name_en, así que cae al genérico.

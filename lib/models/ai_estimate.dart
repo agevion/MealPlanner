@@ -24,15 +24,15 @@ class AiSuggestion {
   /// Lo pasa a un [Food] del catálogo. Las tomas quedan abiertas (vale para
   /// todas) para que el usuario las ajuste si quiere.
   Food toFood({Set<MealSlot>? slots}) => Food(
-        name: name,
-        ingredients: ingredients,
-        slots: slots ?? const {MealSlot.lunch, MealSlot.dinner},
-        kcal: kcal > 0 ? kcal : null,
-        protein: protein > 0 ? protein : null,
-        tags: tags,
-        prepMinutes: prepMinutes,
-        notes: recipe,
-      );
+    name: name,
+    ingredients: ingredients,
+    slots: slots ?? const {MealSlot.lunch, MealSlot.dinner},
+    kcal: kcal > 0 ? kcal : null,
+    protein: protein > 0 ? protein : null,
+    tags: tags,
+    prepMinutes: prepMinutes,
+    notes: recipe,
+  );
 
   factory AiSuggestion.fromJson(Map<String, dynamic> json) {
     String str(List<String> keys) {
@@ -62,7 +62,8 @@ class AiSuggestion {
       kcal: num_(['kcal', 'calorias', 'calories']) ?? 0,
       protein: num_(['proteina_g', 'proteina', 'protein']) ?? 0,
       prepMinutes: num_(['minutos', 'minutes', 'prepMinutes']),
-      tags: ((json['etiquetas'] ?? json['tags']) as List?)
+      tags:
+          ((json['etiquetas'] ?? json['tags']) as List?)
               ?.map((e) => e.toString())
               .where((e) => e.isNotEmpty)
               .toSet() ??

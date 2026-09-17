@@ -118,14 +118,15 @@ class _TodayScreenState extends State<TodayScreen> {
                 case 'roulette':
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (_) => const RouletteScreen()),
+                    MaterialPageRoute(builder: (_) => const RouletteScreen()),
                   );
               }
             },
             itemBuilder: (_) => [
               PopupMenuItem(
-                  value: 'yesterday', child: Text(t.menuCopyYesterday)),
+                value: 'yesterday',
+                child: Text(t.menuCopyYesterday),
+              ),
               PopupMenuItem(value: 'note', child: Text(t.menuDayNote)),
               PopupMenuItem(value: 'fits', child: Text(t.menuWhatFits)),
               PopupMenuItem(value: 'roulette', child: Text(t.menuRoulette)),
@@ -149,7 +150,11 @@ class _TodayScreenState extends State<TodayScreen> {
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(
-            16, 8, 16, 16 + MediaQuery.viewPaddingOf(context).bottom + 80),
+          16,
+          8,
+          16,
+          16 + MediaQuery.viewPaddingOf(context).bottom + 80,
+        ),
         children: [
           _DayNav(
             label: _prettyDate(t),
@@ -159,9 +164,9 @@ class _TodayScreenState extends State<TodayScreen> {
             onToday: _isToday
                 ? null
                 : () => setState(() {
-                      final n = DateTime.now();
-                      _date = DateTime(n.year, n.month, n.day);
-                    }),
+                    final n = DateTime.now();
+                    _date = DateTime(n.year, n.month, n.day);
+                  }),
           ),
           const SizedBox(height: 12),
           _ProgressCard(
@@ -199,10 +204,9 @@ class _TodayScreenState extends State<TodayScreen> {
           const SizedBox(height: 16),
           Text(
             t.whatYouveHad,
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
           if (entries.isEmpty)
@@ -239,21 +243,25 @@ class _TodayScreenState extends State<TodayScreen> {
     for (final slot in order) {
       final items = indexed.entries.where((e) => e.value.slot == slot).toList();
       if (items.isEmpty) continue;
-      widgets.add(_SlotHeader(
-        icon: slot.icon,
-        label: t.mealSlot(slot),
-        kcal: items.fold(0, (a, b) => a + b.value.totalKcal),
-      ));
+      widgets.add(
+        _SlotHeader(
+          icon: slot.icon,
+          label: t.mealSlot(slot),
+          kcal: items.fold(0, (a, b) => a + b.value.totalKcal),
+        ),
+      );
       widgets.addAll(items.map((e) => _entryTile(e.key, e.value)));
     }
 
     final loose = indexed.entries.where((e) => e.value.slot == null).toList();
     if (loose.isNotEmpty) {
-      widgets.add(_SlotHeader(
-        icon: Icons.more_horiz,
-        label: t.otherSlot,
-        kcal: loose.fold(0, (a, b) => a + b.value.totalKcal),
-      ));
+      widgets.add(
+        _SlotHeader(
+          icon: Icons.more_horiz,
+          label: t.otherSlot,
+          kcal: loose.fold(0, (a, b) => a + b.value.totalKcal),
+        ),
+      );
       widgets.addAll(loose.map((e) => _entryTile(e.key, e.value)));
     }
     return widgets;
@@ -275,8 +283,10 @@ class _TodayScreenState extends State<TodayScreen> {
           color: Theme.of(context).colorScheme.errorContainer,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Icon(Icons.delete_outline,
-            color: Theme.of(context).colorScheme.onErrorContainer),
+        child: Icon(
+          Icons.delete_outline,
+          color: Theme.of(context).colorScheme.onErrorContainer,
+        ),
       ),
       onDismissed: (_) => _removeWithUndo(index, item),
       child: Card(
@@ -284,13 +294,16 @@ class _TodayScreenState extends State<TodayScreen> {
         child: ListTile(
           title: Text(item.name),
           subtitle: Text(
-              '${t.macros(item.totalKcal, item.totalProtein)}$servingsLabel'),
+            '${t.macros(item.totalKcal, item.totalProtein)}$servingsLabel',
+          ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               if (item.timeLabel.isNotEmpty)
-                Text(item.timeLabel,
-                    style: Theme.of(context).textTheme.labelSmall),
+                Text(
+                  item.timeLabel,
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
               IconButton(
                 icon: const Icon(Icons.tune),
                 tooltip: t.adjustAmount,
@@ -311,13 +324,15 @@ class _TodayScreenState extends State<TodayScreen> {
     diary.removeEntryAt(_date, index);
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(
-        content: Text(t.removedItem(item.name)),
-        action: SnackBarAction(
-          label: t.undo,
-          onPressed: () => diary.insertEntryAt(_date, index, item),
+      ..showSnackBar(
+        SnackBar(
+          content: Text(t.removedItem(item.name)),
+          action: SnackBarAction(
+            label: t.undo,
+            onPressed: () => diary.insertEntryAt(_date, index, item),
+          ),
         ),
-      ));
+      );
   }
 
   Future<void> _adjustServings(int index, LoggedItem item) async {
@@ -331,20 +346,28 @@ class _TodayScreenState extends State<TodayScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-              child: Text(t.howMuchOf(item.name),
-                  style: Theme.of(ctx).textTheme.titleMedium),
+              child: Text(
+                t.howMuchOf(item.name),
+                style: Theme.of(ctx).textTheme.titleMedium,
+              ),
             ),
             for (final v in const [0.5, 1.0, 1.5, 2.0, 3.0])
               ListTile(
-                leading: Icon(v == item.servings
-                    ? Icons.radio_button_checked
-                    : Icons.radio_button_unchecked),
-                title: Text(v == 1
-                    ? t.oneServing
-                    : t.servingsCount(
-                        '${v == v.roundToDouble() ? v.toInt() : v}')),
-                subtitle: Text(t.macros(
-                    (item.kcal * v).round(), (item.protein * v).round())),
+                leading: Icon(
+                  v == item.servings
+                      ? Icons.radio_button_checked
+                      : Icons.radio_button_unchecked,
+                ),
+                title: Text(
+                  v == 1
+                      ? t.oneServing
+                      : t.servingsCount(
+                          '${v == v.roundToDouble() ? v.toInt() : v}',
+                        ),
+                ),
+                subtitle: Text(
+                  t.macros((item.kcal * v).round(), (item.protein * v).round()),
+                ),
                 onTap: () => Navigator.pop(ctx, v),
               ),
           ],
@@ -352,9 +375,11 @@ class _TodayScreenState extends State<TodayScreen> {
       ),
     );
     if (value == null || !mounted) return;
-    context
-        .read<DiaryProvider>()
-        .replaceEntryAt(_date, index, item.copyWith(servings: value));
+    context.read<DiaryProvider>().replaceEntryAt(
+      _date,
+      index,
+      item.copyWith(servings: value),
+    );
   }
 
   /// "Me quedan X kcal, ¿qué me cabe?": lista los platos del catálogo que
@@ -366,12 +391,13 @@ class _TodayScreenState extends State<TodayScreen> {
       return;
     }
     final left = targetKcal - eaten;
-    final candidates = context
-        .read<MealProvider>()
-        .foods
-        .where((f) => f.hasMacros && f.kcal! <= left && !f.isSnoozed)
-        .toList()
-      ..sort((a, b) => b.protein!.compareTo(a.protein!));
+    final candidates =
+        context
+            .read<MealProvider>()
+            .foods
+            .where((f) => f.hasMacros && f.kcal! <= left && !f.isSnoozed)
+            .toList()
+          ..sort((a, b) => b.protein!.compareTo(a.protein!));
 
     showModalBottomSheet<void>(
       context: context,
@@ -441,13 +467,15 @@ class _TodayScreenState extends State<TodayScreen> {
     diary.clearDay(_date);
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(
-        content: Text(t.dayCleared),
-        action: SnackBarAction(
-          label: t.undo,
-          onPressed: () => diary.addEntries(_date, backup),
+      ..showSnackBar(
+        SnackBar(
+          content: Text(t.dayCleared),
+          action: SnackBarAction(
+            label: t.undo,
+            onPressed: () => diary.addEntries(_date, backup),
+          ),
         ),
-      ));
+      );
   }
 
   /// El contador de agua cuando su tarjeta no está a la vista (interfaz limpia).
@@ -476,7 +504,8 @@ class _TodayScreenState extends State<TodayScreen> {
   Future<void> _editWeight(double? current) async {
     final t = context.t;
     final ctrl = TextEditingController(
-        text: current != null ? current.toStringAsFixed(1) : '');
+      text: current != null ? current.toStringAsFixed(1) : '',
+    );
     final value = await showDialog<double?>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -505,7 +534,9 @@ class _TodayScreenState extends State<TodayScreen> {
           ),
           FilledButton(
             onPressed: () => Navigator.pop(
-                ctx, double.tryParse(ctrl.text.replaceAll(',', '.'))),
+              ctx,
+              double.tryParse(ctrl.text.replaceAll(',', '.')),
+            ),
             child: Text(t.save),
           ),
         ],
@@ -592,15 +623,15 @@ class _TodayScreenState extends State<TodayScreen> {
   void _logFood(Food food, MealSlot? slot) {
     final now = DateTime.now();
     context.read<DiaryProvider>().addEntry(
-          _date,
-          LoggedItem(
-            name: food.name,
-            kcal: food.kcal ?? 0,
-            protein: food.protein ?? 0,
-            slot: slot ?? food.slots.firstOrNull,
-            minutesOfDay: now.hour * 60 + now.minute,
-          ),
-        );
+      _date,
+      LoggedItem(
+        name: food.name,
+        kcal: food.kcal ?? 0,
+        protein: food.protein ?? 0,
+        slot: slot ?? food.slots.firstOrNull,
+        minutesOfDay: now.hour * 60 + now.minute,
+      ),
+    );
     _snack(context.t.addedItem(food.name));
   }
 
@@ -738,8 +769,9 @@ class _DayNav extends StatelessWidget {
               child: Center(
                 child: Text(
                   label,
-                  style: theme.textTheme.titleMedium
-                      ?.copyWith(fontWeight: FontWeight.bold),
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -813,7 +845,7 @@ class _PlanSection extends StatelessWidget {
           subtitle: Text(
             food != null && food.hasMacros
                 ? '${t.mealSlot(slot)} · '
-                    '${t.macrosShort(food.kcal!, food.protein!)}'
+                      '${t.macrosShort(food.kcal!, food.protein!)}'
                 : t.mealSlot(slot),
           ),
         ),
@@ -844,13 +876,17 @@ class _PlanSection extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.event_available_outlined,
-                    size: 18, color: theme.colorScheme.primary),
+                Icon(
+                  Icons.event_available_outlined,
+                  size: 18,
+                  color: theme.colorScheme.primary,
+                ),
                 const SizedBox(width: 8),
                 Text(
                   t.plannedForThisDay,
-                  style: theme.textTheme.titleSmall
-                      ?.copyWith(fontWeight: FontWeight.bold),
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -945,9 +981,11 @@ class _WeightTile extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: ListTile(
         leading: const Icon(Icons.monitor_weight_outlined),
-        title: Text(weight == null
-            ? context.t.logWeight
-            : '${weight!.toStringAsFixed(1)} kg'),
+        title: Text(
+          weight == null
+              ? context.t.logWeight
+              : '${weight!.toStringAsFixed(1)} kg',
+        ),
         subtitle: Text(context.t.weightSubtitle),
         trailing: const Icon(Icons.chevron_right),
         onTap: onTap,
@@ -982,14 +1020,13 @@ class _AddEntrySheetState extends State<_AddEntrySheet> {
     final q = _query.trim().toLowerCase();
     final list = q.isEmpty
         ? widget.foods
-        : widget.foods
-            .where((f) => f.name.toLowerCase().contains(q))
-            .toList();
+        : widget.foods.where((f) => f.name.toLowerCase().contains(q)).toList();
 
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.only(
-            bottom: MediaQuery.viewInsetsOf(context).bottom),
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
+        ),
         child: ConstrainedBox(
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height * 0.75,
@@ -1041,11 +1078,13 @@ class _AddEntrySheetState extends State<_AddEntrySheet> {
                             leading: freq > 0
                                 ? Tooltip(
                                     message: t.youEatThisOften,
-                                    child: Icon(Icons.star,
-                                        size: 18,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary),
+                                    child: Icon(
+                                      Icons.star,
+                                      size: 18,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
                                   )
                                 : const Icon(Icons.restaurant, size: 18),
                             trailing: const Icon(Icons.add),
@@ -1089,7 +1128,9 @@ class _ProgressCard extends StatelessWidget {
     final t = context.t;
     final hasTargets = targetKcal != null && targetProtein != null;
     final proteinMet =
-        targetProtein != null && targetProtein! > 0 && protein >= targetProtein!;
+        targetProtein != null &&
+        targetProtein! > 0 &&
+        protein >= targetProtein!;
 
     return Card(
       color: theme.colorScheme.surfaceContainerHighest,
@@ -1177,10 +1218,10 @@ class _Badge extends StatelessWidget {
         const SizedBox(width: 5),
         Text(
           text,
-          style: Theme.of(context)
-              .textTheme
-              .labelLarge
-              ?.copyWith(color: color, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color: color,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );
@@ -1219,8 +1260,10 @@ class _KcalRing extends StatelessWidget {
                   color: theme.colorScheme.primary,
                 ),
               ),
-              Text(context.t.ofTarget(target),
-                  style: theme.textTheme.labelSmall),
+              Text(
+                context.t.ofTarget(target),
+                style: theme.textTheme.labelSmall,
+              ),
               Text(context.t.kcal, style: theme.textTheme.labelSmall),
             ],
           ),

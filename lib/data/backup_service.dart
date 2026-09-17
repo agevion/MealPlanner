@@ -110,7 +110,9 @@ class BackupService {
             if (v != null) await prefs.setDouble(key, v);
           case 'stringList':
             await prefs.setStringList(
-                key, (value as List).map((e) => e.toString()).toList());
+              key,
+              (value as List).map((e) => e.toString()).toList(),
+            );
           default:
             await prefs.setString(key, value.toString());
         }

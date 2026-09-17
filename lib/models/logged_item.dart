@@ -57,20 +57,20 @@ class LoggedItem {
   }
 
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'kcal': kcal,
-        'protein': protein,
-        if (slot != null) 'slot': slot!.id,
-        if (minutesOfDay != null) 'minutesOfDay': minutesOfDay,
-        if (servings != 1) 'servings': servings,
-      };
+    'name': name,
+    'kcal': kcal,
+    'protein': protein,
+    if (slot != null) 'slot': slot!.id,
+    if (minutesOfDay != null) 'minutesOfDay': minutesOfDay,
+    if (servings != 1) 'servings': servings,
+  };
 
   factory LoggedItem.fromJson(Map<String, dynamic> json) => LoggedItem(
-        name: json['name'] as String? ?? '',
-        kcal: (json['kcal'] as num?)?.toInt() ?? 0,
-        protein: (json['protein'] as num?)?.toInt() ?? 0,
-        slot: mealSlotFromId(json['slot'] as String? ?? ''),
-        minutesOfDay: (json['minutesOfDay'] as num?)?.toInt(),
-        servings: (json['servings'] as num?)?.toDouble() ?? 1,
-      );
+    name: json['name'] as String? ?? '',
+    kcal: (json['kcal'] as num?)?.toInt() ?? 0,
+    protein: (json['protein'] as num?)?.toInt() ?? 0,
+    slot: mealSlotFromId(json['slot'] as String? ?? ''),
+    minutesOfDay: (json['minutesOfDay'] as num?)?.toInt(),
+    servings: (json['servings'] as num?)?.toDouble() ?? 1,
+  );
 }

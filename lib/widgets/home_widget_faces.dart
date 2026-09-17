@@ -172,7 +172,10 @@ class TodayFace extends StatelessWidget {
                   ),
                   Text(
                     '/$target',
-                    style: TextStyle(fontSize: 11, color: scheme.onSurfaceVariant),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: scheme.onSurfaceVariant,
+                    ),
                   ),
                 ],
               ),
@@ -198,7 +201,10 @@ class TodayFace extends StatelessWidget {
                   const Spacer(),
                   Text(
                     '${data.protein} / ${data.targetProtein} ${t.gramShort}',
-                    style: TextStyle(fontSize: 11, color: scheme.onSurfaceVariant),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: scheme.onSurfaceVariant,
+                    ),
                   ),
                 ],
               ),
@@ -299,7 +305,9 @@ class NextMealFace extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: data.name == null ? scheme.onSurfaceVariant : scheme.onSurface,
+              color: data.name == null
+                  ? scheme.onSurfaceVariant
+                  : scheme.onSurface,
               height: 1.1,
             ),
           ),
@@ -363,8 +371,7 @@ class ShoppingFace extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 3),
               child: Row(
                 children: [
-                  Icon(Icons.circle,
-                      size: 5, color: scheme.onSurfaceVariant),
+                  Icon(Icons.circle, size: 5, color: scheme.onSurfaceVariant),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -468,10 +475,7 @@ class _FaceHeader extends StatelessWidget {
             ),
           ),
         ),
-        if (trailing != null) ...[
-          const SizedBox(width: 8),
-          trailing!,
-        ],
+        if (trailing != null) ...[const SizedBox(width: 8), trailing!],
       ],
     );
   }

@@ -65,13 +65,27 @@ void main() {
   group('PantryProvider.repeatabilityByName', () {
     test('ante nombres duplicados se queda con el más restrictivo', () {
       final p = PantryProvider();
-      p.addOrReplace(const PantryIngredient(
-          name: 'Atún', category: 'Proteínas', unit: 'lata', kcal: 60, protein: 14,
-          repeat: Repeatability.moderate));
+      p.addOrReplace(
+        const PantryIngredient(
+          name: 'Atún',
+          category: 'Proteínas',
+          unit: 'lata',
+          kcal: 60,
+          protein: 14,
+          repeat: Repeatability.moderate,
+        ),
+      );
       // Mismo nombre normalizado con repetibilidad más restrictiva.
-      p.addOrReplace(const PantryIngredient(
-          name: 'atún', category: 'Proteínas', unit: 'lata', kcal: 60, protein: 14,
-          repeat: Repeatability.limited));
+      p.addOrReplace(
+        const PantryIngredient(
+          name: 'atún',
+          category: 'Proteínas',
+          unit: 'lata',
+          kcal: 60,
+          protein: 14,
+          repeat: Repeatability.limited,
+        ),
+      );
       // Las claves van normalizadas SIN acentos, para que "atún" y "atun"
       // se traten como el mismo ingrediente.
       final map = p.repeatabilityByName();
@@ -90,16 +104,23 @@ void main() {
       var pollo = 0;
       for (var run = 0; run < 60; run++) {
         final p = MealProvider();
-        p.addFood(const Food(
+        p.addFood(
+          const Food(
             name: 'Plato de chorizo',
             ingredients: 'chorizo, arroz',
-            slots: {MealSlot.lunch}));
-        p.addFood(const Food(
+            slots: {MealSlot.lunch},
+          ),
+        );
+        p.addFood(
+          const Food(
             name: 'Plato de pollo',
             ingredients: 'pollo, arroz',
-            slots: {MealSlot.lunch}));
-        p.randomizeActiveWeek(const [MealSlot.lunch],
-            repeatByIngredient: repeat);
+            slots: {MealSlot.lunch},
+          ),
+        );
+        p.randomizeActiveWeek(const [
+          MealSlot.lunch,
+        ], repeatByIngredient: repeat);
         for (var d = 0; d < 7; d++) {
           switch (p.activeWeek.mealAt(MealSlot.lunch, d)) {
             case 'Plato de chorizo':

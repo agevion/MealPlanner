@@ -88,7 +88,9 @@ class _PantryScreenState extends State<PantryScreen> {
     final t = context.t;
     final product = await Navigator.push<ScannedProduct>(
       context,
-      MaterialPageRoute(builder: (_) => const ScanFoodScreen(asComponent: true)),
+      MaterialPageRoute(
+        builder: (_) => const ScanFoodScreen(asComponent: true),
+      ),
     );
     if (product == null || !mounted) return;
     final result = await showDialog<PantryIngredient>(
@@ -121,8 +123,9 @@ class _PantryScreenState extends State<PantryScreen> {
         unit: '',
         gramsPerUnit: known ? servingGrams : 0,
         kcal: known ? ((p.kcalPer100 ?? 0) * servingGrams / 100).round() : 0,
-        protein:
-            known ? ((p.proteinPer100 ?? 0) * servingGrams / 100).round() : 0,
+        protein: known
+            ? ((p.proteinPer100 ?? 0) * servingGrams / 100).round()
+            : 0,
         barcode: p.barcode,
       );
     }
@@ -172,7 +175,11 @@ class _PantryScreenState extends State<PantryScreen> {
     }
     return ListView.builder(
       padding: EdgeInsets.fromLTRB(
-          12, 8, 12, 88 + MediaQuery.viewPaddingOf(context).bottom),
+        12,
+        8,
+        12,
+        88 + MediaQuery.viewPaddingOf(context).bottom,
+      ),
       itemCount: items.length,
       itemBuilder: (_, i) =>
           _IngredientTile(item: items[i], onTap: () => _edit(items[i])),
@@ -195,8 +202,7 @@ class _PantryScreenState extends State<PantryScreen> {
                 context.read<PantryProvider>().restorePresets();
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                      SnackBar(content: Text(t.presetsRestored)));
+                  ..showSnackBar(SnackBar(content: Text(t.presetsRestored)));
               },
             ),
           ],
@@ -301,8 +307,10 @@ class _IngredientTile extends StatelessWidget {
         title: Row(
           children: [
             Expanded(
-              child: Text(item.name,
-                  style: const TextStyle(fontWeight: FontWeight.w500)),
+              child: Text(
+                item.name,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
             ),
             if (item.stock > 0)
               Container(
@@ -312,7 +320,9 @@ class _IngredientTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
-                  t.haveInStock('${item.stock == item.stock.roundToDouble() ? item.stock.toInt() : item.stock}'),
+                  t.haveInStock(
+                    '${item.stock == item.stock.roundToDouble() ? item.stock.toInt() : item.stock}',
+                  ),
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: theme.colorScheme.onPrimaryContainer,
                     fontWeight: FontWeight.bold,
@@ -324,8 +334,10 @@ class _IngredientTile extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('${t.portionLabel(item.unit, item.gramsPerUnit)} · '
-                '${t.macrosShort(item.kcal, item.protein)}'),
+            Text(
+              '${t.portionLabel(item.unit, item.gramsPerUnit)} · '
+              '${t.macrosShort(item.kcal, item.protein)}',
+            ),
             if (item.expiry != null)
               Text(
                 item.expiresSoon
@@ -342,11 +354,13 @@ class _IngredientTile extends StatelessWidget {
         ),
         trailing: Tooltip(
           message: t.repeatabilityHint(item.repeat),
-          child: Icon(item.repeat.icon,
-              size: 20,
-              color: item.repeat == Repeatability.limited
-                  ? theme.colorScheme.error
-                  : theme.colorScheme.outline),
+          child: Icon(
+            item.repeat.icon,
+            size: 20,
+            color: item.repeat == Repeatability.limited
+                ? theme.colorScheme.error
+                : theme.colorScheme.outline,
+          ),
         ),
         onTap: onTap,
       ),
@@ -417,21 +431,25 @@ class _IngredientEditorState extends State<_IngredientEditor> {
     _unit = TextEditingController(text: e?.unit ?? '');
     _name = TextEditingController(text: e?.name ?? '');
     _grams = TextEditingController(
-        text: (e != null && e.gramsPerUnit > 0)
-            ? '${e.gramsPerUnit.round()}'
-            : '');
+      text: (e != null && e.gramsPerUnit > 0)
+          ? '${e.gramsPerUnit.round()}'
+          : '',
+    );
     _kcal = TextEditingController(
-        text: (e != null && e.kcal > 0) ? '${e.kcal}' : '');
+      text: (e != null && e.kcal > 0) ? '${e.kcal}' : '',
+    );
     _protein = TextEditingController(
-        text: (e != null && e.protein > 0) ? '${e.protein}' : '');
+      text: (e != null && e.protein > 0) ? '${e.protein}' : '',
+    );
     _category = e?.category ?? kIngredientCategories.first;
     _repeat = e?.repeat ?? Repeatability.free;
     _stock = TextEditingController(
-        text: (e != null && e.stock > 0)
-            ? (e.stock == e.stock.roundToDouble()
+      text: (e != null && e.stock > 0)
+          ? (e.stock == e.stock.roundToDouble()
                 ? '${e.stock.toInt()}'
                 : '${e.stock}')
-            : '');
+          : '',
+    );
     _expiry = e?.expiry;
   }
 
@@ -487,8 +505,8 @@ class _IngredientEditorState extends State<_IngredientEditor> {
         name: name,
         category: _category,
         unit: _unit.text.trim().isEmpty
-          ? context.t.homeUnit('unidad')
-          : _unit.text.trim(),
+            ? context.t.homeUnit('unidad')
+            : _unit.text.trim(),
         kcal: int.tryParse(_kcal.text) ?? 0,
         protein: int.tryParse(_protein.text) ?? 0,
         gramsPerUnit: double.tryParse(_grams.text.replaceAll(',', '.')) ?? 0,
@@ -622,13 +640,17 @@ class _IngredientEditorState extends State<_IngredientEditor> {
               items: [
                 for (final c in kIngredientCategories)
                   DropdownMenuItem(
-                      value: c, child: Text(t.ingredientCategory(c))),
+                    value: c,
+                    child: Text(t.ingredientCategory(c)),
+                  ),
               ],
               onChanged: (v) => setState(() => _category = v ?? _category),
             ),
             const SizedBox(height: 16),
-            Text(t.repeatQuestion,
-                style: Theme.of(context).textTheme.labelLarge),
+            Text(
+              t.repeatQuestion,
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -643,27 +665,34 @@ class _IngredientEditorState extends State<_IngredientEditor> {
               ],
             ),
             const SizedBox(height: 6),
-            Text(t.repeatabilityHint(_repeat),
-                style: Theme.of(context).textTheme.bodySmall),
+            Text(
+              t.repeatabilityHint(_repeat),
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
             const SizedBox(height: 16),
-            Text(t.haveAtHomeQuestion,
-                style: Theme.of(context).textTheme.labelLarge),
+            Text(
+              t.haveAtHomeQuestion,
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
             const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(
                   child: TextField(
                     controller: _stock,
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
                     ],
                     decoration: InputDecoration(
                       labelText: t.quantity,
-                      helperText: t.stockHelper(_unit.text.isEmpty
-                          ? t.unitsFallback
-                          : t.homeUnit(_unit.text)),
+                      helperText: t.stockHelper(
+                        _unit.text.isEmpty
+                            ? t.unitsFallback
+                            : t.homeUnit(_unit.text),
+                      ),
                       border: const OutlineInputBorder(),
                     ),
                   ),

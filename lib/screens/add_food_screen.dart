@@ -75,19 +75,23 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     _base = widget.existing ?? widget.prefill;
     _nameCtrl = TextEditingController(text: _base?.name ?? '');
     _ingredientsCtrl = TextEditingController(text: _base?.ingredients ?? '');
-    _kcalCtrl =
-        TextEditingController(text: _base?.kcal != null ? '${_base!.kcal}' : '');
+    _kcalCtrl = TextEditingController(
+      text: _base?.kcal != null ? '${_base!.kcal}' : '',
+    );
     _proteinCtrl = TextEditingController(
-        text: _base?.protein != null ? '${_base!.protein}' : '');
+      text: _base?.protein != null ? '${_base!.protein}' : '',
+    );
     _slots = {...?_base?.slots};
     _components = [...?_base?.components];
     _notesCtrl = TextEditingController(text: _base?.notes ?? '');
     _prepCtrl = TextEditingController(
-        text: _base?.prepMinutes != null ? '${_base!.prepMinutes}' : '');
+      text: _base?.prepMinutes != null ? '${_base!.prepMinutes}' : '',
+    );
     _costCtrl = TextEditingController(
-        text: _base?.costPerServing != null
-            ? _base!.costPerServing!.toStringAsFixed(2)
-            : '');
+      text: _base?.costPerServing != null
+          ? _base!.costPerServing!.toStringAsFixed(2)
+          : '',
+    );
     _tags = {...?_base?.tags};
     _servingsMade = _base?.servingsMade ?? 1;
     _rating = _base?.rating ?? 0;
@@ -141,7 +145,10 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
       setState(() => _photoPath = '');
       return;
     }
-    final picked = await ImagePicker().pickImage(source: source, maxWidth: 1200);
+    final picked = await ImagePicker().pickImage(
+      source: source,
+      maxWidth: 1200,
+    );
     if (picked != null && mounted) {
       setState(() => _photoPath = picked.path);
     }
@@ -167,20 +174,25 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     final head = i < 0 ? '' : text.substring(0, i + 1);
     final completed = head.isEmpty ? '$name, ' : '$head $name, ';
     _ingredientsCtrl.text = completed;
-    _ingredientsCtrl.selection =
-        TextSelection.collapsed(offset: completed.length);
+    _ingredientsCtrl.selection = TextSelection.collapsed(
+      offset: completed.length,
+    );
     setState(() => _ingredientQuery = '');
   }
 
   void _setQty(int i, double q) {
-    setState(() =>
-        _components[i] = _components[i].copyWith(quantity: q < 0.5 ? 0.5 : q));
+    setState(
+      () =>
+          _components[i] = _components[i].copyWith(quantity: q < 0.5 ? 0.5 : q),
+    );
   }
 
   Future<void> _addScanned() async {
     final product = await Navigator.push<ScannedProduct>(
       context,
-      MaterialPageRoute(builder: (_) => const ScanFoodScreen(asComponent: true)),
+      MaterialPageRoute(
+        builder: (_) => const ScanFoodScreen(asComponent: true),
+      ),
     );
     if (product == null || !mounted) return;
     // El selector de porción calcula cuánto se usa realmente (gramos o
@@ -271,9 +283,9 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     }
 
     if (name.isEmpty || ingredients.isEmpty) {
-      _snack(gymEnabled
-          ? t.pleaseCompleteName
-          : t.pleaseCompleteNameAndIngredients);
+      _snack(
+        gymEnabled ? t.pleaseCompleteName : t.pleaseCompleteNameAndIngredients,
+      );
       return;
     }
 
@@ -346,7 +358,11 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
       appBar: AppBar(title: Text(_isEditing ? t.editMeal : t.addMeal)),
       body: ListView(
         padding: EdgeInsets.fromLTRB(
-            16, 16, 16, 16 + MediaQuery.viewPaddingOf(context).bottom),
+          16,
+          16,
+          16,
+          16 + MediaQuery.viewPaddingOf(context).bottom,
+        ),
         children: [
           if (widget.prefillNote != null && !_isEditing) ...[
             _Banner(
@@ -376,9 +392,9 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                     Row(
                       children: [
                         IconButton(
-                          icon: Icon(_favorite
-                              ? Icons.favorite
-                              : Icons.favorite_border),
+                          icon: Icon(
+                            _favorite ? Icons.favorite : Icons.favorite_border,
+                          ),
                           color: _favorite ? theme.colorScheme.error : null,
                           tooltip: t.favourite,
                           onPressed: () =>
@@ -389,14 +405,16 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                             visualDensity: VisualDensity.compact,
                             padding: EdgeInsets.zero,
                             constraints: const BoxConstraints(
-                                minWidth: 30, minHeight: 30),
+                              minWidth: 30,
+                              minHeight: 30,
+                            ),
                             icon: Icon(
                               i <= _rating ? Icons.star : Icons.star_border,
                               size: 20,
                             ),
                             color: theme.colorScheme.primary,
-                            onPressed: () => setState(
-                                () => _rating = _rating == i ? 0 : i),
+                            onPressed: () =>
+                                setState(() => _rating = _rating == i ? 0 : i),
                           ),
                       ],
                     ),
@@ -454,7 +472,8 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                 minLines: 2,
                 maxLines: 5,
                 textCapitalization: TextCapitalization.sentences,
-                onChanged: (v) => setState(() => _ingredientQuery = _lastToken(v)),
+                onChanged: (v) =>
+                    setState(() => _ingredientQuery = _lastToken(v)),
                 decoration: InputDecoration(
                   labelText: t.ingredientsTextLabel,
                   helperText: t.ingredientsTextHelper,
@@ -472,8 +491,10 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
               Row(
                 children: [
                   Expanded(
-                    child: Text(t.nutritionPerServing,
-                        style: theme.textTheme.titleSmall),
+                    child: Text(
+                      t.nutritionPerServing,
+                      style: theme.textTheme.titleSmall,
+                    ),
                   ),
                   TextButton.icon(
                     onPressed: _estimateWithAi,
@@ -497,8 +518,9 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                         labelText: t.calories,
                         suffixText: t.kcal,
                         border: const OutlineInputBorder(),
-                        prefixIcon:
-                            const Icon(Icons.local_fire_department_outlined),
+                        prefixIcon: const Icon(
+                          Icons.local_fire_department_outlined,
+                        ),
                       ),
                     ),
                   ),
@@ -538,10 +560,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
             ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              t.ifNoneAllApply,
-              style: theme.textTheme.bodySmall,
-            ),
+            child: Text(t.ifNoneAllApply, style: theme.textTheme.bodySmall),
           ),
           const SizedBox(height: 24),
           Text(t.tagsTitle, style: theme.textTheme.titleSmall),
@@ -588,8 +607,9 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
               Expanded(
                 child: TextField(
                   controller: _costCtrl,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
                   ],
@@ -607,9 +627,11 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.restaurant_outlined),
             title: Text(t.servingsMadeTitle),
-            subtitle: Text(_servingsMade > 1
-                ? t.servingsMadeMulti(_servingsMade)
-                : t.servingsMadeOne),
+            subtitle: Text(
+              _servingsMade > 1
+                  ? t.servingsMadeMulti(_servingsMade)
+                  : t.servingsMadeOne,
+            ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -686,8 +708,10 @@ class _PhotoBox extends StatelessWidget {
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.add_a_photo_outlined,
-                      color: theme.colorScheme.outline),
+                  Icon(
+                    Icons.add_a_photo_outlined,
+                    color: theme.colorScheme.outline,
+                  ),
                   const SizedBox(height: 4),
                   Text(context.t.photo, style: theme.textTheme.labelSmall),
                 ],
@@ -747,8 +771,9 @@ class _Banner extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: theme.textTheme.bodySmall
-                  ?.copyWith(color: theme.colorScheme.onSecondaryContainer),
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSecondaryContainer,
+              ),
             ),
           ),
         ],
@@ -788,13 +813,16 @@ class _ComponentTile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(component.name,
-                        style:
-                            const TextStyle(fontWeight: FontWeight.w500)),
+                    Text(
+                      component.name,
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
                     const SizedBox(height: 2),
                     Text(
                       context.t.macrosShort(
-                          component.totalKcal, component.totalProtein),
+                        component.totalKcal,
+                        component.totalProtein,
+                      ),
                       style: theme.textTheme.bodySmall,
                     ),
                   ],
@@ -833,8 +861,10 @@ class _TotalCard extends StatelessWidget {
         padding: const EdgeInsets.all(14),
         child: Row(
           children: [
-            Icon(Icons.insights_outlined,
-                color: theme.colorScheme.onPrimaryContainer),
+            Icon(
+              Icons.insights_outlined,
+              color: theme.colorScheme.onPrimaryContainer,
+            ),
             const SizedBox(width: 10),
             Expanded(
               child: Text(
@@ -875,7 +905,8 @@ class _ComponentDialogState extends State<_ComponentDialog> {
     _kcal = TextEditingController(text: c != null ? '${c.kcal}' : '');
     _protein = TextEditingController(text: c != null ? '${c.protein}' : '');
     _qty = TextEditingController(
-        text: c != null ? _AddFoodScreenState._qtyStr(c.quantity) : '1');
+      text: c != null ? _AddFoodScreenState._qtyStr(c.quantity) : '1',
+    );
   }
 
   @override
@@ -954,8 +985,9 @@ class _ComponentDialogState extends State<_ComponentDialog> {
               Expanded(
                 child: TextField(
                   controller: _qty,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
                   ],
@@ -980,10 +1012,7 @@ class _ComponentDialogState extends State<_ComponentDialog> {
           onPressed: () => Navigator.pop(context),
           child: Text(t.cancel),
         ),
-        FilledButton(
-          onPressed: _save,
-          child: Text(editing ? t.save : t.add),
-        ),
+        FilledButton(onPressed: _save, child: Text(editing ? t.save : t.add)),
       ],
     );
   }

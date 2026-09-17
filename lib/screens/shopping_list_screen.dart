@@ -72,8 +72,10 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
       ),
       body: Consumer<MealProvider>(
         builder: (context, provider, _) {
-          final groups =
-              provider.shoppingListForActiveWeek(pantry: pantry.items, t: t);
+          final groups = provider.shoppingListForActiveWeek(
+            pantry: pantry.items,
+            t: t,
+          );
           if (groups.isEmpty) return const _EmptyState();
 
           final visible = _hideChecked
@@ -101,17 +103,23 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
               Expanded(
                 child: ListView(
                   padding: EdgeInsets.fromLTRB(
-                      8, 0, 8, 88 + MediaQuery.viewPaddingOf(context).bottom),
+                    8,
+                    0,
+                    8,
+                    88 + MediaQuery.viewPaddingOf(context).bottom,
+                  ),
                   children: [
                     for (final category in categories) ...[
                       _CategoryHeader(
                         title: t.ingredientCategory(category),
                         count: byCategory[category]!.length,
                       ),
-                      for (final group in byCategory[category]!
-                        ..sort((a, b) => a.name
-                            .toLowerCase()
-                            .compareTo(b.name.toLowerCase())))
+                      for (final group
+                          in byCategory[category]!..sort(
+                            (a, b) => a.name.toLowerCase().compareTo(
+                              b.name.toLowerCase(),
+                            ),
+                          ))
                         _ItemTile(
                           group: group,
                           checked: provider.isChecked(group.name),
@@ -120,8 +128,9 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                           onToggle: (v) =>
                               provider.toggleChecked(group.name, v),
                           onDelete: group.manual
-                              ? () =>
-                                  provider.removeManualShoppingItem(group.name)
+                              ? () => provider.removeManualShoppingItem(
+                                  group.name,
+                                )
                               : null,
                         ),
                     ],
@@ -140,10 +149,12 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     final t = context.t;
     switch (value) {
       case 'all':
-        provider.setAllChecked(provider
-            .shoppingListForActiveWeek(pantry: pantry.items, t: t)
-            .map((g) => g.name)
-            .toList());
+        provider.setAllChecked(
+          provider
+              .shoppingListForActiveWeek(pantry: pantry.items, t: t)
+              .map((g) => g.name)
+              .toList(),
+        );
       case 'none':
         provider.clearChecks();
       case 'hide':
@@ -156,8 +167,11 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
           subject: t.shoppingShareSubject,
         );
       case 'copy':
-        await Clipboard.setData(ClipboardData(
-            text: provider.shoppingListAsText(pantry: pantry.items, t: t)));
+        await Clipboard.setData(
+          ClipboardData(
+            text: provider.shoppingListAsText(pantry: pantry.items, t: t),
+          ),
+        );
         if (mounted) _snack(t.listCopied);
       case 'recurring':
         if (mounted) _recurringDialog();
@@ -178,10 +192,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                t.recurringItemsBody,
-                style: const TextStyle(fontSize: 13),
-              ),
+              Text(t.recurringItemsBody, style: const TextStyle(fontSize: 13)),
               const SizedBox(height: 12),
               Wrap(
                 spacing: 8,
@@ -201,10 +212,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: Text(t.close),
-          ),
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(t.close)),
         ],
       ),
     );
@@ -320,9 +328,7 @@ class _CategoryHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          Expanded(
-            child: Divider(color: theme.colorScheme.outlineVariant),
-          ),
+          Expanded(child: Divider(color: theme.colorScheme.outlineVariant)),
           const SizedBox(width: 8),
           Text('$count', style: theme.textTheme.labelSmall),
         ],
@@ -354,14 +360,15 @@ class _ItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final titleStyle = (big
-            ? theme.textTheme.titleLarge
-            : theme.textTheme.bodyLarge)
-        ?.copyWith(
-      decoration: checked ? TextDecoration.lineThrough : TextDecoration.none,
-      fontWeight: FontWeight.w500,
-      color: checked ? theme.colorScheme.outline : null,
-    );
+    final titleStyle =
+        (big ? theme.textTheme.titleLarge : theme.textTheme.bodyLarge)
+            ?.copyWith(
+              decoration: checked
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none,
+              fontWeight: FontWeight.w500,
+              color: checked ? theme.colorScheme.outline : null,
+            );
 
     return CheckboxListTile(
       value: checked,
@@ -423,11 +430,13 @@ class _EmptyState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.shopping_cart_outlined,
-                size: 72, color: theme.colorScheme.outline),
+            Icon(
+              Icons.shopping_cart_outlined,
+              size: 72,
+              color: theme.colorScheme.outline,
+            ),
             const SizedBox(height: 16),
-            Text(context.t.emptyListTitle,
-                style: theme.textTheme.titleMedium),
+            Text(context.t.emptyListTitle, style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             Text(
               context.t.emptyListSubtitle,

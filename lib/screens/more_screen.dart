@@ -31,7 +31,8 @@ class MoreScreen extends StatelessWidget {
       appBar: AppBar(title: Text(t.moreTitle)),
       body: ListView(
         padding: EdgeInsets.only(
-            bottom: 24 + MediaQuery.viewPaddingOf(context).bottom),
+          bottom: 24 + MediaQuery.viewPaddingOf(context).bottom,
+        ),
         children: [
           // La tarjeta de cifras es decoración: lo primero que sobra cuando se
           // pide una pantalla despejada.
@@ -46,29 +47,37 @@ class MoreScreen extends StatelessWidget {
             icon: Icons.add_circle_outline,
             title: t.addMealTitle,
             subtitle: t.addMealSubtitle,
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const AddFoodScreen())),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const AddFoodScreen()),
+            ),
           ),
           _Tile(
             icon: Icons.kitchen_outlined,
             title: t.myIngredientsTitle,
             subtitle: t.myIngredientsSubtitle,
             onTap: () => Navigator.push(
-                context, MaterialPageRoute(builder: (_) => const PantryScreen())),
+              context,
+              MaterialPageRoute(builder: (_) => const PantryScreen()),
+            ),
           ),
           _Tile(
             icon: Icons.auto_awesome,
             title: t.giveIdeasTitle,
             subtitle: t.giveIdeasSubtitle,
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const AiSuggestScreen())),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const AiSuggestScreen()),
+            ),
           ),
           _Tile(
             icon: Icons.casino_outlined,
             title: t.rouletteTitle,
             subtitle: t.rouletteSubtitle,
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const RouletteScreen())),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const RouletteScreen()),
+            ),
           ),
           _SectionHeader(t.sectionProgress),
           _Tile(
@@ -76,35 +85,44 @@ class MoreScreen extends StatelessWidget {
             title: t.statsTitle,
             subtitle: t.statsSubtitle,
             onTap: () => Navigator.push(
-                context, MaterialPageRoute(builder: (_) => const StatsScreen())),
+              context,
+              MaterialPageRoute(builder: (_) => const StatsScreen()),
+            ),
           ),
           _Tile(
             icon: Icons.fitness_center,
             title: t.gymModeTitle,
             subtitle: gym.enabled
                 ? t.gymModeActive(
-                    gym.goal == null ? t.gymModeNoGoal : t.gymGoal(gym.goal!))
+                    gym.goal == null ? t.gymModeNoGoal : t.gymGoal(gym.goal!),
+                  )
                 : t.gymModeSubtitle,
             trailing: gym.enabled
                 ? Icon(Icons.circle, size: 10, color: theme.colorScheme.primary)
                 : null,
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const GymModeScreen())),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const GymModeScreen()),
+            ),
           ),
           _SectionHeader(t.sectionApp),
           _Tile(
             icon: Icons.widgets_outlined,
             title: t.widgetsTitle,
             subtitle: t.widgetsSubtitle,
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const WidgetsScreen())),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const WidgetsScreen()),
+            ),
           ),
           _Tile(
             icon: Icons.settings_outlined,
             title: t.settingsTitle,
             subtitle: t.settingsSubtitle,
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const SettingsScreen())),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const SettingsScreen()),
+            ),
           ),
         ],
       ),
@@ -165,8 +183,9 @@ class _Stat extends StatelessWidget {
         ),
         Text(
           label,
-          style: theme.textTheme.labelMedium
-              ?.copyWith(color: theme.colorScheme.onPrimaryContainer),
+          style: theme.textTheme.labelMedium?.copyWith(
+            color: theme.colorScheme.onPrimaryContainer,
+          ),
         ),
       ],
     );

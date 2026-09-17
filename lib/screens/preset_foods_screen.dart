@@ -46,14 +46,14 @@ class _PresetFoodsScreenState extends State<PresetFoodsScreen> {
             onPressed: addable.isEmpty
                 ? null
                 : () => setState(() {
-                      if (allSelected) {
-                        _selected.clear();
-                      } else {
-                        _selected
-                          ..clear()
-                          ..addAll(addable);
-                      }
-                    }),
+                    if (allSelected) {
+                      _selected.clear();
+                    } else {
+                      _selected
+                        ..clear()
+                        ..addAll(addable);
+                    }
+                  }),
             child: Text(allSelected ? t.unselectAll : t.selectAll),
           ),
         ],
@@ -63,71 +63,75 @@ class _PresetFoodsScreenState extends State<PresetFoodsScreen> {
           const _EditableNotice(),
           Expanded(
             child: ListView.builder(
-        padding: EdgeInsets.fromLTRB(
-            12, 0, 12, 12 + MediaQuery.viewPaddingOf(context).bottom),
-        itemCount: kPresetFoods.length,
-        itemBuilder: (context, i) {
-          final food = kPresetFoods[i];
-          final already = existing.contains(food.name);
-          final selected = _selected.contains(i);
-          final theme = Theme.of(context);
+              padding: EdgeInsets.fromLTRB(
+                12,
+                0,
+                12,
+                12 + MediaQuery.viewPaddingOf(context).bottom,
+              ),
+              itemCount: kPresetFoods.length,
+              itemBuilder: (context, i) {
+                final food = kPresetFoods[i];
+                final already = existing.contains(food.name);
+                final selected = _selected.contains(i);
+                final theme = Theme.of(context);
 
-          return Card(
-            margin: const EdgeInsets.only(bottom: 8),
-            child: CheckboxListTile(
-              value: already || selected,
-              onChanged: already
-                  ? null
-                  : (v) => setState(() {
-                        if (v ?? false) {
-                          _selected.add(i);
-                        } else {
-                          _selected.remove(i);
-                        }
-                      }),
-              controlAffinity: ListTileControlAffinity.leading,
-              isThreeLine: true,
-              title: Text(
-                food.name,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 2),
-                  Text(food.ingredients),
-                  const SizedBox(height: 6),
-                  Wrap(
-                    spacing: 6,
-                    runSpacing: 4,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      for (final slot in _sortedSlots(food))
-                        Chip(
-                          label: Text(t.mealSlot(slot)),
-                          avatar: Icon(slot.icon, size: 16),
-                          visualDensity: VisualDensity.compact,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
+                return Card(
+                  margin: const EdgeInsets.only(bottom: 8),
+                  child: CheckboxListTile(
+                    value: already || selected,
+                    onChanged: already
+                        ? null
+                        : (v) => setState(() {
+                            if (v ?? false) {
+                              _selected.add(i);
+                            } else {
+                              _selected.remove(i);
+                            }
+                          }),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    isThreeLine: true,
+                    title: Text(
+                      food.name,
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 2),
+                        Text(food.ingredients),
+                        const SizedBox(height: 6),
+                        Wrap(
+                          spacing: 6,
+                          runSpacing: 4,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            for (final slot in _sortedSlots(food))
+                              Chip(
+                                label: Text(t.mealSlot(slot)),
+                                avatar: Icon(slot.icon, size: 16),
+                                visualDensity: VisualDensity.compact,
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                              ),
+                            if (gymEnabled && food.hasMacros)
+                              Text(
+                                t.macrosShort(food.kcal!, food.protein!),
+                                style: theme.textTheme.bodySmall,
+                              ),
+                            if (already)
+                              Text(
+                                t.alreadyInCatalog,
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  color: theme.colorScheme.primary,
+                                ),
+                              ),
+                          ],
                         ),
-                      if (gymEnabled && food.hasMacros)
-                        Text(
-                          t.macrosShort(food.kcal!, food.protein!),
-                          style: theme.textTheme.bodySmall,
-                        ),
-                      if (already)
-                        Text(
-                          t.alreadyInCatalog,
-                          style: theme.textTheme.labelSmall?.copyWith(
-                            color: theme.colorScheme.primary,
-                          ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-          );
+                );
               },
             ),
           ),
@@ -180,8 +184,10 @@ class _EditableNotice extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.lightbulb_outline,
-              color: theme.colorScheme.onSecondaryContainer),
+          Icon(
+            Icons.lightbulb_outline,
+            color: theme.colorScheme.onSecondaryContainer,
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Text(

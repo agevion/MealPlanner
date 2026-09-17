@@ -117,7 +117,11 @@ class GeminiService {
               'parts': [
                 {
                   'text': _suggestPrompt(
-                      request, availableIngredients, count, t),
+                    request,
+                    availableIngredients,
+                    count,
+                    t,
+                  ),
                 },
               ],
             },
@@ -150,8 +154,10 @@ class GeminiService {
     AppStrings t,
   ) {
     final buffer = StringBuffer()
-      ..writeln('You are a home cook. Suggest $count simple, realistic '
-          'everyday dishes.')
+      ..writeln(
+        'You are a home cook. Suggest $count simple, realistic '
+        'everyday dishes.',
+      )
       ..writeln('User request: "${request.trim()}"');
     if (ingredients.isNotEmpty) {
       buffer
@@ -161,13 +167,17 @@ class GeminiService {
     buffer
       ..writeln('Write every piece of text in ${t.aiLanguageName}.')
       ..writeln('Reply ONLY with JSON in exactly this shape:')
-      ..writeln('{"platos": [{"nombre": string, "ingredientes": string, '
-          '"kcal": number, "proteina_g": number, "minutos": number, '
-          '"etiquetas": [string], "receta": string}]}')
-      ..writeln('Keep those JSON keys exactly as written even though the '
-          'values are in ${t.aiLanguageName}. "ingredientes" is a '
-          'comma-separated list, "receta" is 2-3 sentences with the steps. '
-          'Macros are per serving and approximate. No text outside the JSON.');
+      ..writeln(
+        '{"platos": [{"nombre": string, "ingredientes": string, '
+        '"kcal": number, "proteina_g": number, "minutos": number, '
+        '"etiquetas": [string], "receta": string}]}',
+      )
+      ..writeln(
+        'Keep those JSON keys exactly as written even though the '
+        'values are in ${t.aiLanguageName}. "ingredientes" is a '
+        'comma-separated list, "receta" is 2-3 sentences with the steps. '
+        'Macros are per serving and approximate. No text outside the JSON.',
+      );
     return buffer.toString();
   }
 
@@ -179,8 +189,8 @@ class GeminiService {
       throw GeminiException(t.geminiSuggestionsParseFail);
     }
     try {
-      final map = jsonDecode(text.substring(start, end + 1))
-          as Map<String, dynamic>;
+      final map =
+          jsonDecode(text.substring(start, end + 1)) as Map<String, dynamic>;
       final list = (map['platos'] ?? map['meals']) as List?;
       if (list == null || list.isEmpty) {
         throw GeminiException(t.geminiNoSuggestions);
@@ -237,18 +247,22 @@ class GeminiService {
   static String _prompt(String description, AppStrings t) {
     final buffer = StringBuffer()
       ..writeln(
-          'You are a nutrition assistant. Estimate the calories (kcal) and the '
-          'grams of protein of the described meal and/or of the photo.')
+        'You are a nutrition assistant. Estimate the calories (kcal) and the '
+        'grams of protein of the described meal and/or of the photo.',
+      )
       ..writeln(
-          'Give a reasonable, approximate estimate for ONE normal serving. It '
-          'does not have to be exact.')
+        'Give a reasonable, approximate estimate for ONE normal serving. It '
+        'does not have to be exact.',
+      )
       ..writeln('Reply ONLY with a JSON object with these exact keys:')
       ..writeln(
-          '{"nombre": string, "kcal": number, "proteina_g": number, "nota": string}')
+        '{"nombre": string, "kcal": number, "proteina_g": number, "nota": string}',
+      )
       ..writeln(
-          '"nombre" is a short name for the dish and "nota" a brief comment '
-          '(max 8 words); write both in ${t.aiLanguageName}, but keep the JSON '
-          'keys exactly as written. No text outside the JSON.');
+        '"nombre" is a short name for the dish and "nota" a brief comment '
+        '(max 8 words); write both in ${t.aiLanguageName}, but keep the JSON '
+        'keys exactly as written. No text outside the JSON.',
+      );
     if (description.trim().isNotEmpty) {
       buffer.writeln('User description: "${description.trim()}"');
     } else {
@@ -287,7 +301,8 @@ class GeminiService {
       throw GeminiException(t.geminiParseFail);
     }
     try {
-      final map = jsonDecode(text.substring(start, end + 1)) as Map<String, dynamic>;
+      final map =
+          jsonDecode(text.substring(start, end + 1)) as Map<String, dynamic>;
       final estimate = AiEstimate.fromJson(map);
       if (estimate.kcal <= 0 && estimate.protein <= 0) {
         throw GeminiException(t.geminiCouldNotEstimate);

@@ -52,7 +52,11 @@ class _StatsScreenState extends State<StatsScreen> {
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(
-            16, 8, 16, 24 + MediaQuery.viewPaddingOf(context).bottom),
+          16,
+          8,
+          16,
+          24 + MediaQuery.viewPaddingOf(context).bottom,
+        ),
         children: [
           SegmentedButton<int>(
             showSelectedIcon: false,
@@ -114,9 +118,12 @@ class _StatsScreenState extends State<StatsScreen> {
             _WeeklyReport(summary: summary, target: target),
           ],
           const SizedBox(height: 24),
-          Text(t.yourWeight,
-              style: theme.textTheme.titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            t.yourWeight,
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 8),
           if (weights.length < 2)
             Card(
@@ -127,63 +134,75 @@ class _StatsScreenState extends State<StatsScreen> {
             )
           else ...[
             _WeightChart(points: weights),
-            Builder(builder: (context) {
-              final suggestion = gym
-                  .suggestKcalAdjustment(diary.weightChangePerWeek(), t: t);
-              if (suggestion == null) return const SizedBox.shrink();
-              return Card(
-                color: theme.colorScheme.tertiaryContainer,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.auto_graph,
-                              color: theme.colorScheme.onTertiaryContainer),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Text(
-                              suggestion.reason,
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: theme.colorScheme.onTertiaryContainer,
+            Builder(
+              builder: (context) {
+                final suggestion = gym.suggestKcalAdjustment(
+                  diary.weightChangePerWeek(),
+                  t: t,
+                );
+                if (suggestion == null) return const SizedBox.shrink();
+                return Card(
+                  color: theme.colorScheme.tertiaryContainer,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.auto_graph,
+                              color: theme.colorScheme.onTertiaryContainer,
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                suggestion.reason,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: theme.colorScheme.onTertiaryContainer,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: FilledButton.tonal(
-                          onPressed: () {
-                            gym
-                              ..setGoal(GymGoal.custom)
-                              ..setCustomTargets(
-                                kcal: suggestion.newKcal,
-                                protein: gym.targetProtein,
-                              );
-                            ScaffoldMessenger.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(SnackBar(
-                                content:
-                                    Text(t.targetAdjusted(suggestion.newKcal)),
-                              ));
-                          },
-                          child: Text(t.adjustToKcal(suggestion.newKcal)),
+                          ],
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: FilledButton.tonal(
+                            onPressed: () {
+                              gym
+                                ..setGoal(GymGoal.custom)
+                                ..setCustomTargets(
+                                  kcal: suggestion.newKcal,
+                                  protein: gym.targetProtein,
+                                );
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      t.targetAdjusted(suggestion.newKcal),
+                                    ),
+                                  ),
+                                );
+                            },
+                            child: Text(t.adjustToKcal(suggestion.newKcal)),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            }),
+                );
+              },
+            ),
           ],
           const SizedBox(height: 24),
-          Text(t.achievementsTitle,
-              style: theme.textTheme.titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            t.achievementsTitle,
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 8),
           _Achievements(
             stats: AchievementStats(
@@ -197,9 +216,12 @@ class _StatsScreenState extends State<StatsScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          Text(t.whatYouEatMost,
-              style: theme.textTheme.titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            t.whatYouEatMost,
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 8),
           if (top.isEmpty)
             Card(
@@ -293,15 +315,13 @@ class _Achievements extends StatelessWidget {
                           Text(
                             a.title,
                             style: theme.textTheme.bodyLarge?.copyWith(
-                              fontWeight:
-                                  a.unlocked ? FontWeight.bold : null,
+                              fontWeight: a.unlocked ? FontWeight.bold : null,
                               color: a.unlocked
                                   ? null
                                   : theme.colorScheme.outline,
                             ),
                           ),
-                          Text(a.description,
-                              style: theme.textTheme.bodySmall),
+                          Text(a.description, style: theme.textTheme.bodySmall),
                           if (!a.unlocked) ...[
                             const SizedBox(height: 4),
                             ClipRRect(
@@ -318,8 +338,11 @@ class _Achievements extends StatelessWidget {
                       ),
                     ),
                     if (a.unlocked)
-                      Icon(Icons.check_circle,
-                          color: theme.colorScheme.primary, size: 20),
+                      Icon(
+                        Icons.check_circle,
+                        color: theme.colorScheme.primary,
+                        size: 20,
+                      ),
                   ],
                 ),
               ),
@@ -364,8 +387,10 @@ class _WeeklyReport extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(Icons.tips_and_updates_outlined,
-                color: theme.colorScheme.onSecondaryContainer),
+            Icon(
+              Icons.tips_and_updates_outlined,
+              color: theme.colorScheme.onSecondaryContainer,
+            ),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
@@ -415,8 +440,9 @@ class _StatCard extends StatelessWidget {
                     value,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 if (unit.isNotEmpty) ...[
@@ -457,8 +483,9 @@ class _WeightChart extends StatelessWidget {
               children: [
                 Text(
                   '${last.toStringAsFixed(1)} kg',
-                  style: theme.textTheme.headlineSmall
-                      ?.copyWith(fontWeight: FontWeight.bold),
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Text(
@@ -535,10 +562,7 @@ class _WeightPainter extends CustomPainter {
       ..lineTo(size.width, size.height)
       ..lineTo(0, size.height)
       ..close();
-    canvas.drawPath(
-      fill,
-      Paint()..color = color.withValues(alpha: 0.12),
-    );
+    canvas.drawPath(fill, Paint()..color = color.withValues(alpha: 0.12));
 
     canvas.drawPath(
       path,
@@ -568,8 +592,11 @@ class _Empty extends StatelessWidget {
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
-            Icon(Icons.query_stats,
-                size: 56, color: Theme.of(context).colorScheme.outline),
+            Icon(
+              Icons.query_stats,
+              size: 56,
+              color: Theme.of(context).colorScheme.outline,
+            ),
             const SizedBox(height: 12),
             Text(context.t.noLogsInPeriod, textAlign: TextAlign.center),
           ],

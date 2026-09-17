@@ -34,18 +34,18 @@ class FoodComponent {
   }
 
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'kcal': kcal,
-        'protein': protein,
-        'quantity': quantity,
-      };
+    'name': name,
+    'kcal': kcal,
+    'protein': protein,
+    'quantity': quantity,
+  };
 
   factory FoodComponent.fromJson(Map<String, dynamic> json) => FoodComponent(
-        name: json['name'] as String? ?? '',
-        kcal: (json['kcal'] as num?)?.toInt() ?? 0,
-        protein: (json['protein'] as num?)?.toInt() ?? 0,
-        quantity: (json['quantity'] as num?)?.toDouble() ?? 1,
-      );
+    name: json['name'] as String? ?? '',
+    kcal: (json['kcal'] as num?)?.toInt() ?? 0,
+    protein: (json['protein'] as num?)?.toInt() ?? 0,
+    quantity: (json['quantity'] as num?)?.toDouble() ?? 1,
+  );
 }
 
 /// Un plato del catálogo del usuario.
@@ -229,15 +229,13 @@ class Food {
           json['isLunch'] as bool? ?? json['esAlmuerzo'] as bool? ?? true;
       final isDinner =
           json['isDinner'] as bool? ?? json['esCena'] as bool? ?? true;
-      slots = {
-        if (isLunch) MealSlot.lunch,
-        if (isDinner) MealSlot.dinner,
-      };
+      slots = {if (isLunch) MealSlot.lunch, if (isDinner) MealSlot.dinner};
     }
     if (slots.isEmpty) slots = {MealSlot.lunch, MealSlot.dinner};
 
     final rawComponents = json['components'] as List?;
-    final components = rawComponents
+    final components =
+        rawComponents
             ?.map((e) => FoodComponent.fromJson(e as Map<String, dynamic>))
             .toList() ??
         const <FoodComponent>[];
@@ -249,7 +247,8 @@ class Food {
       kcal: (json['kcal'] as num?)?.toInt(),
       protein: (json['protein'] as num?)?.toInt(),
       components: components,
-      tags: ((json['tags'] as List?)?.map((e) => e.toString()).toSet()) ??
+      tags:
+          ((json['tags'] as List?)?.map((e) => e.toString()).toSet()) ??
           const <String>{},
       prepMinutes: (json['prepMinutes'] as num?)?.toInt(),
       servingsMade: (json['servingsMade'] as num?)?.toInt() ?? 1,

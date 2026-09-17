@@ -13,11 +13,11 @@ extension GymGoalInfo on GymGoal {
   // `AppStrings.gymGoalDescription`, porque cambian con el idioma.
 
   IconData get icon => switch (this) {
-        GymGoal.volume => Icons.trending_up,
-        GymGoal.definition => Icons.local_fire_department,
-        GymGoal.maintenance => Icons.balance,
-        GymGoal.custom => Icons.tune,
-      };
+    GymGoal.volume => Icons.trending_up,
+    GymGoal.definition => Icons.local_fire_department,
+    GymGoal.maintenance => Icons.balance,
+    GymGoal.custom => Icons.tune,
+  };
 }
 
 enum Sex { male, female }
@@ -29,10 +29,10 @@ enum ActivityLevel { sedentary, light, moderate, active, veryActive }
 
 extension ActivityInfo on ActivityLevel {
   double get factor => switch (this) {
-        ActivityLevel.sedentary => 1.2,
-        ActivityLevel.light => 1.375,
-        ActivityLevel.moderate => 1.55,
-        ActivityLevel.active => 1.725,
-        ActivityLevel.veryActive => 1.9,
-      };
+    ActivityLevel.sedentary => 1.2,
+    ActivityLevel.light => 1.375,
+    ActivityLevel.moderate => 1.55,
+    ActivityLevel.active => 1.725,
+    ActivityLevel.veryActive => 1.9,
+  };
 }

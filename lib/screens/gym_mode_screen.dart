@@ -33,7 +33,11 @@ class GymModeScreen extends StatelessWidget {
         builder: (context, gym, _) {
           return ListView(
             padding: EdgeInsets.fromLTRB(
-                16, 16, 16, 16 + MediaQuery.viewPaddingOf(context).bottom),
+              16,
+              16,
+              16,
+              16 + MediaQuery.viewPaddingOf(context).bottom,
+            ),
             children: [
               if (!gym.enabled) const _IntroCard(),
               Card(
@@ -52,10 +56,9 @@ class GymModeScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 Text(
                   t.yourGoal,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -95,8 +98,11 @@ class _IntroCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Row(
           children: [
-            Icon(Icons.fitness_center,
-                size: 36, color: theme.colorScheme.onPrimaryContainer),
+            Icon(
+              Icons.fitness_center,
+              size: 36,
+              color: theme.colorScheme.onPrimaryContainer,
+            ),
             const SizedBox(width: 14),
             Expanded(
               child: Text(
@@ -151,19 +157,20 @@ class _GoalCard extends StatelessWidget {
                   children: [
                     Text(
                       context.t.gymGoal(goal),
-                      style: theme.textTheme.titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 2),
-                    Text(context.t.gymGoalDescription(goal),
-                        style: theme.textTheme.bodySmall),
+                    Text(
+                      context.t.gymGoalDescription(goal),
+                      style: theme.textTheme.bodySmall,
+                    ),
                   ],
                 ),
               ),
               Icon(
-                selected
-                    ? Icons.check_circle
-                    : Icons.radio_button_unchecked,
+                selected ? Icons.check_circle : Icons.radio_button_unchecked,
                 color: selected
                     ? theme.colorScheme.primary
                     : theme.colorScheme.outline,
@@ -198,8 +205,9 @@ class _TargetsSection extends StatelessWidget {
         const SizedBox(height: 12),
         Text(
           t.yourTargets,
-          style:
-              theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 8),
         if (hasTargets)
@@ -213,14 +221,16 @@ class _TargetsSection extends StatelessWidget {
                   Row(
                     children: [
                       _TargetMetric(
-                          label: t.calories,
-                          value: '$kcal',
-                          unit: t.kcalPerDay),
+                        label: t.calories,
+                        value: '$kcal',
+                        unit: t.kcalPerDay,
+                      ),
                       const SizedBox(width: 12),
                       _TargetMetric(
-                          label: t.protein,
-                          value: '$protein',
-                          unit: t.gramsPerDay),
+                        label: t.protein,
+                        value: '$protein',
+                        unit: t.gramsPerDay,
+                      ),
                     ],
                   ),
                   if (gym.tdee != null) ...[
@@ -434,10 +444,7 @@ class _TodayCard extends StatelessWidget {
           t.todaysLog,
           style: TextStyle(fontWeight: FontWeight.bold, color: onColor),
         ),
-        subtitle: Text(
-          t.todaysLogSubtitle,
-          style: TextStyle(color: onColor),
-        ),
+        subtitle: Text(t.todaysLogSubtitle, style: TextStyle(color: onColor)),
         trailing: Icon(Icons.chevron_right, color: onColor),
         onTap: () => Navigator.push(
           context,
@@ -463,8 +470,9 @@ class _MealsConfig extends StatelessWidget {
         const SizedBox(height: 20),
         Text(
           t.mealsPerDay,
-          style:
-              theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 4),
         Text(t.mealsPerDaySubtitle, style: theme.textTheme.bodySmall),
@@ -537,8 +545,8 @@ class _StreakCard extends StatelessWidget {
                     target == null
                         ? t.setTargetToCount
                         : summary.days == 0
-                            ? t.logToStartStreak
-                            : t.last7Days(summary.metProtein, summary.days),
+                        ? t.logToStartStreak
+                        : t.last7Days(summary.metProtein, summary.days),
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: streak > 0
                           ? theme.colorScheme.onTertiaryContainer

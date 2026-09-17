@@ -131,7 +131,11 @@ class _AiEstimateScreenState extends State<AiEstimateScreen> {
           ? const _NotConfigured()
           : ListView(
               padding: EdgeInsets.fromLTRB(
-                  16, 16, 16, 24 + MediaQuery.viewPaddingOf(context).bottom),
+                16,
+                16,
+                16,
+                24 + MediaQuery.viewPaddingOf(context).bottom,
+              ),
               children: [
                 Text(t.aiEstimateIntro, style: theme.textTheme.bodyMedium),
                 const SizedBox(height: 16),
@@ -178,10 +182,13 @@ class _AiEstimateScreenState extends State<AiEstimateScreen> {
                   Text(t.resultAdjustIt, style: theme.textTheme.titleSmall),
                   if (_result!.note.isNotEmpty) ...[
                     const SizedBox(height: 4),
-                    Text(_result!.note,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                            fontStyle: FontStyle.italic,
-                            color: theme.colorScheme.outline)),
+                    Text(
+                      _result!.note,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        fontStyle: FontStyle.italic,
+                        color: theme.colorScheme.outline,
+                      ),
+                    ),
                   ],
                   const SizedBox(height: 10),
                   TextField(
@@ -257,13 +264,19 @@ class _ImageSection extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.memory(imageBytes!,
-                width: 80, height: 80, fit: BoxFit.cover),
+            child: Image.memory(
+              imageBytes!,
+              width: 80,
+              height: 80,
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(t.photoAdded,
-                style: Theme.of(context).textTheme.bodyMedium),
+            child: Text(
+              t.photoAdded,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
           ),
           IconButton(
             icon: const Icon(Icons.delete_outline),
@@ -309,9 +322,12 @@ class _ErrorBanner extends StatelessWidget {
           Icon(Icons.error_outline, color: theme.colorScheme.onErrorContainer),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(text,
-                style: theme.textTheme.bodySmall
-                    ?.copyWith(color: theme.colorScheme.onErrorContainer)),
+            child: Text(
+              text,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onErrorContainer,
+              ),
+            ),
           ),
         ],
       ),
@@ -333,8 +349,11 @@ class _NotConfigured extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.key_off_outlined,
-                size: 64, color: theme.colorScheme.outline),
+            Icon(
+              Icons.key_off_outlined,
+              size: 64,
+              color: theme.colorScheme.outline,
+            ),
             const SizedBox(height: 16),
             Text(t.missingGeminiKey, style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),

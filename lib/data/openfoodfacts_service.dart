@@ -12,6 +12,7 @@ import '../models/meal_slot.dart';
 /// cuánto se va a usar realmente.
 class ScannedProduct {
   final Food food;
+
   /// Sobre qué están calculadas las macros: 'serving', 'per100' o 'none'.
   /// Es una clave estable; el rótulo traducido sale de `AppStrings.productBasis`.
   final String basis;
@@ -63,9 +64,10 @@ class OpenFoodFactsService {
         '?fields=product_name,product_name_${t.languageCode},brands,'
         'nutriments,serving_size',
       );
-      final res = await c.get(uri, headers: const {
-        'User-Agent': 'MealPlannerFlutter/1.0 (proyecto TFG)',
-      });
+      final res = await c.get(
+        uri,
+        headers: const {'User-Agent': 'MealPlannerFlutter/1.0 (proyecto TFG)'},
+      );
       if (res.statusCode != 200) return null;
       final root = jsonDecode(res.body) as Map<String, dynamic>;
       return parseProduct(root, barcode, t: t);
@@ -92,8 +94,7 @@ class OpenFoodFactsService {
       pick('product_name_${t.languageCode}'),
       pick('product_name'),
       pick('brands'),
-    ]
-        .firstWhere((s) => s.isNotEmpty, orElse: () => 'Producto $barcode');
+    ].firstWhere((s) => s.isNotEmpty, orElse: () => 'Producto $barcode');
 
     final nutrRaw = product['nutriments'];
     final Map<dynamic, dynamic> nutr = nutrRaw is Map ? nutrRaw : const {};

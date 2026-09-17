@@ -23,8 +23,11 @@ class RememberedPortion {
 
   bool get isGrams => unit.isEmpty;
 
-  Map<String, dynamic> toJson() =>
-      {'unit': unit, 'gramsPerUnit': gramsPerUnit, 'value': value};
+  Map<String, dynamic> toJson() => {
+    'unit': unit,
+    'gramsPerUnit': gramsPerUnit,
+    'value': value,
+  };
 
   factory RememberedPortion.fromJson(Map<String, dynamic> j) =>
       RememberedPortion(
@@ -46,18 +49,21 @@ class PortionMemory {
       final raw = prefs.getString('$_prefix$barcode');
       if (raw == null || raw.isEmpty) return null;
       return RememberedPortion.fromJson(
-          jsonDecode(raw) as Map<String, dynamic>);
+        jsonDecode(raw) as Map<String, dynamic>,
+      );
     } catch (_) {
       return null;
     }
   }
 
-  static Future<void> remember(String barcode, RememberedPortion portion) async {
+  static Future<void> remember(
+    String barcode,
+    RememberedPortion portion,
+  ) async {
     if (barcode.isEmpty) return;
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
-          '$_prefix$barcode', jsonEncode(portion.toJson()));
+      await prefs.setString('$_prefix$barcode', jsonEncode(portion.toJson()));
     } catch (_) {
       // Sin memoria de porción no pasa nada: el usuario la vuelve a poner.
     }

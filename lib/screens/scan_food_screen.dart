@@ -48,8 +48,9 @@ class _ScanFoodScreenState extends State<ScanFoodScreen> {
 
   Future<void> _onDetect(BarcodeCapture capture) async {
     if (_busy) return;
-    final code =
-        capture.barcodes.isNotEmpty ? capture.barcodes.first.rawValue : null;
+    final code = capture.barcodes.isNotEmpty
+        ? capture.barcodes.first.rawValue
+        : null;
     if (code == null || code.isEmpty) return;
 
     final t = context.t;
@@ -126,7 +127,8 @@ class _ScanFoodScreenState extends State<ScanFoodScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            widget.asComponent ? t.scanIngredientTitle : t.scanProductTitle),
+          widget.asComponent ? t.scanIngredientTitle : t.scanProductTitle,
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.cameraswitch_outlined),

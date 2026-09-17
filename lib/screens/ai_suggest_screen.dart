@@ -53,8 +53,8 @@ class _AiSuggestScreenState extends State<AiSuggestScreen> {
       // nada marcado, mandamos toda la despensa como referencia.
       final available = _usePantry
           ? (pantry.inStock.isNotEmpty ? pantry.inStock : pantry.items)
-              .map((i) => i.name)
-              .toList()
+                .map((i) => i.name)
+                .toList()
           : const <String>[];
 
       final results = await GeminiService.suggestMeals(
@@ -78,9 +78,9 @@ class _AiSuggestScreenState extends State<AiSuggestScreen> {
     setState(() => _added.add(suggestion.name));
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(
-        content: Text(context.t.addedToCatalog(suggestion.name)),
-      ));
+      ..showSnackBar(
+        SnackBar(content: Text(context.t.addedToCatalog(suggestion.name))),
+      );
   }
 
   @override
@@ -95,7 +95,11 @@ class _AiSuggestScreenState extends State<AiSuggestScreen> {
       appBar: AppBar(title: Text(t.giveIdeasTitle)),
       body: ListView(
         padding: EdgeInsets.fromLTRB(
-            16, 16, 16, 24 + MediaQuery.viewPaddingOf(context).bottom),
+          16,
+          16,
+          16,
+          24 + MediaQuery.viewPaddingOf(context).bottom,
+        ),
         children: [
           TextField(
             controller: _ctrl,
@@ -151,14 +155,17 @@ class _AiSuggestScreenState extends State<AiSuggestScreen> {
                 padding: const EdgeInsets.all(14),
                 child: Row(
                   children: [
-                    Icon(Icons.error_outline,
-                        color: theme.colorScheme.onErrorContainer),
+                    Icon(
+                      Icons.error_outline,
+                      color: theme.colorScheme.onErrorContainer,
+                    ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
                         _error!,
                         style: TextStyle(
-                            color: theme.colorScheme.onErrorContainer),
+                          color: theme.colorScheme.onErrorContainer,
+                        ),
                       ),
                     ),
                   ],
@@ -170,8 +177,9 @@ class _AiSuggestScreenState extends State<AiSuggestScreen> {
             const SizedBox(height: 20),
             Text(
               t.proposals,
-              style: theme.textTheme.titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold),
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             Text(t.proposalsDisclaimer, style: theme.textTheme.bodySmall),
             const SizedBox(height: 8),
@@ -215,8 +223,9 @@ class _SuggestionCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     suggestion.name,
-                    style: theme.textTheme.titleMedium
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 FilledButton.tonalIcon(
@@ -235,8 +244,10 @@ class _SuggestionCard extends StatelessWidget {
               children: [
                 if (suggestion.kcal > 0)
                   Chip(
-                    avatar: const Icon(Icons.local_fire_department_outlined,
-                        size: 16),
+                    avatar: const Icon(
+                      Icons.local_fire_department_outlined,
+                      size: 16,
+                    ),
                     label: Text(t.kcalValue(suggestion.kcal)),
                     visualDensity: VisualDensity.compact,
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -267,8 +278,9 @@ class _SuggestionCard extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 suggestion.recipe,
-                style: theme.textTheme.bodySmall
-                    ?.copyWith(color: theme.colorScheme.outline),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.outline,
+                ),
               ),
             ],
           ],
@@ -292,8 +304,11 @@ class _NotConfigured extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.auto_awesome,
-                  size: 64, color: Theme.of(context).colorScheme.outline),
+              Icon(
+                Icons.auto_awesome,
+                size: 64,
+                color: Theme.of(context).colorScheme.outline,
+              ),
               const SizedBox(height: 16),
               Text(t.aiSuggestNotConfigured, textAlign: TextAlign.center),
             ],

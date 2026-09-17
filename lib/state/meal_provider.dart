@@ -61,15 +61,23 @@ class MealProvider extends ChangeNotifier {
         final data = jsonDecode(raw) as Map<String, dynamic>;
         _foods
           ..clear()
-          ..addAll((data['foods'] as List? ?? [])
-              .map((e) => Food.fromJson(e as Map<String, dynamic>)));
+          ..addAll(
+            (data['foods'] as List? ?? []).map(
+              (e) => Food.fromJson(e as Map<String, dynamic>),
+            ),
+          );
         _weeks
           ..clear()
-          ..addAll((data['weeks'] as List? ?? [])
-              .map((e) => Week.fromJson(e as Map<String, dynamic>)));
+          ..addAll(
+            (data['weeks'] as List? ?? []).map(
+              (e) => Week.fromJson(e as Map<String, dynamic>),
+            ),
+          );
         if (_weeks.isEmpty) _weeks.add(Week());
-        _activeWeek =
-            (data['activeWeek'] as int? ?? 0).clamp(0, _weeks.length - 1);
+        _activeWeek = (data['activeWeek'] as int? ?? 0).clamp(
+          0,
+          _weeks.length - 1,
+        );
       } catch (_) {
         // Datos corruptos: empezamos de cero sin romper la app.
       }
@@ -131,7 +139,8 @@ class MealProvider extends ChangeNotifier {
   /// todas las referencias en los planes de todas las semanas, para que la
   /// semana planificada no se quede apuntando a un plato que ya no existe.
   void addOrReplaceFood(Food food, {String? previousName}) {
-    final renaming = previousName != null &&
+    final renaming =
+        previousName != null &&
         previousName.isNotEmpty &&
         previousName != food.name;
 
@@ -161,8 +170,7 @@ class MealProvider extends ChangeNotifier {
       }
       for (var i = 0; i < week.embeddedFoods.length; i++) {
         if (week.embeddedFoods[i].name == oldName) {
-          week.embeddedFoods[i] =
-              week.embeddedFoods[i].copyWith(name: newName);
+          week.embeddedFoods[i] = week.embeddedFoods[i].copyWith(name: newName);
         }
       }
     }
@@ -201,7 +209,8 @@ class MealProvider extends ChangeNotifier {
 
   void removeFood(Food food) {
     _foods.removeWhere(
-        (f) => f.name == food.name && f.ingredients == food.ingredients);
+      (f) => f.name == food.name && f.ingredients == food.ingredients,
+    );
     _save();
     notifyListeners();
   }
@@ -213,8 +222,9 @@ class MealProvider extends ChangeNotifier {
   void snoozeFood(Food food, {int weeks = 2}) {
     final i = _foods.indexWhere((f) => f.name == food.name);
     if (i < 0) return;
-    _foods[i] = _foods[i]
-        .copyWith(snoozedUntil: DateTime.now().add(Duration(days: weeks * 7)));
+    _foods[i] = _foods[i].copyWith(
+      snoozedUntil: DateTime.now().add(Duration(days: weeks * 7)),
+    );
     _save();
     notifyListeners();
   }
@@ -297,8 +307,7 @@ class MealProvider extends ChangeNotifier {
   /// Ata (o desata, con null) una semana a un lunes concreto del calendario.
   void setWeekStart(int index, DateTime? monday) {
     if (index < 0 || index >= _weeks.length) return;
-    _weeks[index].startDate =
-        monday == null ? null : Week.mondayOf(monday);
+    _weeks[index].startDate = monday == null ? null : Week.mondayOf(monday);
     _save();
     notifyListeners();
   }
@@ -553,8 +562,9 @@ class MealProvider extends ChangeNotifier {
             ? 1
             : slots.where((s) => week.mealAt(s, day) == null).length;
         final budget = kcalLeft;
-        final perSlot =
-            (budget != null && remainingSlots > 0) ? budget / remainingSlots : null;
+        final perSlot = (budget != null && remainingSlots > 0)
+            ? budget / remainingSlots
+            : null;
 
         // "Días con prisa": solo platos rápidos, si es que hay alguno.
         var pool = pools[slot]!;
@@ -819,7 +829,9 @@ class MealProvider extends ChangeNotifier {
   /// Suma de kcal y proteína de las tomas asignadas un día. `complete` es true
   /// si hay al menos un plato asignado y todos tienen macros.
   ({int kcal, int protein, bool complete}) dayMacros(
-      int day, List<MealSlot> slots) {
+    int day,
+    List<MealSlot> slots,
+  ) {
     var kcal = 0;
     var protein = 0;
     var any = false;
@@ -925,25 +937,29 @@ class MealProvider extends ChangeNotifier {
 
     final groups = <IngredientGroup>[];
     for (final entry in dishesByKey.entries) {
-      groups.add(IngredientGroup(
-        displayName[entry.key] ?? entry.key,
-        // Un plato que se repite no se lista dos veces como "quién lo usa".
-        entry.value.toSet().toList(),
-        category: categoryByKey[entry.key] ?? 'Otros',
-        quantityLabel: quantityFor(entry.key),
-      ));
+      groups.add(
+        IngredientGroup(
+          displayName[entry.key] ?? entry.key,
+          // Un plato que se repite no se lista dos veces como "quién lo usa".
+          entry.value.toSet().toList(),
+          category: categoryByKey[entry.key] ?? 'Otros',
+          quantityLabel: quantityFor(entry.key),
+        ),
+      );
     }
 
     // Ítems añadidos a mano que no provienen de ningún plato.
     for (final item in week.manualItems) {
       if (dishesByKey.containsKey(normalizeText(item))) continue;
       final p = pantryFor(item);
-      groups.add(IngredientGroup(
-        item,
-        const [],
-        manual: true,
-        category: p?.category ?? 'Otros',
-      ));
+      groups.add(
+        IngredientGroup(
+          item,
+          const [],
+          manual: true,
+          category: p?.category ?? 'Otros',
+        ),
+      );
     }
     return groups;
   }
@@ -951,8 +967,7 @@ class MealProvider extends ChangeNotifier {
   /// Borra los checks de ingredientes que ya no están en la lista (pasa al
   /// re-randomizar la semana: quedaban marcados ingredientes fantasma).
   void _pruneChecks() {
-    final valid =
-        shoppingListForActiveWeek().map((g) => g.name).toSet();
+    final valid = shoppingListForActiveWeek().map((g) => g.name).toSet();
     activeWeek.checked.removeWhere((c) => !valid.contains(c));
   }
 
@@ -985,8 +1000,9 @@ class MealProvider extends ChangeNotifier {
   void addManualShoppingItem(String item) {
     final trimmed = item.trim();
     if (trimmed.isEmpty) return;
-    final exists = activeWeek.manualItems
-        .any((e) => e.toLowerCase() == trimmed.toLowerCase());
+    final exists = activeWeek.manualItems.any(
+      (e) => e.toLowerCase() == trimmed.toLowerCase(),
+    );
     if (!exists) {
       activeWeek.manualItems.add(trimmed);
       _save();
@@ -995,8 +1011,9 @@ class MealProvider extends ChangeNotifier {
   }
 
   void removeManualShoppingItem(String item) {
-    activeWeek.manualItems
-        .removeWhere((e) => e.toLowerCase() == item.toLowerCase());
+    activeWeek.manualItems.removeWhere(
+      (e) => e.toLowerCase() == item.toLowerCase(),
+    );
     activeWeek.checked.remove(item);
     _save();
     notifyListeners();
@@ -1079,10 +1096,7 @@ class MealProvider extends ChangeNotifier {
 
   /// El menú de la semana en texto plano, para mandarlo por WhatsApp o pegarlo
   /// donde sea.
-  String weekAsText(
-    List<MealSlot> slots, {
-    AppStrings t = const AppStrings(),
-  }) {
+  String weekAsText(List<MealSlot> slots, {AppStrings t = const AppStrings()}) {
     final week = activeWeek;
     final buffer = StringBuffer('${t.weekTextHeader}\n');
     for (var day = 0; day < kDays.length; day++) {

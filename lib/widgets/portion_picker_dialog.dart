@@ -23,7 +23,9 @@ class PortionPickerDialog extends StatefulWidget {
   const PortionPickerDialog({super.key, required this.product});
 
   static Future<FoodComponent?> show(
-      BuildContext context, ScannedProduct product) {
+    BuildContext context,
+    ScannedProduct product,
+  ) {
     return showDialog<FoodComponent>(
       context: context,
       builder: (_) => PortionPickerDialog(product: product),
@@ -133,20 +135,21 @@ class _PortionPickerDialogState extends State<PortionPickerDialog> {
     return value;
   }
 
-  double get _gpu => double.tryParse(_gramsPerUnit.text.replaceAll(',', '.')) ?? 0;
+  double get _gpu =>
+      double.tryParse(_gramsPerUnit.text.replaceAll(',', '.')) ?? 0;
 
   /// Gramos totales según el modo (para calcular con los datos por 100 g).
   double get _effectiveGrams => switch (_mode) {
-        _Mode.units => _count * _gpu,
-        _Mode.grams => _grams,
-        _ => 0,
-      };
+    _Mode.units => _count * _gpu,
+    _Mode.grams => _grams,
+    _ => 0,
+  };
 
   int get _kcalResult {
     final p = widget.product;
     return switch (_mode) {
-      _Mode.units || _Mode.grams =>
-        ((p.kcalPer100 ?? 0) * _effectiveGrams / 100).round(),
+      _Mode.units ||
+      _Mode.grams => ((p.kcalPer100 ?? 0) * _effectiveGrams / 100).round(),
       _Mode.servings => ((p.kcalServing ?? 0) * _servings).round(),
       _Mode.manual => 0,
     };
@@ -155,8 +158,8 @@ class _PortionPickerDialogState extends State<PortionPickerDialog> {
   int get _proteinResult {
     final p = widget.product;
     return switch (_mode) {
-      _Mode.units || _Mode.grams =>
-        ((p.proteinPer100 ?? 0) * _effectiveGrams / 100).round(),
+      _Mode.units ||
+      _Mode.grams => ((p.proteinPer100 ?? 0) * _effectiveGrams / 100).round(),
       _Mode.servings => ((p.proteinServing ?? 0) * _servings).round(),
       _Mode.manual => 0,
     };
@@ -175,17 +178,19 @@ class _PortionPickerDialogState extends State<PortionPickerDialog> {
         final perUnitKcal = ((p.kcalPer100 ?? 0) * gpu / 100).round();
         final perUnitProtein = ((p.proteinPer100 ?? 0) * gpu / 100).round();
         if (_saveToPantry) {
-          context.read<PantryProvider>().addOrReplace(PantryIngredient(
-                name: p.food.name,
-                category: 'Otros',
-                // Se guarda la palabra en el idioma del usuario: la unidad es
-                // texto libre que luego verá en su despensa.
-                unit: t.homeUnit(_unit),
-                kcal: perUnitKcal,
-                protein: perUnitProtein,
-                gramsPerUnit: gpu,
-                barcode: p.barcode,
-              ));
+          context.read<PantryProvider>().addOrReplace(
+            PantryIngredient(
+              name: p.food.name,
+              category: 'Otros',
+              // Se guarda la palabra en el idioma del usuario: la unidad es
+              // texto libre que luego verá en su despensa.
+              unit: t.homeUnit(_unit),
+              kcal: perUnitKcal,
+              protein: perUnitProtein,
+              gramsPerUnit: gpu,
+              barcode: p.barcode,
+            ),
+          );
         }
         PortionMemory.remember(
           p.barcode,
@@ -198,10 +203,7 @@ class _PortionPickerDialogState extends State<PortionPickerDialog> {
           quantity: _count <= 0 ? 1 : _count,
         );
       case _Mode.grams:
-        PortionMemory.remember(
-          p.barcode,
-          RememberedPortion(value: _grams),
-        );
+        PortionMemory.remember(p.barcode, RememberedPortion(value: _grams));
         component = FoodComponent(
           name: '${p.food.name} (${_num(_grams)} g)',
           kcal: _kcalResult,
@@ -336,15 +338,19 @@ class _PortionPickerDialogState extends State<PortionPickerDialog> {
           children: [
             IconButton(
               icon: const Icon(Icons.remove_circle_outline),
-              onPressed:
-                  () => setState(() => _count = (_count - 1).clamp(0.5, 99)),
+              onPressed: () =>
+                  setState(() => _count = (_count - 1).clamp(0.5, 99)),
             ),
-            Text('×${_num(_count)}',
-                style: theme.textTheme.titleMedium
-                    ?.copyWith(fontWeight: FontWeight.bold)),
+            Text(
+              '×${_num(_count)}',
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             IconButton(
               icon: const Icon(Icons.add_circle_outline),
-              onPressed: () => setState(() => _count = (_count + 1).clamp(0.5, 99)),
+              onPressed: () =>
+                  setState(() => _count = (_count + 1).clamp(0.5, 99)),
             ),
             const Spacer(),
             for (final q in const [0.5, 2.0, 3.0])
@@ -394,10 +400,13 @@ class _PortionPickerDialogState extends State<PortionPickerDialog> {
             ),
             SizedBox(
               width: 60,
-              child: Text('${_grams.round()} g',
-                  textAlign: TextAlign.end,
-                  style: theme.textTheme.titleMedium
-                      ?.copyWith(fontWeight: FontWeight.bold)),
+              child: Text(
+                '${_grams.round()} g',
+                textAlign: TextAlign.end,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),
@@ -414,8 +423,10 @@ class _PortionPickerDialogState extends State<PortionPickerDialog> {
         if (p.servingSize.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(top: 4),
-            child: Text(t.oneServingIs(p.servingSize),
-                style: theme.textTheme.bodySmall),
+            child: Text(
+              t.oneServingIs(p.servingSize),
+              style: theme.textTheme.bodySmall,
+            ),
           ),
         const SizedBox(height: 8),
         Wrap(
@@ -481,8 +492,10 @@ class _ResultCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.insights_outlined,
-              color: theme.colorScheme.onPrimaryContainer),
+          Icon(
+            Icons.insights_outlined,
+            color: theme.colorScheme.onPrimaryContainer,
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Text(

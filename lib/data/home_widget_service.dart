@@ -82,12 +82,12 @@ class HomeWidgetService {
   /// El servicio no guarda estado propio (solo mira a los providers), así que
   /// cualquier pantalla puede montarse el suyo sin pasarlo de mano en mano.
   factory HomeWidgetService.of(BuildContext context) => HomeWidgetService(
-        meals: context.read<MealProvider>(),
-        diary: context.read<DiaryProvider>(),
-        gym: context.read<GymProvider>(),
-        pantry: context.read<PantryProvider>(),
-        settings: context.read<SettingsProvider>(),
-      );
+    meals: context.read<MealProvider>(),
+    diary: context.read<DiaryProvider>(),
+    gym: context.read<GymProvider>(),
+    pantry: context.read<PantryProvider>(),
+    settings: context.read<SettingsProvider>(),
+  );
 
   /// Los widgets son cosa de Android: en iOS harían falta extensiones nativas
   /// y en los tests no hay canal de plataforma al que hablar.
@@ -120,7 +120,8 @@ class HomeWidgetService {
             logicalSize: kind.faceSize,
           );
           await HomeWidget.updateWidget(
-              qualifiedAndroidName: kind.qualifiedName);
+            qualifiedAndroidName: kind.qualifiedName,
+          );
         } catch (e) {
           debugPrint('No se pudo actualizar el widget ${kind.className}: $e');
         }
@@ -138,7 +139,9 @@ class HomeWidgetService {
     if (!supported) return false;
     try {
       if (await HomeWidget.isRequestPinWidgetSupported() != true) return false;
-      await HomeWidget.requestPinWidget(qualifiedAndroidName: kind.qualifiedName);
+      await HomeWidget.requestPinWidget(
+        qualifiedAndroidName: kind.qualifiedName,
+      );
       // El widget nace vacío: hay que darle contenido aunque todavía no conste
       // como instalado.
       await refresh(force: true);
@@ -163,15 +166,19 @@ class HomeWidgetService {
     HomeWidgetKind kind, {
     required ColorScheme scheme,
     required AppStrings t,
-  }) =>
-      switch (kind) {
-        HomeWidgetKind.today =>
-          TodayFace(data: todayData(), scheme: scheme, t: t),
-        HomeWidgetKind.nextMeal =>
-          NextMealFace(data: nextMealData(), scheme: scheme, t: t),
-        HomeWidgetKind.shopping =>
-          ShoppingFace(data: shoppingData(t), scheme: scheme, t: t),
-      };
+  }) => switch (kind) {
+    HomeWidgetKind.today => TodayFace(data: todayData(), scheme: scheme, t: t),
+    HomeWidgetKind.nextMeal => NextMealFace(
+      data: nextMealData(),
+      scheme: scheme,
+      t: t,
+    ),
+    HomeWidgetKind.shopping => ShoppingFace(
+      data: shoppingData(t),
+      scheme: scheme,
+      t: t,
+    ),
+  };
 
   /// Los datos del widget "Hoy". Los usa también la vista previa de la
   /// pantalla de widgets, que enseña la cara de verdad y no un dibujo.
@@ -234,8 +241,10 @@ class HomeWidgetService {
 
   ShoppingFaceData shoppingData(AppStrings t) {
     final groups = meals.shoppingListForActiveWeek(pantry: pantry.items, t: t);
-    final pending =
-        groups.where((g) => !meals.isChecked(g.name)).map((g) => g.name).toList();
+    final pending = groups
+        .where((g) => !meals.isChecked(g.name))
+        .map((g) => g.name)
+        .toList();
     return ShoppingFaceData(
       pending: pending.length,
       total: groups.length,

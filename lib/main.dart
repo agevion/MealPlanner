@@ -47,23 +47,26 @@ Future<void> main() async {
   // Si la app se abre tocando un widget, se entra directamente en su pestaña.
   if (HomeWidgetService.supported) {
     try {
-      homeTabRequest.value =
-          HomeWidgetService.tabFromUri(await HomeWidget.initiallyLaunchedFromHomeWidget());
+      homeTabRequest.value = HomeWidgetService.tabFromUri(
+        await HomeWidget.initiallyLaunchedFromHomeWidget(),
+      );
     } catch (_) {
       // Sin widgets puestos no hay nada que recoger.
     }
   }
 
   FlutterNativeSplash.remove();
-  runApp(MealPlannerApp(
-    mealProvider: mealProvider,
-    settings: settings,
-    gym: gym,
-    diary: diary,
-    ai: ai,
-    pantry: pantry,
-    widgets: widgets,
-  ));
+  runApp(
+    MealPlannerApp(
+      mealProvider: mealProvider,
+      settings: settings,
+      gym: gym,
+      diary: diary,
+      ai: ai,
+      pantry: pantry,
+      widgets: widgets,
+    ),
+  );
 }
 
 class MealPlannerApp extends StatefulWidget {

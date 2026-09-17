@@ -74,6 +74,7 @@ class SettingsProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
   AppTheme get currentTheme => appThemeById(_themeId);
 
   DynamicSchemeVariant get _variant =>
@@ -93,7 +94,10 @@ class SettingsProvider extends ChangeNotifier {
     }
 
     _amoled = _prefs!.getBool(_kAmoled) ?? false;
-    _intensity = (_prefs!.getInt(_kIntensity) ?? _intensity).clamp(0, maxIntensity);
+    _intensity = (_prefs!.getInt(_kIntensity) ?? _intensity).clamp(
+      0,
+      maxIntensity,
+    );
     _startTab = _prefs!.getInt(_kStartTab);
     _language = appLanguageFromCode(_prefs!.getString(_kLanguage));
     _onboardingDone = _prefs!.getBool(_kOnboardingDone) ?? false;
@@ -154,12 +158,12 @@ class SettingsProvider extends ChangeNotifier {
   // ---------------------- THEMEDATA ----------------------
 
   ThemeData get lightTheme => ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: currentTheme.seed,
-          dynamicSchemeVariant: _variant,
-        ),
-      );
+    useMaterial3: true,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: currentTheme.seed,
+      dynamicSchemeVariant: _variant,
+    ),
+  );
 
   ThemeData get darkTheme {
     final scheme = ColorScheme.fromSeed(

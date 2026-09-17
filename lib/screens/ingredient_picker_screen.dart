@@ -36,8 +36,7 @@ class _IngredientPickerScreenState extends State<IngredientPickerScreen> {
       final matchesQuery = q.isEmpty || ing.name.toLowerCase().contains(q);
       final matchesCat = _category == null || ing.category == _category;
       return matchesQuery && matchesCat;
-    }).toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
+    }).toList()..sort((a, b) => a.name.compareTo(b.name));
     return list;
   }
 
@@ -117,7 +116,11 @@ class _IngredientPickerScreenState extends State<IngredientPickerScreen> {
                   )
                 : ListView.separated(
                     padding: EdgeInsets.fromLTRB(
-                        12, 8, 12, 16 + MediaQuery.viewPaddingOf(context).bottom),
+                      12,
+                      8,
+                      12,
+                      16 + MediaQuery.viewPaddingOf(context).bottom,
+                    ),
                     itemCount: list.length,
                     separatorBuilder: (_, _) => const SizedBox(height: 6),
                     itemBuilder: (context, i) {
@@ -125,9 +128,10 @@ class _IngredientPickerScreenState extends State<IngredientPickerScreen> {
                       return Card(
                         clipBehavior: Clip.antiAlias,
                         child: ListTile(
-                          title: Text(ing.name,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w500)),
+                          title: Text(
+                            ing.name,
+                            style: const TextStyle(fontWeight: FontWeight.w500),
+                          ),
                           subtitle: Text(
                             '${t.portionLabel(ing.unit, ing.gramsPerUnit)} · '
                             '${t.macrosShort(ing.kcal, ing.protein)}',
@@ -196,8 +200,10 @@ class _QuantityDialogState extends State<_QuantityDialog> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(t.oneUnitIs(unit, ing.kcal, ing.protein),
-              style: theme.textTheme.bodySmall),
+          Text(
+            t.oneUnitIs(unit, ing.kcal, ing.protein),
+            style: theme.textTheme.bodySmall,
+          ),
           const SizedBox(height: 12),
           Text(t.howManyUnits(unit), style: theme.textTheme.bodyMedium),
           const SizedBox(height: 8),

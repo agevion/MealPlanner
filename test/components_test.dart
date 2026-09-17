@@ -14,7 +14,12 @@ void main() {
     });
 
     test('cantidad decimal', () {
-      const c = FoodComponent(name: 'Carne', kcal: 200, protein: 20, quantity: 1.5);
+      const c = FoodComponent(
+        name: 'Carne',
+        kcal: 200,
+        protein: 20,
+        quantity: 1.5,
+      );
       expect(c.totalKcal, 300);
       expect(c.totalProtein, 30);
     });

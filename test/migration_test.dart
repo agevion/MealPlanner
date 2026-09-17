@@ -11,8 +11,12 @@ import 'package:mealplanner_flutter/models/week.dart';
 void main() {
   group('Food', () {
     test('formato antiguo isLunch/isDinner', () {
-      final f = Food.fromJson(
-          {'name': 'A', 'ingredients': 'x', 'isLunch': true, 'isDinner': false});
+      final f = Food.fromJson({
+        'name': 'A',
+        'ingredients': 'x',
+        'isLunch': true,
+        'isDinner': false,
+      });
       expect(f.slots, {MealSlot.lunch});
     });
 
@@ -27,8 +31,12 @@ void main() {
     });
 
     test('ambas tomas falsas => vale para almuerzo y cena', () {
-      final f = Food.fromJson(
-          {'name': 'A', 'ingredients': 'x', 'isLunch': false, 'isDinner': false});
+      final f = Food.fromJson({
+        'name': 'A',
+        'ingredients': 'x',
+        'isLunch': false,
+        'isDinner': false,
+      });
       expect(f.slots, {MealSlot.lunch, MealSlot.dinner});
     });
 

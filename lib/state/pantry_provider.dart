@@ -48,8 +48,9 @@ class PantryProvider extends ChangeNotifier {
     } else {
       try {
         final list = jsonDecode(raw) as List;
-        _items.addAll(list
-            .map((e) => PantryIngredient.fromJson(e as Map<String, dynamic>)));
+        _items.addAll(
+          list.map((e) => PantryIngredient.fromJson(e as Map<String, dynamic>)),
+        );
         _mergeNewPresets();
       } catch (_) {
         _items

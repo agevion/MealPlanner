@@ -51,8 +51,9 @@ class _PlannerScreenState extends State<PlannerScreen> {
         actions: [
           if (!clean)
             IconButton(
-              icon:
-                  Icon(_compact ? Icons.view_agenda_outlined : Icons.grid_view),
+              icon: Icon(
+                _compact ? Icons.view_agenda_outlined : Icons.grid_view,
+              ),
               tooltip: _compact ? t.viewNormal : t.viewCompact,
               onPressed: () => setState(() => _compact = !_compact),
             ),
@@ -85,7 +86,9 @@ class _PlannerScreenState extends State<PlannerScreen> {
               PopupMenuItem(value: 'today', child: Text(t.menuGoToThisWeek)),
               PopupMenuItem(value: 'date', child: Text(t.menuWeekDate)),
               PopupMenuItem(
-                  value: 'duplicate', child: Text(t.menuDuplicateWeek)),
+                value: 'duplicate',
+                child: Text(t.menuDuplicateWeek),
+              ),
               // Con la interfaz limpia desaparecen el botón de vista y los de
               // añadir/borrar semana: sus acciones se recogen aquí.
               if (clean) ...[
@@ -96,7 +99,9 @@ class _PlannerScreenState extends State<PlannerScreen> {
                 ),
                 PopupMenuItem(value: 'addweek', child: Text(t.addWeek)),
                 PopupMenuItem(
-                    value: 'delweek', child: Text(t.deleteCurrentWeek)),
+                  value: 'delweek',
+                  child: Text(t.deleteCurrentWeek),
+                ),
               ],
               const PopupMenuDivider(),
               PopupMenuItem(value: 'import', child: Text(t.menuImportWeek)),
@@ -234,8 +239,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
                   SwitchListTile(
                     value: _onlyWithMacros,
                     onChanged: (v) => toggle(() => _onlyWithMacros = v),
-                    secondary:
-                        const Icon(Icons.local_fire_department_outlined),
+                    secondary: const Icon(Icons.local_fire_department_outlined),
                     title: Text(t.onlyDishesWithMacros),
                   ),
                   SwitchListTile(
@@ -294,8 +298,10 @@ class _PlannerScreenState extends State<PlannerScreen> {
   void _duplicate(BuildContext context) {
     final provider = context.read<MealProvider>();
     final ok = provider.duplicateWeek(provider.activeWeekIndex);
-    _snack(context,
-        ok ? context.t.weekDuplicated : context.t.weekDuplicateFailed);
+    _snack(
+      context,
+      ok ? context.t.weekDuplicated : context.t.weekDuplicateFailed,
+    );
   }
 
   void _goToday(BuildContext context) {
@@ -328,20 +334,22 @@ class _PlannerScreenState extends State<PlannerScreen> {
     final json = provider.exportActiveWeekJson();
     final dir = await getTemporaryDirectory();
     final file = File(
-        '${dir.path}/mealplan_semana_${provider.activeWeekIndex + 1}.json');
-    await file.writeAsString(json);
-    await Share.shareXFiles(
-      [XFile(file.path, mimeType: 'application/json')],
-      subject: t.weekShareSubject,
+      '${dir.path}/mealplan_semana_${provider.activeWeekIndex + 1}.json',
     );
+    await file.writeAsString(json);
+    await Share.shareXFiles([
+      XFile(file.path, mimeType: 'application/json'),
+    ], subject: t.weekShareSubject);
   }
 
   Future<void> _shareAsText(BuildContext context) async {
     final provider = context.read<MealProvider>();
     final slots = context.read<GymProvider>().activeMealSlots;
     final t = context.t;
-    await Share.share(provider.weekAsText(slots, t: t),
-        subject: t.weekMenuSubject);
+    await Share.share(
+      provider.weekAsText(slots, t: t),
+      subject: t.weekMenuSubject,
+    );
   }
 
   Future<void> _import(BuildContext context) async {
@@ -374,9 +382,9 @@ class _PlannerScreenState extends State<PlannerScreen> {
 
 void addWeekWithFeedback(BuildContext context, MealProvider provider) {
   if (provider.addWeek()) return;
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text(context.t.maxWeeks(kMaxWeeks))),
-  );
+  ScaffoldMessenger.of(
+    context,
+  ).showSnackBar(SnackBar(content: Text(context.t.maxWeeks(kMaxWeeks))));
 }
 
 /// Borrar una semana era un toque sin vuelta atrás. Ahora se confirma, y solo
@@ -387,9 +395,9 @@ void confirmDeleteWeek(BuildContext context, MealProvider provider) {
 
   void delete() {
     if (provider.removeActiveWeek()) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(t.cannotDeleteOnlyWeek)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(t.cannotDeleteOnlyWeek)));
   }
 
   if (!provider.activeWeek.hasMeals) {
@@ -402,10 +410,7 @@ void confirmDeleteWeek(BuildContext context, MealProvider provider) {
       title: Text(t.deleteWeekTitle),
       content: Text(t.deleteWeekBody(label)),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(ctx),
-          child: Text(t.cancel),
-        ),
+        TextButton(onPressed: () => Navigator.pop(ctx), child: Text(t.cancel)),
         FilledButton(
           onPressed: () {
             Navigator.pop(ctx);
@@ -437,8 +442,7 @@ class _OptionsButton extends StatelessWidget {
         icon: const Icon(Icons.tune),
         style: IconButton.styleFrom(
           padding: const EdgeInsets.all(14),
-          foregroundColor:
-              activeCount > 0 ? theme.colorScheme.primary : null,
+          foregroundColor: activeCount > 0 ? theme.colorScheme.primary : null,
         ),
       ),
     );
@@ -533,7 +537,11 @@ class _DaysList extends StatelessWidget {
 
     return ListView.builder(
       padding: EdgeInsets.fromLTRB(
-          12, 12, 12, 12 + MediaQuery.viewPaddingOf(context).bottom),
+        12,
+        12,
+        12,
+        12 + MediaQuery.viewPaddingOf(context).bottom,
+      ),
       itemCount: kDays.length,
       itemBuilder: (context, dayIndex) {
         final isToday = dayIndex == todayIndex;
@@ -551,17 +559,27 @@ class _DaysList extends StatelessWidget {
                 Row(
                   children: [
                     if (week.isLocked(dayIndex)) ...[
-                      Icon(Icons.lock, size: 16, color: theme.colorScheme.primary),
+                      Icon(
+                        Icons.lock,
+                        size: 16,
+                        color: theme.colorScheme.primary,
+                      ),
                       const SizedBox(width: 4),
                     ],
                     if (away) ...[
-                      Icon(Icons.luggage_outlined,
-                          size: 16, color: theme.colorScheme.outline),
+                      Icon(
+                        Icons.luggage_outlined,
+                        size: 16,
+                        color: theme.colorScheme.outline,
+                      ),
                       const SizedBox(width: 4),
                     ],
                     if (busyDays.contains(dayIndex)) ...[
-                      Icon(Icons.bolt,
-                          size: 16, color: theme.colorScheme.tertiary),
+                      Icon(
+                        Icons.bolt,
+                        size: 16,
+                        color: theme.colorScheme.tertiary,
+                      ),
                       const SizedBox(width: 4),
                     ],
                     Text(
@@ -579,7 +597,9 @@ class _DaysList extends StatelessWidget {
                       const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2),
+                          horizontal: 8,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: theme.colorScheme.primary,
                           borderRadius: BorderRadius.circular(10),
@@ -612,25 +632,25 @@ class _DaysList extends StatelessWidget {
                       itemBuilder: (_) => [
                         PopupMenuItem(
                           value: 'lock',
-                          child: Text(week.isLocked(dayIndex)
-                              ? t.unlockDay
-                              : t.lockDay),
+                          child: Text(
+                            week.isLocked(dayIndex) ? t.unlockDay : t.lockDay,
+                          ),
                         ),
                         PopupMenuItem(
                           value: 'busy',
-                          child: Text(busyDays.contains(dayIndex)
-                              ? t.clearBusyDay
-                              : t.markBusyDay),
+                          child: Text(
+                            busyDays.contains(dayIndex)
+                                ? t.clearBusyDay
+                                : t.markBusyDay,
+                          ),
                         ),
                         PopupMenuItem(
                           value: 'away',
                           child: Text(
-                              away ? t.eatingInAgain : t.eatingOutThisDay),
+                            away ? t.eatingInAgain : t.eatingOutThisDay,
+                          ),
                         ),
-                        PopupMenuItem(
-                          value: 'clear',
-                          child: Text(t.clearDay),
-                        ),
+                        PopupMenuItem(value: 'clear', child: Text(t.clearDay)),
                       ],
                     ),
                   ],
@@ -676,17 +696,19 @@ class _DaysList extends StatelessWidget {
     provider.clearDay(dayIndex);
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(
-        content: Text(t.dayClearedNamed(t.weekdays[dayIndex])),
-        action: SnackBarAction(
-          label: t.undo,
-          onPressed: () {
-            backup.forEach((slot, name) {
-              if (name != null) provider.setMeal(dayIndex, slot, name);
-            });
-          },
+      ..showSnackBar(
+        SnackBar(
+          content: Text(t.dayClearedNamed(t.weekdays[dayIndex])),
+          action: SnackBarAction(
+            label: t.undo,
+            onPressed: () {
+              backup.forEach((slot, name) {
+                if (name != null) provider.setMeal(dayIndex, slot, name);
+              });
+            },
+          ),
         ),
-      ));
+      );
   }
 }
 
@@ -703,7 +725,11 @@ class _CompactGrid extends StatelessWidget {
     final week = provider.activeWeek;
     return SingleChildScrollView(
       padding: EdgeInsets.fromLTRB(
-          8, 8, 8, 8 + MediaQuery.viewPaddingOf(context).bottom),
+        8,
+        8,
+        8,
+        8 + MediaQuery.viewPaddingOf(context).bottom,
+      ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: DataTable(
@@ -713,18 +739,20 @@ class _CompactGrid extends StatelessWidget {
           columnSpacing: 18,
           columns: [
             const DataColumn(label: Text('')),
-            for (final slot in slots)
-              DataColumn(label: Text(t.mealSlot(slot))),
+            for (final slot in slots) DataColumn(label: Text(t.mealSlot(slot))),
           ],
           rows: [
             for (var day = 0; day < kDays.length; day++)
               DataRow(
                 cells: [
-                  DataCell(Text(
-                    t.weekdaysShort[day],
-                    style: theme.textTheme.labelLarge
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  )),
+                  DataCell(
+                    Text(
+                      t.weekdaysShort[day],
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   for (final slot in slots)
                     DataCell(
                       SizedBox(
@@ -774,8 +802,11 @@ class _DayMacroSummary extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8, right: 8),
       child: Row(
         children: [
-          Icon(Icons.insights_outlined,
-              size: 16, color: theme.colorScheme.primary),
+          Icon(
+            Icons.insights_outlined,
+            size: 16,
+            color: theme.colorScheme.primary,
+          ),
           const SizedBox(width: 6),
           Expanded(
             child: Text(
@@ -823,9 +854,9 @@ class _MealRow extends StatelessWidget {
     final pool = provider.foods.where((f) => f.fitsSlot(slot)).toList()
       ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
     if (pool.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(t.noMealsFor(t.mealSlot(slot)))),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.noMealsFor(t.mealSlot(slot)))));
       return;
     }
     await showModalBottomSheet<void>(
@@ -843,7 +874,8 @@ class _MealRow extends StatelessWidget {
                 _rotate(context);
               }
             : null,
-        onAddToCatalog: clean && value != null && provider.canAddToCatalog(value!)
+        onAddToCatalog:
+            clean && value != null && provider.canAddToCatalog(value!)
             ? () {
                 Navigator.pop(sheetCtx);
                 _addToCatalog(context);
@@ -865,9 +897,9 @@ class _MealRow extends StatelessWidget {
 
   void _addToCatalog(BuildContext context) {
     provider.addMealToCatalog(value!);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(context.t.addedToCatalog(value!))),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(context.t.addedToCatalog(value!))));
   }
 
   void _rotate(BuildContext context) {
@@ -922,18 +954,21 @@ class _MealRow extends StatelessWidget {
                       children: [
                         Text(
                           t.mealSlot(slot),
-                          style: theme.textTheme.labelSmall
-                              ?.copyWith(color: theme.colorScheme.outline),
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: theme.colorScheme.outline,
+                          ),
                         ),
                         Text(
                           hasMeal ? value! : t.tapToChoose,
                           style: theme.textTheme.bodyLarge?.copyWith(
-                            fontStyle:
-                                hasMeal ? FontStyle.normal : FontStyle.italic,
+                            fontStyle: hasMeal
+                                ? FontStyle.normal
+                                : FontStyle.italic,
                             color: hasMeal
                                 ? null
-                                : theme.colorScheme.outline
-                                    .withValues(alpha: 0.7),
+                                : theme.colorScheme.outline.withValues(
+                                    alpha: 0.7,
+                                  ),
                           ),
                         ),
                       ],
@@ -1038,15 +1073,18 @@ class _FoodPickerSheetState extends State<_FoodPickerSheet> {
     final list = q.isEmpty
         ? widget.pool
         : widget.pool
-            .where((f) =>
-                f.name.toLowerCase().contains(q) ||
-                f.ingredients.toLowerCase().contains(q))
-            .toList();
+              .where(
+                (f) =>
+                    f.name.toLowerCase().contains(q) ||
+                    f.ingredients.toLowerCase().contains(q),
+              )
+              .toList();
 
     return SafeArea(
       child: Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
+        ),
         child: ConstrainedBox(
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height * 0.7,
@@ -1061,8 +1099,10 @@ class _FoodPickerSheetState extends State<_FoodPickerSheet> {
                     Icon(widget.icon),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Text(widget.title,
-                          style: Theme.of(context).textTheme.titleMedium),
+                      child: Text(
+                        widget.title,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                     ),
                   ],
                 ),

@@ -48,8 +48,10 @@ void main() {
     });
 
     test('dateKey ignora la hora', () {
-      expect(dateKey(DateTime(2026, 6, 17, 9, 30)),
-          dateKey(DateTime(2026, 6, 17, 23, 59)));
+      expect(
+        dateKey(DateTime(2026, 6, 17, 9, 30)),
+        dateKey(DateTime(2026, 6, 17, 23, 59)),
+      );
     });
   });
 }

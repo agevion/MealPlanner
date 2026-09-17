@@ -94,15 +94,14 @@ class DiaryProvider extends ChangeNotifier {
   int proteinFor(DateTime date) =>
       entriesFor(date).fold(0, (a, b) => a + b.totalProtein);
 
-  bool hasEntries(DateTime date) => (_byDate[dateKey(date)] ?? const []).isNotEmpty;
+  bool hasEntries(DateTime date) =>
+      (_byDate[dateKey(date)] ?? const []).isNotEmpty;
 
   /// Todas las fechas con registro, de la más reciente a la más antigua.
   List<DateTime> get loggedDates {
-    final dates = _byDate.keys
-        .map(DateTime.tryParse)
-        .whereType<DateTime>()
-        .toList()
-      ..sort((a, b) => b.compareTo(a));
+    final dates =
+        _byDate.keys.map(DateTime.tryParse).whereType<DateTime>().toList()
+          ..sort((a, b) => b.compareTo(a));
     return dates;
   }
 
@@ -295,8 +294,10 @@ class DiaryProvider extends ChangeNotifier {
       for (final item in _byDate[key]!) {
         final name = item.name.replaceAll('"', "'");
         final slot = item.slot == null ? '' : t.mealSlot(item.slot!);
-        buffer.writeln('$key,$slot,"$name",'
-            '${item.servings},${item.totalKcal},${item.totalProtein}');
+        buffer.writeln(
+          '$key,$slot,"$name",'
+          '${item.servings},${item.totalKcal},${item.totalProtein}',
+        );
       }
     }
     return buffer.toString();

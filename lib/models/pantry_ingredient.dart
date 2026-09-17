@@ -9,34 +9,34 @@ enum Repeatability { free, moderate, limited }
 extension RepeatabilityInfo on Repeatability {
   /// Clave estable para serializar (no cambiar).
   String get id => switch (this) {
-        Repeatability.free => 'free',
-        Repeatability.moderate => 'moderate',
-        Repeatability.limited => 'limited',
-      };
+    Repeatability.free => 'free',
+    Repeatability.moderate => 'moderate',
+    Repeatability.limited => 'limited',
+  };
 
   // El rótulo y la explicación de cada nivel están en `AppStrings`
   // (`repeatability` / `repeatabilityHint`), porque dependen del idioma.
 
   IconData get icon => switch (this) {
-        Repeatability.free => Icons.all_inclusive,
-        Repeatability.moderate => Icons.trending_flat,
-        Repeatability.limited => Icons.warning_amber_outlined,
-      };
+    Repeatability.free => Icons.all_inclusive,
+    Repeatability.moderate => Icons.trending_flat,
+    Repeatability.limited => Icons.warning_amber_outlined,
+  };
 
   /// Objetivo blando de veces por semana. A partir de ahí el planificador
   /// penaliza fuerte los platos que usen el ingrediente. null = sin límite.
   int? get weeklySoftCap => switch (this) {
-        Repeatability.free => null,
-        Repeatability.moderate => 4,
-        Repeatability.limited => 2,
-      };
+    Repeatability.free => null,
+    Repeatability.moderate => 4,
+    Repeatability.limited => 2,
+  };
 }
 
 Repeatability repeatabilityFromId(String id) => switch (id) {
-      'moderate' => Repeatability.moderate,
-      'limited' => Repeatability.limited,
-      _ => Repeatability.free,
-    };
+  'moderate' => Repeatability.moderate,
+  'limited' => Repeatability.limited,
+  _ => Repeatability.free,
+};
 
 /// Un ingrediente de la "despensa" del usuario: algo que tiene/usa, con su
 /// medida casera (una loncha, un filete, una cucharada…) y sus macros por esa
@@ -90,9 +90,11 @@ class PantryIngredient {
     final e = expiry;
     if (e == null) return null;
     final today = DateTime.now();
-    return DateTime(e.year, e.month, e.day)
-        .difference(DateTime(today.year, today.month, today.day))
-        .inDays;
+    return DateTime(
+      e.year,
+      e.month,
+      e.day,
+    ).difference(DateTime(today.year, today.month, today.day)).inDays;
   }
 
   /// True si conviene gastarlo ya (caduca en 3 días o menos).
@@ -134,19 +136,18 @@ class PantryIngredient {
   }
 
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'category': category,
-        'unit': unit,
-        'kcal': kcal,
-        'protein': protein,
-        'gramsPerUnit': gramsPerUnit,
-        'isPreset': isPreset,
-        'repeat': repeat.id,
-        if (barcode.isNotEmpty) 'barcode': barcode,
-        if (stock > 0) 'stock': stock,
-        if (expiry != null)
-          'expiry': expiry!.toIso8601String().substring(0, 10),
-      };
+    'name': name,
+    'category': category,
+    'unit': unit,
+    'kcal': kcal,
+    'protein': protein,
+    'gramsPerUnit': gramsPerUnit,
+    'isPreset': isPreset,
+    'repeat': repeat.id,
+    if (barcode.isNotEmpty) 'barcode': barcode,
+    if (stock > 0) 'stock': stock,
+    if (expiry != null) 'expiry': expiry!.toIso8601String().substring(0, 10),
+  };
 
   factory PantryIngredient.fromJson(Map<String, dynamic> json) =>
       PantryIngredient(
