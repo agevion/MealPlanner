@@ -54,3 +54,6 @@ app.*.map.json
 
 # Ajustes locales de herramientas
 .claude/settings.local.json
+
+# Documentación comercial, no forma parte del proyecto público
+Como_calcula_la_dieta.pdf

@@ -1,0 +1,10 @@
+# Finales de línea normalizados a LF en el repositorio, sea cual sea el sistema
+# desde el que se trabaje. Sin esto, un clon en Windows puede guardar CRLF y la
+# comprobación de formato de la integración continua falla en Linux.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jks binary
+*.keystore binary
+*.pdf binary
